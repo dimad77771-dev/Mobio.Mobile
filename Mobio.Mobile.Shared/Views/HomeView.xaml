@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.HomeView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views">
+
+	<local:ContentPageEx.Resources>
+		<Style x:Key="displayLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="placeholderLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="popupViewStyle" TargetType="telerikInput:PickerPopupContentView">
+			<Setter Property="BackgroundColor" Value="White" />
+			<Setter Property="WidthRequest" Value="800" />
+		</Style>
+	</local:ContentPageEx.Resources>
+
+	<local:AbsoluteLayoutForPage>
+		<local:GridEx>
+			<local:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</local:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<local:GridEx
+				Grid.Row="1"
+				Padding="20"
+				WidthRequest="600"
+				HorizontalOptions="Center">
+				<local:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="100" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</local:GridEx.RowDefinitions>
+
+				<!--<local:GridEx Grid.Row="0">
+					<local:GridEx.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</local:GridEx.RowDefinitions>
+
+					<local:LabelEx
+						Grid.Row="0"
+						Margin="5"
+						FontSize="16"
+						Text="Select Employee:"
+						TextColor="#000"
+						VerticalTextAlignment="Center" />
+
+					<telerikInput:RadListPicker
+						Grid.Row="1"
+						Margin="6"
+						ItemsSource="{Binding EmployeeItems}"
+						SelectedItem="{Binding EmployeeSelectedItem, Mode=TwoWay}"
+						DisplayLabelStyle="{StaticResource displayLabelStyle}"
+						PlaceholderLabelStyle="{StaticResource placeholderLabelStyle}"
+						BorderColor="#ddd"
+						BorderThickness="2"
+						CornerRadius="1"
+						DisplayMemberPath="Name"
+						Placeholder="Select...">
+						<telerikInput:RadListPicker.SelectorSettings>
+							<telerikInput:PickerPopupSelectorSettings PopupViewStyle="{StaticResource popupViewStyle}" />
+						</telerikInput:RadListPicker.SelectorSettings>
+						<telerikInput:RadListPicker.ItemTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="18"
+									Text="{Binding Name}"
+									TextColor="#000"
+									HorizontalTextAlignment="Center"
+									VerticalTextAlignment="Center" />
+							</DataTemplate>
+						</telerikInput:RadListPicker.ItemTemplate>
+					</telerikInput:RadListPicker>
+				</local:GridEx>-->
+
+				<StackLayout Grid.Row="2">
+					<telerikInput:RadButton
+						BorderColor="#4488F6"
+						BorderThickness="2"
+						Command="{Binding EnterSerialNumberCommand}"
+						Text="Enter serial number" />
+				</StackLayout>
+
+				<StackLayout Grid.Row="4">
+					<telerikInput:RadButton
+						BorderColor="#4488F6"
+						BorderThickness="2"
+						Command="{Binding LogoutCommand}"
+						FontAttributes="Italic"
+						Text="Logout" />
+				</StackLayout>
+
+			</local:GridEx>
+		</local:GridEx>
+	</local:AbsoluteLayoutForPage>
+</local:ContentPageEx>

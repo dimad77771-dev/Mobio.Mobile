@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ex:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.AllOperationsView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:autoCompleteView="clr-namespace:Telerik.XamarinForms.Input.AutoCompleteView;assembly=Telerik.XamarinForms.Input"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:dxg="clr-namespace:DevExpress.XamarinForms.DataGrid;assembly=DevExpress.XamarinForms.Grid"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile;assembly=OneBuilder.Mobile"
+	xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+	xmlns:telerikConversationalUI="clr-namespace:Telerik.XamarinForms.ConversationalUI;assembly=Telerik.XamarinForms.ConversationalUI"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
+	xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+	xmlns:telerikImageEditor="clr-namespace:Telerik.XamarinForms.ImageEditor;assembly=Telerik.XamarinForms.ImageEditor"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikMap="clr-namespace:Telerik.XamarinForms.Map;assembly=Telerik.XamarinForms.Map"
+	xmlns:telerikPdfViewer="clr-namespace:Telerik.XamarinForms.PdfViewer;assembly=Telerik.XamarinForms.PdfViewer"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views">
+
+	<ex:ContentPageEx.Resources>
+		<DataTemplate x:Key="JobsCategoryShowMoreTemplate">
+			<Label Text="{Binding Path=., StringFormat='+{0}'}" VerticalTextAlignment="Center" />
+		</DataTemplate>
+
+		<DataTemplate x:Key="JobsCategoryTokenTemplate">
+			<telerikPrimitives:RadBorder
+				Margin="5"
+				BackgroundColor="White"
+				BorderColor="{Binding TextColor}"
+				BorderThickness="2"
+				CornerRadius="18">
+				<StackLayout Padding="8,5" Orientation="Horizontal">
+					<Label
+						FontFamily="{StaticResource IconsFont}"
+						Text="{Binding Icon}"
+						TextColor="{Binding TextColor}"
+						VerticalOptions="Center"
+						VerticalTextAlignment="Center" />
+					<Label
+						Text="{Binding Category}"
+						TextColor="{Binding TextColor}"
+						VerticalOptions="Center"
+						VerticalTextAlignment="Center" />
+					<Label
+						FontFamily="{StaticResource IconsFont}"
+						Text="&#xE80A;"
+						TextColor="{Binding TextColor}"
+						VerticalOptions="Center"
+						VerticalTextAlignment="Center">
+						<Label.FontSize>
+							<OnPlatform x:TypeArguments="x:Double">
+								<On Platform="Android, iOS" Value="10" />
+							</OnPlatform>
+						</Label.FontSize>
+						<Label.GestureRecognizers>
+							<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+						</Label.GestureRecognizers>
+					</Label>
+				</StackLayout>
+			</telerikPrimitives:RadBorder>
+		</DataTemplate>
+
+		<DataTemplate x:Key="JobsCategorySuggestionItemTemplate">
+			<ViewCell>
+				<StackLayout Orientation="Horizontal">
+					<telerikPrimitives:RadBorder
+						Margin="15,5,5,5"
+						BackgroundColor="{Binding BorderFill}"
+						BorderColor="{Binding TextColor, Mode=TwoWay}"
+						CornerRadius="6"
+						HeightRequest="38"
+						HorizontalOptions="Start"
+						VerticalOptions="Center"
+						WidthRequest="38">
+						<Label
+							FontFamily="{StaticResource IconsFont}"
+							HorizontalTextAlignment="Center"
+							Text="{Binding Icon}"
+							TextColor="{Binding TextColor}"
+							VerticalTextAlignment="Center" />
+					</telerikPrimitives:RadBorder>
+					<autoCompleteView:SuggestionItemLabel
+						FontAttributes="Bold"
+						FontSize="13"
+						HighlightText="{Binding Source={x:Reference autoCompleteViewCustomizationExample}, Path=Text}"
+						HighlightTextColor="#209FD6"
+						UnformattedText="{Binding Category}"
+						VerticalOptions="Center"
+						VerticalTextAlignment="Center" />
+				</StackLayout>
+			</ViewCell>
+		</DataTemplate>
+
+
+
+		<DataTemplate x:Key="HeaderCellTemplate">
+			<ex:GridEx>
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="{Binding HeaderNumberWidth}" />
+					<ColumnDefinition Width="{Binding DelimiterWidth}" />
+					<ColumnDefinition Width="{Binding RecordDateWidth}" />
+					<ColumnDefinition Width="{Binding DelimiterWidth}" />
+				</ex:GridEx.ColumnDefinitions>
+				<ex:LabelEx
+					Grid.Column="0"
+					Style="{Binding LabelStyle}"
+					Text="{Binding HeaderNumberText}" />
+				<BoxView Grid.Column="1" Style="{Binding DelimiterStyle}" />
+				<ex:LabelEx
+					Grid.Column="2"
+					Style="{Binding LabelStyle}"
+					Text="{Binding RecordDateText}" />
+				<BoxView Grid.Column="3" Style="{Binding DelimiterStyle}" />
+			</ex:GridEx>
+		</DataTemplate>
+
+
+		<Style x:Key="displayLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="placeholderLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="popupViewStyle" TargetType="telerikInput:PickerPopupContentView">
+			<Setter Property="BackgroundColor" Value="White" />
+			<Setter Property="WidthRequest" Value="800" />
+		</Style>
+
+		<Style x:Key="displayDateTimePickerStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="14" />
+		</Style>
+		<Style x:Key="placeholderDateTimePickerStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="14" />
+		</Style>
+
+	</ex:ContentPageEx.Resources>
+
+	<ex:AbsoluteLayoutForPage>
+		<ex:GridEx>
+			<ex:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</ex:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<ex:GridEx
+				x:Name="filterGrid"
+				Grid.Row="1"
+				Padding="10,0"
+				IsVisible="{Binding IsShowFilter}">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="20" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="20" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</ex:GridEx.ColumnDefinitions>
+
+				<ex:LabelEx
+					x:Name="labelSearchColumn"
+					Grid.Column="0"
+					Margin="1"
+					FontSize="14"
+					Text="Search by:"
+					TextColor="#606060"
+					VerticalOptions="Center"
+					VerticalTextAlignment="Center" />
+
+				<Picker
+					x:Name="searchColumn"
+					Grid.Column="1"
+					Margin="1"
+					FontSize="14"
+					ItemsSource="{Binding SearchColumnItems}"
+					SelectedIndex="{Binding SearchColumnSelectedIndex}"
+					VerticalOptions="Center"
+					WidthRequest="120" />
+
+				<ex:SearchBarEx
+					x:Name="searchText"
+					Grid.Column="2"
+					Margin="1"
+					FontSize="14"
+					Placeholder="Search..."
+					SearchCommand="{Binding SearchCommand}"
+					Text="{Binding SearchText}"
+					VerticalOptions="Center" />
+
+				<ex:LabelEx
+					x:Name="labelDateFrom"
+					Grid.Column="4"
+					Margin="1"
+					FontSize="14"
+					Text="Date From:"
+					TextColor="#606060"
+					VerticalOptions="Center"
+					VerticalTextAlignment="Center" />
+				<telerikInput:RadDateTimePicker
+					x:Name="dateFrom"
+					Grid.Column="5"
+					Margin="3,1,1,1"
+					DisplayLabelStyle="{StaticResource displayDateTimePickerStyle}"
+					DisplayStringFormat="d"
+					PlaceholderLabelStyle="{StaticResource placeholderDateTimePickerStyle}"
+					SelectedDate="{Binding SearchDateFrom, Mode=TwoWay}"
+					SpinnerFormatString="d"
+					StartDate="{Binding SearchDateFromStartDate}"
+					VerticalOptions="Center"
+					WidthRequest="120" />
+				<ex:LabelEx
+					x:Name="labelDateTo"
+					Grid.Column="6"
+					Margin="1"
+					FontSize="14"
+					Text="To:"
+					TextColor="#606060"
+					VerticalOptions="Center"
+					VerticalTextAlignment="Center" />
+				<telerikInput:RadDateTimePicker
+					x:Name="dateTo"
+					Grid.Column="7"
+					Margin="3,1,1,1"
+					DisplayLabelStyle="{StaticResource displayDateTimePickerStyle}"
+					DisplayStringFormat="d"
+					PlaceholderLabelStyle="{StaticResource placeholderDateTimePickerStyle}"
+					SelectedDate="{Binding SearchDateTo, Mode=TwoWay}"
+					SpinnerFormatString="d"
+					StartDate="{Binding SearchDateToStartDate}"
+					VerticalOptions="Center"
+					WidthRequest="120" />
+
+				<telerikInput:RadButton
+					x:Name="resetFilterCommand"
+					Grid.Column="9"
+					Margin="2"
+					Padding="5"
+					BackgroundColor="#ddd"
+					Command="{Binding ResetFilterCommand}"
+					FontAttributes="Bold"
+					FontSize="14"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Reset Filter"
+					VerticalOptions="Center" />
+				<telerikInput:RadButton
+					x:Name="printCommand"
+					Grid.Column="11"
+					Margin="2"
+					Padding="5"
+					BackgroundColor="#D7D7E5"
+					Command="{Binding PrintCommand}"
+					FontAttributes="Bold"
+					FontSize="14"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Report"
+					VerticalOptions="Center" />
+
+
+
+			</ex:GridEx>
+
+			<ex:GridEx Grid.Row="2" IsVisible="{Binding IsShowHeaderAndDetailGrid}">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="2*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+
+				<ex:GridEx x:Name="headerListGrid" Grid.Column="0">
+					<ex:GridEx.RowDefinitions>
+						<RowDefinition Height="*" />
+					</ex:GridEx.RowDefinitions>
+
+					<telerikPrimitives:RadBorder
+						Grid.Row="0"
+						Margin="6"
+						BackgroundColor="Transparent"
+						BorderColor="#008d4c"
+						CornerRadius="2">
+						<ex:GridEx>
+							<ex:GridEx.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</ex:GridEx.RowDefinitions>
+
+							<ex:LabelEx
+								Grid.Row="0"
+								Margin="5"
+								BackgroundColor="White"
+								FontAttributes="Bold"
+								FontSize="16"
+								IsVisible="False"
+								Text="List Operations"
+								TextColor="#000"
+								VerticalTextAlignment="Center" />
+
+							<Grid Grid.Row="1">
+								<dxg:DataGridView
+									x:Name="headerList"
+									AllowSort="True"
+									CellStyle="{Binding DataGridCellStyle}"
+									HeaderStyle="{Binding DataGridHeaderStyle}"
+									IsReadOnly="True"
+									ItemsSource="{Binding HeaderItems}"
+									SelectedDataObject="{Binding HeaderSelectedItem, Mode=TwoWay}"
+									SwipeItemStyle="{Binding DataGridSwipeItemStyle}">
+									<dxg:DataGridView.Columns>
+										<dxg:TextColumn
+											HorizontalContentAlignment="Center"
+											Caption="#"
+											FieldName="Item.HeaderNumber" />
+										<dxg:DateColumn
+											HorizontalContentAlignment="Center"
+											Caption="Date"
+											DisplayFormat="MM\/dd\/yyyy HH:mm"
+											FieldName="Item.RecordDate"
+											IsNullable="True" />
+										<dxg:TextColumn
+											HorizontalContentAlignment="Center"
+											Caption="Action"
+											FieldName="Item.RecordTypeString" />
+										<dxg:TextColumn Caption="Operator" FieldName="Item.CreatedByName" />
+										<dxg:TextColumn Caption="Employee" FieldName="Item.LabourName" />
+										<dxg:TextColumn Caption="Timesheet" FieldName="Item.TimesheetFullName" />
+									</dxg:DataGridView.Columns>
+									<dxg:DataGridView.StartSwipeItems>
+										<dxg:SwipeItem BackgroundColor="#26a95e" Caption="Print Order" />
+										<dxg:SwipeItem BackgroundColor="#26a9cd" Caption="Email Order" />
+									</dxg:DataGridView.StartSwipeItems>
+
+									<dxg:DataGridView.Behaviors>
+										<behaviors:DataGridViewOperationBehavior Manager="{Binding HeaderItemsManager, Mode=TwoWay}" />
+									</dxg:DataGridView.Behaviors>
+
+								</dxg:DataGridView>
+							</Grid>
+						</ex:GridEx>
+					</telerikPrimitives:RadBorder>
+				</ex:GridEx>
+
+				<ex:GridEx x:Name="detailListGrid" Grid.Column="1">
+					<ex:GridEx.RowDefinitions>
+						<RowDefinition Height="*" />
+					</ex:GridEx.RowDefinitions>
+
+					<telerikPrimitives:RadBorder
+						Grid.Row="0"
+						Margin="6"
+						BorderColor="#008d4c"
+						CornerRadius="2"
+						IsVisible="{Binding IsShowAllAllocatedList}">
+						<ex:GridEx>
+							<ex:GridEx.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</ex:GridEx.RowDefinitions>
+							<ex:LabelEx
+								Grid.Row="0"
+								Margin="5"
+								BackgroundColor="White"
+								FontAttributes="Bold"
+								FontSize="20"
+								IsVisible="False"
+								Text="Currently Allocated Items:"
+								TextColor="#000"
+								VerticalTextAlignment="Center" />
+							<Grid Grid.Row="1">
+								<dxg:DataGridView
+									AllowSort="True"
+									CellStyle="{Binding DataGridCellStyle}"
+									HeaderStyle="{Binding DataGridHeaderStyle}"
+									IsReadOnly="True"
+									ItemsSource="{Binding DetailItems}"
+									SelectedDataObject="{Binding DetailSelectedItem, Mode=TwoWay}"
+									SelectionMode="None"
+									SwipeItemStyle="{Binding DataGridSwipeItemStyle}">
+									<dxg:DataGridView.Columns>
+										<dxg:TextColumn
+											Width="*"
+											Caption="{Binding DetailItemsHeaderText}"
+											FieldName="Item.StockItemName" />
+										<dxg:TextColumn
+											Width="65"
+											HorizontalContentAlignment="Center"
+											Caption="Box"
+											FieldName="Item.BoxItemSerialNum" />
+									</dxg:DataGridView.Columns>
+
+									<dxg:DataGridView.Behaviors>
+										<behaviors:DataGridViewOperationBehavior Manager="{Binding DetailItemsManager, Mode=TwoWay}" />
+									</dxg:DataGridView.Behaviors>
+
+								</dxg:DataGridView>
+							</Grid>
+						</ex:GridEx>
+					</telerikPrimitives:RadBorder>
+				</ex:GridEx>
+			</ex:GridEx>
+
+			<ex:GridEx
+				x:Name="commandBarGrid"
+				Grid.Row="3"
+				Padding="4,0"
+				IsVisible="{Binding IsShowCommandBar}">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+				<telerikInput:RadButton
+					Grid.Column="0"
+					Margin="5"
+					BackgroundColor="#008d4c"
+					Command="{Binding PrintCommand}"
+					FontAttributes="Bold"
+					FontSize="12"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Print"
+					TextColor="White"
+					VerticalOptions="Center" />
+				<telerikInput:RadButton
+					Grid.Column="1"
+					Margin="5"
+					BackgroundColor="#1390D3"
+					Command="{Binding FilterShowCommand}"
+					FontAttributes="Bold"
+					FontSize="12"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Filter"
+					TextColor="White"
+					VerticalOptions="Center" />
+
+			</ex:GridEx>
+
+			<ex:GridEx
+				x:Name="filterCommandBarGrid"
+				Grid.Row="4"
+				Padding="4,0"
+				IsVisible="{Binding IsShowFilterCommandBar}">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+				<telerikInput:RadButton
+					Grid.Column="0"
+					Margin="5"
+					BackgroundColor="#008d4c"
+					Command="{Binding ResetFilterCommand}"
+					FontAttributes="Bold"
+					FontSize="12"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Reset Filter"
+					TextColor="White"
+					VerticalOptions="Center" />
+				<telerikInput:RadButton
+					Grid.Column="1"
+					Margin="5"
+					BackgroundColor="#d58512"
+					Command="{Binding FilterCancelCommand}"
+					FontAttributes="Bold"
+					FontSize="12"
+					Style="{StaticResource ButtonStyle1}"
+					Text="Close Filter"
+					TextColor="White"
+					VerticalOptions="Center" />
+
+			</ex:GridEx>
+		</ex:GridEx>
+
+		<telerikPrimitives:RadPopup.Popup>
+			<views:EmailAddressPickView />
+		</telerikPrimitives:RadPopup.Popup>
+
+
+	</ex:AbsoluteLayoutForPage>
+</ex:ContentPageEx>

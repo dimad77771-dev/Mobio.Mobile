@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telerik.XamarinForms.PdfViewer</name>
+    </assembly>
+    <members>
+        <member name="P:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.Stream">
+            <summary>
+            Gets or sets the delegate responsible for returning a Stream for the RadFixedDocument. The stream is closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.Import(System.IO.Stream)">
+            <summary>
+            Creates a RadFixedDocument to be used in the RadPdfViewer. The stream is not closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.ImportAsync(System.IO.Stream)">
+            <summary>
+            Creates a RadFixedDocument asynchronously to be used in the RadPdfViewer. The stream is not closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.BeginUsingPage(System.Int32)">
+            <summary>
+            Loads the page, i.e. document.CacheManager.BeginUsingPage is called and the IDisposable
+            object is cached. This allows features like selection and annotations to work.
+            In case there is an error while loading the page, i.e. when the
+            BeginUsingPage method throws an exception, then loading has failed, so the page is not in use.
+            See the <see cref="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.IsUsingPage(System.Int32)" /> method.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.IsUsingPage(System.Int32)">
+            <summary>
+            Checks if the page is loaded, i.e. that BeginUsingPage was called with no exceptions
+            and that the IDisposable object is cached. See the <see cref="!:TryBeginUsingPage" /> method.
+            </summary>
+            <returns>A value indicating whether the page is successfully loaded.</returns>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.PdfViewportUtils">
+            <summary>
+            This class exists because the meaning of Viewport in v1 and v2 of the PdfViewer is different. 
+            In v1 the Viewport's scroll is dependent on the zoom, and its size is the same as the size of the presenter.
+            Also in v1 a root-size-helper is used which distorts the page size.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.Selection.CustomPdfSelectionIndicator">
+            <summary>
+            This class is a POC for a potential extensibility point - custom selection indicators.
+            Some API changes must be done before the base PdfSelectionIndicator is made public.
+            Also take into consideration how to make it possible to set stroke and stroke thickness.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.Selection.CopySelectionCommand">
+            <summary>
+            A command that executes the default behavior of copy-selection in the
+            PdfViewer, which is to put the selected text in the clipboard of the 
+            current platform and clear the selection unless mouse interaction is detected.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition">
+            <summary>
+            An enumeration that denotes the position and direction of the SelectionMenu arrow.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.None">
+            <summary>
+            No position could be determined and the arrow should not be displayed.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.Up">
+            <summary>
+            The arrow should be displayed at the top of the SelectionMenu and should point upwards.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.Down">
+            <summary>
+            The arrow should be displayed at the bottom of the SelectionMenu and should point downwards.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.CopySelectionMenuItem">
+            <summary>
+            A menu item that executes the default <see cref="T:Telerik.XamarinForms.PdfViewer.Selection.CopySelectionCommand"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SelectionSettings.SelectionMenuControlTemplate">
+            <summary>
+            Gets or sets the ControlTemplate of the <see cref="T:Telerik.XamarinForms.PdfViewer.SelectionMenu"/> that is used 
+            to display the MenuItems items.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SelectionSettings.MenuItems">
+            <summary>
+            Gets or sets a collection of menu items that are displayed in the SelectionMenu that is
+            shown when there is visible selection in the PdfViewer.
+            </summary>
+        </member>
+    </members>
+</doc>

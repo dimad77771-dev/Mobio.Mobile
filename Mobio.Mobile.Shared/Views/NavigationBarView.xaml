@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:GridEx
+	x:Class="OneBuilder.Mobile.Views.NavigationBarView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
+	<Grid BackgroundColor="{StaticResource PageBackgroundColor}" RowSpacing="0">
+		<Grid.RowDefinitions>
+			<!--<RowDefinition Height="56" />-->
+			<RowDefinition Height="50" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" BackgroundColor="{StaticResource HeaderBackgroundColor}">
+			<StackLayout
+				HorizontalOptions="Start"
+				Orientation="Horizontal"
+				Spacing="10">
+				<telerikInput:RadButton
+					Command="{Binding NavigateBackCommand}"
+					HorizontalOptions="Start"
+					IsVisible="{Binding IsBackVisible, FallbackValue=False}"
+					Style="{StaticResource HeaderButtonStyle}"
+					Text="{StaticResource BackIconText}"
+					VerticalOptions="Center" />
+				<Image
+					Source="logo"
+					Margin="10,0"
+					IsVisible="True"
+					VerticalOptions="Center"
+					HorizontalOptions="Start" />
+				<!--  IsVisible="{Binding IsLogoVisible, FallbackValue=False}"  -->
+			</StackLayout>
+
+
+			<StackLayout
+				HorizontalOptions="Center"
+				Orientation="Horizontal"
+				Spacing="10">
+				<Image Source="{Binding HeaderIcon, Converter={StaticResource ImageSourceConverter}}" VerticalOptions="Center" />
+				<Label
+					Style="{StaticResource HeaderTextStyle}"
+					Text="{Binding HeaderTitle}"
+					VerticalOptions="Center" />
+			</StackLayout>
+			<telerikInput:RadButton
+				Command="{Binding NavigationBarButton1Command}"
+				HorizontalOptions="End"
+				IsVisible="{Binding NavigationBarButton1IsVisible, FallbackValue=False}"
+				Style="{StaticResource NavigationBarButtonStyle}"
+				Text="{Binding NavigationBarButton1Text}"
+				VerticalOptions="Center" />
+			<telerikInput:RadButton
+				Command="{Binding InfoCommand}"
+				HorizontalOptions="End"
+				IsVisible="{Binding IsInfoAvailable, FallbackValue=False}"
+				Style="{StaticResource HeaderButtonStyle}"
+				Text="{StaticResource InfoIconText}"
+				VerticalOptions="Center" />
+		</Grid>
+	</Grid>
+</local:GridEx>

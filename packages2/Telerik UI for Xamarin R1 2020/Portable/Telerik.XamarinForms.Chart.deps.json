@@ -1,0 +1,95 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": "b4897ed4c1c38c5b3cc650d1c9267367e5ef4a5f"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "Telerik.XamarinForms.Chart/2020.1.114.410": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "StyleCop.MSBuild": "4.7.55",
+          "Telerik.XamarinForms.Common": "2020.1.114.410",
+          "Xamarin.Forms": "4.1.0.581479"
+        },
+        "runtime": {
+          "Telerik.XamarinForms.Chart.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
+      "StyleCop.MSBuild/4.7.55": {},
+      "Xamarin.Forms/4.1.0.581479": {
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.1.0.287"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.1.0.287"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.1.0.287"
+          }
+        }
+      },
+      "Telerik.XamarinForms.Common/2020.1.114.410": {
+        "dependencies": {
+          "StyleCop.MSBuild": "4.7.55",
+          "Xamarin.Forms": "4.1.0.581479"
+        },
+        "runtime": {
+          "Telerik.XamarinForms.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Telerik.XamarinForms.Chart/2020.1.114.410": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-a/iSwnRZb+LHFk49hQOyThh/ZNC3vsbZsF65XwQIb863qF6msmhdQtxGXFL28Ob2NsCz/drEj28BJd/YPpLRBg==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "StyleCop.MSBuild/4.7.55": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OFNAGMs0tc4OV+xW3++igzreiqCw6z7GQMs5Bn62Ps5iUXhXNw7AMBv4tkotgJwPo35cjziDaRKqhl02c1y9Rw==",
+      "path": "stylecop.msbuild/4.7.55",
+      "hashPath": "stylecop.msbuild.4.7.55.nupkg.sha512"
+    },
+    "Xamarin.Forms/4.1.0.581479": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/taLfNZ+9swpvuyGVgYN6aXXKH0iLBaraqH8o3bOwS0cw4mDjGgmd04UXh+rUBB/xHbMW6wT3dhg5RJmJSuisw==",
+      "path": "xamarin.forms/4.1.0.581479",
+      "hashPath": "xamarin.forms.4.1.0.581479.nupkg.sha512"
+    },
+    "Telerik.XamarinForms.Common/2020.1.114.410": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

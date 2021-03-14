@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.RegisterView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
+
+	<local:ContentPageEx.Resources>
+		<ResourceDictionary>
+			<telerikInput:BorderStyle
+				x:Key="EntryBorderStyle"
+				BorderThickness="0"
+				BorderColor="{Binding Model.BorderColor}"
+				CornerRadius="8" />
+		</ResourceDictionary>
+	</local:ContentPageEx.Resources>
+
+	<local:AbsoluteLayoutForPage>
+		<local:GridEx WidthRequest="600" HorizontalOptions="Center">
+			<local:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</local:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<local:ScrollViewEx Grid.Row="1">
+				<local:StackLayoutEx Padding="20">
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="First Name" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.FirstName}"
+							WatermarkText="Enter First Name"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="Last Name" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.LastName}"
+							WatermarkText="Enter Last Name"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="Address" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.AddressLine1}"
+							WatermarkText="Enter Address"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="City" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.City}"
+							WatermarkText="Enter City"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="City" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<telerikInput:RadComboBox
+							ItemsSource="{Binding Items}"
+							Placeholder="Select City!"
+							PlaceholderColor="Blue"
+							BackgroundColor="LightGray"
+							FocusedBorderColor="Blue"
+							BorderColor="Black"
+							BorderThickness="2"
+							ClearButtonStyle="{StaticResource ClearButtonStyle}"
+							DisplayMemberPath="Name" />
+					</telerikPrimitives:RadBorder>
+
+
+
+				</local:StackLayoutEx>
+			</local:ScrollViewEx>
+
+		</local:GridEx>
+	</local:AbsoluteLayoutForPage>
+</local:ContentPageEx>

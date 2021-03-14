@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+	x:Class="OneBuilder.Mobile.Views.SerialTab1View"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile;assembly=OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+	xmlns:telerikConversationalUI="clr-namespace:Telerik.XamarinForms.ConversationalUI;assembly=Telerik.XamarinForms.ConversationalUI"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
+	xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+	xmlns:telerikImageEditor="clr-namespace:Telerik.XamarinForms.ImageEditor;assembly=Telerik.XamarinForms.ImageEditor"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikMap="clr-namespace:Telerik.XamarinForms.Map;assembly=Telerik.XamarinForms.Map"
+	xmlns:telerikPdfViewer="clr-namespace:Telerik.XamarinForms.PdfViewer;assembly=Telerik.XamarinForms.PdfViewer"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views">
+
+	<ContentView.Resources>
+		<Style x:Key="displayLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="placeholderLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="popupViewStyle" TargetType="telerikInput:PickerPopupContentView">
+			<Setter Property="BackgroundColor" Value="White" />
+			<Setter Property="WidthRequest" Value="800" />
+		</Style>
+	</ContentView.Resources>
+
+	<ex:GridEx>
+		<ex:GridEx.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</ex:GridEx.RowDefinitions>
+
+		<telerikPrimitives:RadBorder
+			Grid.Row="0"
+			Margin="6"
+			BorderColor="#008d4c"
+			CornerRadius="2">
+
+			<ex:GridEx>
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="{Binding CalcValueRowHeight}" />
+					<RowDefinition Height="100" />
+					<RowDefinition Height="100" />
+					<RowDefinition Height="100" />
+					<RowDefinition Height="100" />
+					<RowDefinition Height="{Binding ScanBarcodeRowHeight}" />
+					<RowDefinition Height="{Binding ScanBarcodeRowHeight}" />
+				</ex:GridEx.RowDefinitions>
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+
+				<telerikPrimitives:RadBorder
+					Grid.Row="0"
+					Grid.Column="0"
+					Grid.ColumnSpan="3"
+					Margin="6"
+					BorderColor="#ddd"
+					CornerRadius="2">
+					<ex:GridEx>
+						<ex:GridEx.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</ex:GridEx.ColumnDefinitions>
+						<ex:LabelEx
+							Grid.Column="0"
+							Margin="5"
+							BackgroundColor="White"
+							FontAttributes="Bold"
+							FontSize="{Binding CalcValueFontSize}"
+							Text="{Binding CalcValue}"
+							TextColor="#000"
+							VerticalTextAlignment="Center" />
+						<telerikInput:RadButton
+							Grid.Column="1"
+							BackgroundColor="#ddd"
+							FontAttributes="Bold"
+							FontSize="{Binding CalcValueFontSize}"
+							Style="{StaticResource ButtonStyle1}"
+							Command="{Binding CalcClearCommand}"
+							Text="&#10006;" />
+					</ex:GridEx>
+
+				</telerikPrimitives:RadBorder>
+
+				<telerikInput:RadButton
+					Grid.Row="1"
+					Grid.Column="0"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="1"
+					Text="1" />
+				<telerikInput:RadButton
+					Grid.Row="1"
+					Grid.Column="1"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="2"
+					Text="2" />
+				<telerikInput:RadButton
+					Grid.Row="1"
+					Grid.Column="2"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="3"
+					Text="3" />
+
+				<telerikInput:RadButton
+					Grid.Row="2"
+					Grid.Column="0"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="4"
+					Text="4" />
+				<telerikInput:RadButton
+					Grid.Row="2"
+					Grid.Column="1"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="5"
+					Text="5" />
+				<telerikInput:RadButton
+					Grid.Row="2"
+					Grid.Column="2"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="6"
+					Text="6" />
+
+				<telerikInput:RadButton
+					Grid.Row="3"
+					Grid.Column="0"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="7"
+					Text="7" />
+				<telerikInput:RadButton
+					Grid.Row="3"
+					Grid.Column="1"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="8"
+					Text="8" />
+				<telerikInput:RadButton
+					Grid.Row="3"
+					Grid.Column="2"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="9"
+					Text="9" />
+
+				<telerikInput:RadButton
+					Grid.Row="4"
+					Grid.Column="0"
+					Margin="6"
+					FontAttributes="Bold"
+					FontSize="44"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcBackspaceCommand}"
+					Text="&#x232b;" />
+				<telerikInput:RadButton
+					Grid.Row="4"
+					Grid.Column="1"
+					Margin="6"
+					FontSize="32"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcDigitCommand}"
+					CommandParameter="0"
+					Text="0" />
+				<telerikInput:RadButton
+					Grid.Row="4"
+					Grid.Column="2"
+					Margin="6"
+					BackgroundColor="#008d4c"
+					TextColor="White"
+					FontAttributes="Bold"
+					FontSize="64"
+					Style="{StaticResource ButtonStyle1}"
+					Command="{Binding CalcPlusCommand}"
+					Text="&#43;" />
+
+				<ex:GridEx
+					Grid.Row="5"
+					Grid.Column="0"
+					Grid.ColumnSpan="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<telerikInput:RadButton
+						Grid.Column="0"
+						Margin="{Binding ScanBarcodeButtonMargin}"
+						Padding="{Binding ScanBarcodeButtonPadding}"
+						BackgroundColor="#f39c12"
+						TextColor="White"
+						FontAttributes="Bold"
+						FontSize="{Binding ScanBarcodeButtonFontSize}"
+						Style="{StaticResource ButtonStyle1}"
+						Command="{Binding ScanOneBarcodeCommand}"
+						Text="One Barcode" />
+
+					<telerikInput:RadButton
+						Grid.Column="1"
+						Margin="{Binding ScanBarcodeButtonMargin}"
+						Padding="{Binding ScanBarcodeButtonPadding}"
+						BackgroundColor="#f39c12"
+						TextColor="White"
+						FontAttributes="Bold"
+						FontSize="{Binding ScanBarcodeButtonFontSize}"
+						Style="{StaticResource ButtonStyle1}"
+						Command="{Binding ScanMultipleBarcodeCommand}"
+						Text="Multiple Barcodes" />
+				</ex:GridEx>
+
+				<ex:GridEx
+					Grid.Row="6"
+					Grid.Column="0"
+					Grid.ColumnSpan="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<telerikInput:RadButton
+						Grid.Column="1"
+						Margin="{Binding ScanBarcodeButtonMargin}"
+						Padding="{Binding ScanBarcodeButtonPadding}"
+						BackgroundColor="#13a2ef"
+						TextColor="White"
+						FontAttributes="Bold"
+						FontSize="{Binding ScanBarcodeButtonFontSize}"
+						Style="{StaticResource ButtonStyle1}"
+						Command="{Binding ScanEditOpenCommand}"
+						Text="Scan" />
+				</ex:GridEx>
+
+			</ex:GridEx>
+
+		</telerikPrimitives:RadBorder>
+
+		<telerikPrimitives:RadBorder
+			Grid.Row="1"
+			Margin="6"
+			IsVisible="{Binding IsShowFoundSerialPicker}"
+			BorderColor="#d73925"
+			CornerRadius="2">
+			<ex:GridEx>
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</ex:GridEx.RowDefinitions>
+
+				<ex:LabelEx
+					Grid.Row="0"
+					Margin="5"
+					FontSize="16"
+					Text="{Binding PickerSerialNumbersLabel}"
+					TextColor="#000"
+					VerticalTextAlignment="Center" />
+
+				<telerikInput:RadListPicker
+					Grid.Row="1"
+					Margin="6"
+					ItemsSource="{Binding PickSerialNumberItems}"
+					SelectedItem="{Binding PickSerialNumberSelectedItem, Mode=TwoWay}"
+					DisplayLabelStyle="{StaticResource displayLabelStyle}"
+					PlaceholderLabelStyle="{StaticResource placeholderLabelStyle}"
+					BorderColor="#ddd"
+					BorderThickness="2"
+					CornerRadius="1"
+					DisplayMemberPath="Item.Name"
+					Placeholder="Select item...">
+					<telerikInput:RadListPicker.SelectorSettings>
+						<telerikInput:PickerPopupSelectorSettings PopupViewStyle="{StaticResource popupViewStyle}" />
+					</telerikInput:RadListPicker.SelectorSettings>
+					<telerikInput:RadListPicker.ItemTemplate>
+						<DataTemplate>
+							<Label
+								FontSize="18"
+								Text="{Binding Item.Name}"
+								TextColor="#000"
+								HorizontalTextAlignment="Center"
+								VerticalTextAlignment="Center" />
+						</DataTemplate>
+					</telerikInput:RadListPicker.ItemTemplate>
+				</telerikInput:RadListPicker>
+
+
+
+			</ex:GridEx>
+
+		</telerikPrimitives:RadBorder>
+
+	</ex:GridEx>
+
+
+</ContentView>

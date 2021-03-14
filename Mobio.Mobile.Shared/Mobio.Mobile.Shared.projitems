@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>b5de5f14-c1be-4d8e-a15f-80e9bb5d47b0</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Mobio.Mobile.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\EmailAddressPickView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab3View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab2View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab1View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Utils\MainPage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AllOperationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\EntryExOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\IdiomVisible.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\AnimationBlinkingBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\DataGridViewOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListPickerOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\EditorExOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadTabViewOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadPdfViewerOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\FocusBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\ListViewScrollToBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewEndItemSwipeBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewScrollToBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\ImageName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DebugConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\AbsoluteLayoutForPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\BoxView2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadComboBoxEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ButtonEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ContentPageEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EditorEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadEntryEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EntryEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\FontEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\GridEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ImageEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ImageSourceEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ImageSourceFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\LabelEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadButtonEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadDataFormEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadListViewEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ScrollViewEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\SearchBarEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItemSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ProfileAdditionalData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\UserProfile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml.cs">
+      <DependentUpon>RegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\EmailOrderReportQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UserInfoDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\ProjectDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\OrderReportEmailsDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\GridFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\StyleFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\EmailAddressPickView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>EmailAddressPickView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EmailAddressPickViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab3View.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SerialTab3View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab2View.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SerialTab2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab1View.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SerialTab1View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\StackLayoutEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ZXingDefaultOverlayEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GenerateFullOrdersReportParm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GetAllTimesheetMaterialRecordsResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GetAllTimesheetMaterialRecordsQuery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetMaterialRecordHeaderDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetMaterialRecordDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\LabourDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\InspectionDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\ProposalNumberDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SubmitReceivedItemsParm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\MaterialDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\NopOrderDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\FindStockItemsReturnDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SalesOrderItemDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SalesOrderShippedItemDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockItemDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockLocationDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockPackageTypeDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UnitMeasureDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UserOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DBInit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DbUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PrintReportFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\PrintFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\HtmlFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\BarcodeFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\CommandFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EventWeak.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EventWeakExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EventWeak_T.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\EventWeak_T2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FontStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FormatFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\JsonFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\LinqExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MainPage2.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainPage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MemoryTestFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MeasureFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MessageFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\MessagingCenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\NavFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SoundFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\SysFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\U.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\UIFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\UnhandledExceptionProccesing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AllOperationsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PdfViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ScanBarcodeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AllOperationsView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>AllOperationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SerialViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PdfView.xaml.cs">
+      <DependentUpon>PdfView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ScanBarcodeView.xaml.cs">
+      <DependentUpon>ScanBarcodeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SerialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\NavigationBarView.xaml.cs">
+      <DependentUpon>NavigationBarView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\AuthenticateTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\BusinessCodeTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\WebGetServiceRetrun.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\WebPostServiceRetrun.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\WebService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebServices\WebServiceFunc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NavigationBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ScanBarcodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PdfView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)__old\" />
+  </ItemGroup>
+</Project>

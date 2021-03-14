@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.LoginView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
+	<local:AbsoluteLayoutForPage>
+		<local:GridEx WidthRequest="600" HorizontalOptions="Center">
+			<!--  WidthRequest="600" HorizontalOptions="Center"  -->
+			<local:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</local:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<local:ScrollViewEx Grid.Row="1">
+				<local:GridEx Padding="20">
+					<local:GridEx.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</local:GridEx.RowDefinitions>
+
+					<local:LabelEx
+						Grid.Row="0"
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="Business Code" />
+					<telerikPrimitives:RadBorder
+						Grid.Row="1"
+						BorderColor="#4488F6"
+						CornerRadius="3"
+						Margin="2">
+						<Entry
+							Text="{Binding BusinessCode}"
+							ReturnCommand="{Binding BusinessCodeReturnCommand}"
+							Keyboard="{Binding BusinessCodeKeyboard}">
+							<Entry.Behaviors>
+								<behaviors:FocusBehavior FocusTo="{Binding BusinessCodeFocusTo}" />
+							</Entry.Behaviors>
+						</Entry>
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						Grid.Row="2"
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="User Name" />
+					<telerikPrimitives:RadBorder
+						Grid.Row="3"
+						BorderColor="#4488F6"
+						CornerRadius="3"
+						Margin="2">
+						<Entry
+							Text="{Binding UserName}"
+							ReturnCommand="{Binding UserNameReturnCommand}"
+							Keyboard="{Binding UserNameKeyboard}">
+							<Entry.Behaviors>
+								<behaviors:FocusBehavior FocusTo="{Binding UserNameFocusTo}" />
+							</Entry.Behaviors>
+						</Entry>
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						Grid.Row="4"
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="Password" />
+					<telerikPrimitives:RadBorder
+						Grid.Row="5"
+						BorderColor="#4488F6"
+						CornerRadius="3"
+						Margin="2">
+						<Entry
+							Text="{Binding Password}"
+							IsPassword="True"
+							ReturnCommand="{Binding PasswordReturnCommand}"
+							Keyboard="{Binding PasswordKeyboard}">
+							<Entry.Behaviors>
+								<behaviors:FocusBehavior FocusTo="{Binding PasswordFocusTo}" />
+							</Entry.Behaviors>
+						</Entry>
+					</telerikPrimitives:RadBorder>
+
+
+					<local:GridEx
+						Grid.Row="7"
+						Padding="5"
+						RowSpacing="10">
+						<local:GridEx.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</local:GridEx.ColumnDefinitions>
+
+						<telerikInput:RadButton
+							Grid.Column="1"
+							Style="{StaticResource ButtonStyle1}"
+							Command="{Binding CancelCommand}"
+							Margin="6"
+							Text="Exit" />
+						<telerikInput:RadButton
+							Grid.Column="2"
+							Style="{StaticResource ButtonStyle1}"
+							Command="{Binding CommitCommand}"
+							Margin="6"
+							Text="Login" />
+					</local:GridEx>
+
+				</local:GridEx>
+			</local:ScrollViewEx>
+
+		</local:GridEx>
+	</local:AbsoluteLayoutForPage>
+</local:ContentPageEx>

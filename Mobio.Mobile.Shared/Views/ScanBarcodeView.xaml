@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ex:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.ScanBarcodeView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+	x:Name="mainPage">
+	<ex:AbsoluteLayoutForPage>
+		<ex:GridEx>
+			<ex:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</ex:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<ex:GridEx Grid.Row="1">
+				<ex:GridEx>
+					<ex:GridEx.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+					</ex:GridEx.RowDefinitions>
+
+					<ex:GridEx Grid.Row="0">
+						<zxing:ZXingScannerView
+							x:Name="zbarSurface"
+							IsScanning="{Binding IsScanning}"
+							IsTorchOn="{Binding IsTorchOn}"
+							Result="{Binding ScanResult, Mode=TwoWay}"
+							ScanResultCommand="{Binding ScanResultCommand}" />
+						<ex:ZXingDefaultOverlayEx
+							BottomText="{Binding Path=BindingContext.ZXingBottomText, Source={x:Reference mainPage}}"
+							BottomTextColor="{Binding Path=BindingContext.ZXingBottomTextColor, Source={x:Reference mainPage}}"
+							ShowFlashButton="False"
+							TopText="{Binding Path=BindingContext.ZXingTopText, Source={x:Reference mainPage}}"
+							TopTextColor="{Binding Path=BindingContext.ZXingTopTextColor, Source={x:Reference mainPage}}" />
+					</ex:GridEx>
+
+					<ex:GridEx
+						Grid.Row="1"
+						Padding="5"
+						RowSpacing="10">
+						<ex:GridEx.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</ex:GridEx.ColumnDefinitions>
+
+						<telerikInput:RadButton
+							Grid.Column="0"
+							Margin="5"
+							Command="{Binding FlashCommand}"
+							Style="{StaticResource ButtonStyle1}"
+							Text="Flash" />
+						<telerikInput:RadButton
+							Grid.Column="1"
+							IsVisible="{Binding IsShowManualCodePopup}"
+							Margin="5"
+							Command="{Binding ManualCodeCommand}"
+							Style="{StaticResource ButtonStyle1}"
+							Text="Manual">
+							<telerikPrimitives:RadPopup.Popup>
+								<telerikPrimitives:RadPopup
+									IsModal="False"
+									IsOpen="{Binding ManualCodePopupIsOpen}"
+									OutsideBackgroundColor="#6F000000">
+									<telerikPrimitives:RadBorder BackgroundColor="Wheat" CornerRadius="8">
+
+										<Grid Padding="20">
+											<StackLayout Orientation="Vertical">
+												<telerikPrimitives:RadBorder
+													Margin="2"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<Entry
+														Keyboard="Numeric"
+														ReturnCommand="{Binding ReturnCommand}"
+														Text="{Binding ScanCode}">
+														<Entry.Behaviors>
+															<behaviors:FocusBehavior FocusTo="{Binding EntryFocusTo}" />
+														</Entry.Behaviors>
+													</Entry>
+												</telerikPrimitives:RadBorder>
+
+												<ex:GridEx
+													Grid.Row="3"
+													Padding="5"
+													RowSpacing="10">
+													<ex:GridEx.ColumnDefinitions>
+														<ColumnDefinition Width="*" />
+														<ColumnDefinition Width="*" />
+														<ColumnDefinition Width="*" />
+													</ex:GridEx.ColumnDefinitions>
+
+													<telerikInput:RadButton
+														Grid.Column="1"
+														Margin="5"
+														Command="{Binding CancelCommand}"
+														Style="{StaticResource ButtonStyle1}"
+														Text="Cancel" />
+													<telerikInput:RadButton
+														Grid.Column="2"
+														Margin="5"
+														Command="{Binding ManualCommitCommand}"
+														Style="{StaticResource ButtonStyle1}"
+														Text="OK" />
+												</ex:GridEx>
+
+											</StackLayout>
+										</Grid>
+
+
+									</telerikPrimitives:RadBorder>
+								</telerikPrimitives:RadPopup>
+							</telerikPrimitives:RadPopup.Popup>
+						</telerikInput:RadButton>
+						<telerikInput:RadButton
+							Grid.Column="2"
+							Margin="5"
+							IsVisible="True"
+							Command="{Binding CloseCommand}"
+							Style="{StaticResource ButtonStyle1}"
+							Text="Close" />
+					</ex:GridEx>
+
+				</ex:GridEx>
+			</ex:GridEx>
+		</ex:GridEx>
+	</ex:AbsoluteLayoutForPage>
+</ex:ContentPageEx>

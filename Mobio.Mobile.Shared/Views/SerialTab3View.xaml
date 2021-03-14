@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+	x:Class="OneBuilder.Mobile.Views.SerialTab3View"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile;assembly=OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+	xmlns:telerikConversationalUI="clr-namespace:Telerik.XamarinForms.ConversationalUI;assembly=Telerik.XamarinForms.ConversationalUI"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
+	xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+	xmlns:telerikImageEditor="clr-namespace:Telerik.XamarinForms.ImageEditor;assembly=Telerik.XamarinForms.ImageEditor"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikMap="clr-namespace:Telerik.XamarinForms.Map;assembly=Telerik.XamarinForms.Map"
+	xmlns:telerikPdfViewer="clr-namespace:Telerik.XamarinForms.PdfViewer;assembly=Telerik.XamarinForms.PdfViewer"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views">
+
+	<ContentView.Resources>
+		<Style
+			x:Key="displayLabelStyle"
+			TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style
+			x:Key="placeholderLabelStyle"
+			TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style
+			x:Key="popupViewStyle"
+			TargetType="telerikInput:PickerPopupContentView">
+			<Setter Property="BackgroundColor" Value="White" />
+			<Setter Property="WidthRequest" Value="800" />
+		</Style>
+	</ContentView.Resources>
+
+	<ex:GridEx>
+		<ex:GridEx.RowDefinitions>
+			<RowDefinition Height="*" />
+		</ex:GridEx.RowDefinitions>
+
+		<telerikPrimitives:RadBorder
+			Grid.Row="0"
+			Margin="6"
+			IsVisible="{Binding IsShowAllAllocatedList}"
+			BorderColor="#008d4c"
+			CornerRadius="2">
+			<ex:GridEx>
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</ex:GridEx.RowDefinitions>
+				<ex:LabelEx
+					Grid.Row="0"
+					Margin="5"
+					BackgroundColor="White"
+					FontAttributes="Bold"
+					FontSize="20"
+					Text="Currently Allocated Items:"
+					TextColor="#000"
+					VerticalTextAlignment="Center" />
+				<Grid Grid.Row="1">
+					<telerikDataControls:RadListView
+						x:Name="AllAllocatedRadListView"
+						ItemsSource="{Binding AllAllocatedItems}"
+						SelectedItem="{Binding AllAllocatedSelectedItem, Mode=TwoWay}"
+						IsItemSwipeEnabled="True"
+						SwipeOffset="0, 0, 90, 0">
+
+						<telerikDataControls:RadListView.ItemTemplate>
+							<DataTemplate>
+								<telerikListView:ListViewTemplateCell>
+									<telerikListView:ListViewTemplateCell.View>
+										<ex:GridEx>
+											<telerikPrimitives:RadBorder
+												Margin="{Binding Margin}"
+												Padding="2"
+												BorderColor="Red"
+												BackgroundColor="Transparent"
+												CornerRadius="2">
+												<telerikPrimitives:RadBorder.Behaviors>
+													<behaviors:AnimationBlinkingBehavior
+														RepeatCount="4"
+														StartAnimation="{Binding RecentlySubmittedStartRedAnimation}"
+														Duration="1000" />
+												</telerikPrimitives:RadBorder.Behaviors>
+											</telerikPrimitives:RadBorder>
+											<telerikPrimitives:RadBorder
+												Padding="2"
+												Margin="{Binding Margin}"
+												BackgroundColor="{Binding BackgroundColor}"
+												CornerRadius="2">
+												<ex:GridEx>
+													<ex:GridEx.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</ex:GridEx.RowDefinitions>
+													<ex:GridEx.ColumnDefinitions>
+														<ColumnDefinition Width="*" />
+														<ColumnDefinition Width="Auto" />
+													</ex:GridEx.ColumnDefinitions>
+
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="0"
+														Margin="2"
+														FontSize="12"
+														FontAttributes="Bold"
+														Text="{Binding Item.StockItemName}"
+														TextColor="#565656"
+														VerticalTextAlignment="Center" />
+													<ex:LabelEx
+														Grid.Row="1"
+														Grid.Column="0"
+														Margin="2"
+														FontSize="12"
+														Text="{Binding AllocatedInfoText}"
+														TextColor="#565656"
+														VerticalTextAlignment="Center" />
+
+													<telerikInput:RadButton
+														Grid.Row="0"
+														Grid.RowSpan="2"
+														Grid.Column="1"
+														VerticalContentAlignment="Center"
+														IsVisible="False"
+														Command="{Binding SelectItemCommand}"
+														VerticalOptions="Center"
+														BackgroundColor="#3c8dbc"
+														TextColor="White"
+														FontAttributes="Bold"
+														FontSize="12"
+														Style="{StaticResource ButtonStyle1}"
+														Text="Select" />
+												</ex:GridEx>
+											</telerikPrimitives:RadBorder>
+										</ex:GridEx>
+									</telerikListView:ListViewTemplateCell.View>
+								</telerikListView:ListViewTemplateCell>
+							</DataTemplate>
+						</telerikDataControls:RadListView.ItemTemplate>
+						<telerikDataControls:RadListView.GroupDescriptors>
+							<telerikListView:PropertyGroupDescriptor PropertyName="Key" />
+						</telerikDataControls:RadListView.GroupDescriptors>
+						<telerikDataControls:RadListView.GroupHeaderTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Label
+										Margin="8,12,0,6"
+										Text="&#x25B8;"
+										TextColor="DarkGray"
+										FontSize="Medium">
+										<Label.Triggers>
+											<DataTrigger
+												TargetType="Label"
+												Binding="{Binding IsExpanded}"
+												Value="True">
+												<Setter Property="Text" Value="&#x25BE;" />
+											</DataTrigger>
+										</Label.Triggers>
+									</Label>
+									<Label
+										Grid.Column="1"
+										Margin="0,12,0,6"
+										Text="{Binding}"
+										TextColor="DarkGray"
+										FontSize="Medium"
+										HorizontalOptions="Start" />
+								</Grid>
+							</DataTemplate>
+						</telerikDataControls:RadListView.GroupHeaderTemplate>
+						<telerikDataControls:RadListView.GroupHeaderStyle>
+							<telerikListView:ListViewGroupStyle BackgroundColor="Transparent" />
+						</telerikDataControls:RadListView.GroupHeaderStyle>
+						<telerikDataControls:RadListView.Commands>
+							<telerikListViewCommands:ListViewUserCommand
+								Id="ItemTap"
+								Command="{Binding ItemTapCommand}" />
+						</telerikDataControls:RadListView.Commands>
+						<telerikDataControls:RadListView.ItemSwipeContentTemplate>
+							<DataTemplate>
+								<Grid
+									Margin="0"
+									Padding="0"
+									ColumnSpacing="0"
+									RowSpacing="0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<Button
+										Grid.Column="2"
+										Margin="0"
+										BackgroundColor="#2474d2"
+										TextColor="White"
+										BorderRadius="0"
+										Text="Select"
+										Command="{Binding SelectItemCommand}"
+										WidthRequest="90" />
+								</Grid>
+							</DataTemplate>
+						</telerikDataControls:RadListView.ItemSwipeContentTemplate>
+						<telerikDataControls:RadListView.Behaviors>
+							<behaviors:RadListViewScrollToBehavior ScrollTo="{Binding AllAllocatedScrollToRow}" />
+							<behaviors:RadListViewOperationBehavior Manager="{Binding AllAllocatedManager, Mode=TwoWay}" />
+						</telerikDataControls:RadListView.Behaviors>
+					</telerikDataControls:RadListView>
+				</Grid>
+			</ex:GridEx>
+		</telerikPrimitives:RadBorder>
+
+
+		<telerikPrimitives:RadBorder
+			Grid.Row="0"
+			Margin="6"
+			IsVisible="{Binding IsShowHistoryList}"
+			BorderColor="#008d4c"
+			CornerRadius="2">
+			<ex:GridEx>
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+					<RowDefinition Height="Auto" />
+				</ex:GridEx.RowDefinitions>
+				<ex:LabelEx
+					Grid.Row="0"
+					Margin="5"
+					BackgroundColor="White"
+					FontAttributes="Bold"
+					FontSize="20"
+					Text="{Binding HistoryHeaderText}"
+					TextColor="#000"
+					VerticalTextAlignment="Center" />
+				<Grid Grid.Row="1">
+					<telerikDataControls:RadListView
+						ItemsSource="{Binding HistoryListItems}"
+						SelectedItem="{Binding HistoryListSelectedItem, Mode=TwoWay}">
+
+						<telerikDataControls:RadListView.ItemTemplate>
+							<DataTemplate>
+								<telerikListView:ListViewTemplateCell>
+									<telerikListView:ListViewTemplateCell.View>
+										<ex:GridEx>
+											<telerikPrimitives:RadBorder
+												Margin="6"
+												Padding="4"
+												BorderColor="Red"
+												BackgroundColor="Transparent"
+												CornerRadius="2">
+												<telerikPrimitives:RadBorder.Behaviors>
+													<behaviors:AnimationBlinkingBehavior
+														RepeatCount="4"
+														StartAnimation="{Binding RecentlySubmittedStartRedAnimation}"
+														Duration="1000" />
+												</telerikPrimitives:RadBorder.Behaviors>
+											</telerikPrimitives:RadBorder>
+											<telerikPrimitives:RadBorder
+												Margin="6"
+												Padding="4"
+												BackgroundColor="#E5E5E5"
+												CornerRadius="2">
+												<ex:GridEx>
+													<ex:GridEx.RowDefinitions>
+														<RowDefinition Height="Auto" />
+													</ex:GridEx.RowDefinitions>
+													<ex:GridEx.ColumnDefinitions>
+														<ColumnDefinition Width="100" />
+														<ColumnDefinition Width="*" />
+													</ex:GridEx.ColumnDefinitions>
+
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="0"
+														Margin="2"
+														FontSize="12"
+														FontAttributes="Bold"
+														Text="{Binding Item.RecordDateString}"
+														TextColor="#565656"
+														VerticalTextAlignment="Center" />
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="1"
+														Margin="2"
+														FontSize="12"
+														Text="{Binding Item.ShortInfo}"
+														TextColor="#565656"
+														VerticalTextAlignment="Center" />
+
+												</ex:GridEx>
+											</telerikPrimitives:RadBorder>
+										</ex:GridEx>
+									</telerikListView:ListViewTemplateCell.View>
+								</telerikListView:ListViewTemplateCell>
+							</DataTemplate>
+						</telerikDataControls:RadListView.ItemTemplate>
+
+						<telerikDataControls:RadListView.Commands>
+							<telerikListViewCommands:ListViewUserCommand
+								Id="ItemTap"
+								Command="{Binding ItemTapCommand}" />
+						</telerikDataControls:RadListView.Commands>
+						<telerikDataControls:RadListView.Behaviors>
+							<behaviors:RadListViewOperationBehavior Manager="{Binding HistoryListManager, Mode=TwoWay}" />
+						</telerikDataControls:RadListView.Behaviors>
+					</telerikDataControls:RadListView>
+				</Grid>
+
+				<ex:GridEx Grid.Row="2">
+					<ex:GridEx.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+					</ex:GridEx.ColumnDefinitions>
+					<telerikInput:RadButton
+						Grid.Column="0"
+						Margin="5"
+						Command="{Binding CloseHistoryCommand}"
+						VerticalOptions="Center"
+						BackgroundColor="#d58512"
+						TextColor="White"
+						FontAttributes="Bold"
+						FontSize="22"
+						Style="{StaticResource ButtonStyle1}"
+						Text="Close History" />
+				</ex:GridEx>
+
+
+			</ex:GridEx>
+		</telerikPrimitives:RadBorder>
+
+
+
+	</ex:GridEx>
+</ContentView>

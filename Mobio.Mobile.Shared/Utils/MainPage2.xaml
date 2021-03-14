@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ex:ContentPageEx
+	x:Class="OneBuilder.Mobile.MainPage2"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile;assembly=OneBuilder.Mobile"
+	xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+	xmlns:telerikConversationalUI="clr-namespace:Telerik.XamarinForms.ConversationalUI;assembly=Telerik.XamarinForms.ConversationalUI"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.XamarinForms.DataVisualization"
+	xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+	xmlns:telerikImageEditor="clr-namespace:Telerik.XamarinForms.ImageEditor;assembly=Telerik.XamarinForms.ImageEditor"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikMap="clr-namespace:Telerik.XamarinForms.Map;assembly=Telerik.XamarinForms.Map"
+	xmlns:telerikPdfViewer="clr-namespace:Telerik.XamarinForms.PdfViewer;assembly=Telerik.XamarinForms.PdfViewer"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views">
+
+	<ex:ContentPageEx.Resources>
+		<Style x:Key="displayLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="placeholderLabelStyle" TargetType="Label">
+			<Setter Property="TextColor" Value="#ddd" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="5" />
+		</Style>
+		<Style x:Key="popupViewStyle" TargetType="telerikInput:PickerPopupContentView">
+			<Setter Property="BackgroundColor" Value="White" />
+			<Setter Property="WidthRequest" Value="800" />
+		</Style>
+	</ex:ContentPageEx.Resources>
+
+	<ex:AbsoluteLayoutForPage>
+		<ex:GridEx>
+			<ex:GridEx.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</ex:GridEx.ColumnDefinitions>
+
+			<ex:GridEx Grid.Column="0">
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</ex:GridEx.RowDefinitions>
+
+				<telerikPrimitives:RadBorder
+					Grid.Row="0"
+					Margin="6"
+					BorderColor="#008d4c"
+					CornerRadius="2">
+
+					<ex:GridEx>
+						<ex:GridEx.RowDefinitions>
+							<RowDefinition Height="100" />
+							<RowDefinition Height="100" />
+							<RowDefinition Height="100" />
+							<RowDefinition Height="100" />
+							<RowDefinition Height="100" />
+							<RowDefinition Height="100" />
+						</ex:GridEx.RowDefinitions>
+						<ex:GridEx.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</ex:GridEx.ColumnDefinitions>
+
+						<telerikPrimitives:RadBorder
+							Grid.Row="0"
+							Grid.Column="0"
+							Grid.ColumnSpan="3"
+							Margin="6"
+							BorderColor="#ddd"
+							CornerRadius="2">
+							<ex:GridEx>
+								<ex:GridEx.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</ex:GridEx.ColumnDefinitions>
+								<ex:LabelEx
+									Grid.Column="0"
+									Margin="5"
+									BackgroundColor="White"
+									FontAttributes="Bold"
+									FontSize="40"
+									Text="12345"
+									TextColor="#000"
+									VerticalTextAlignment="Center" />
+								<telerikInput:RadButton
+									Grid.Column="1"
+									BackgroundColor="#ddd"
+									FontAttributes="Bold"
+									FontSize="40"
+									Style="{StaticResource ButtonStyle1}"
+									Text="&#10006;" />
+							</ex:GridEx>
+
+						</telerikPrimitives:RadBorder>
+
+						<telerikInput:RadButton
+							Grid.Row="1"
+							Grid.Column="0"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="1" />
+						<telerikInput:RadButton
+							Grid.Row="1"
+							Grid.Column="1"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="2" />
+						<telerikInput:RadButton
+							Grid.Row="1"
+							Grid.Column="2"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="3" />
+
+						<telerikInput:RadButton
+							Grid.Row="2"
+							Grid.Column="0"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="4" />
+						<telerikInput:RadButton
+							Grid.Row="2"
+							Grid.Column="1"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="5" />
+						<telerikInput:RadButton
+							Grid.Row="2"
+							Grid.Column="2"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="6" />
+
+						<telerikInput:RadButton
+							Grid.Row="3"
+							Grid.Column="0"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="7" />
+						<telerikInput:RadButton
+							Grid.Row="3"
+							Grid.Column="1"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="8" />
+						<telerikInput:RadButton
+							Grid.Row="3"
+							Grid.Column="2"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="9" />
+
+						<telerikInput:RadButton
+							Grid.Row="4"
+							Grid.Column="0"
+							Margin="6"
+							FontAttributes="Bold"
+							FontSize="44"
+							Style="{StaticResource ButtonStyle1}"
+							Text="&#x232b;" />
+						<telerikInput:RadButton
+							Grid.Row="4"
+							Grid.Column="1"
+							Margin="6"
+							FontSize="32"
+							Style="{StaticResource ButtonStyle1}"
+							Text="0" />
+						<telerikInput:RadButton
+							Grid.Row="4"
+							Grid.Column="2"
+							Margin="6"
+							BackgroundColor="#008d4c"
+							FontAttributes="Bold"
+							FontSize="64"
+							Style="{StaticResource ButtonStyle1}"
+							Text="&#43;" />
+
+						<telerikInput:RadButton
+							Grid.Row="5"
+							Grid.Column="0"
+							Grid.ColumnSpan="3"
+							Margin="6"
+							Padding="10"
+							BackgroundColor="#f39c12"
+							FontAttributes="Bold"
+							FontSize="40"
+							Style="{StaticResource ButtonStyle1}"
+							Text="Scan Barcode..." />
+
+					</ex:GridEx>
+
+				</telerikPrimitives:RadBorder>
+
+				<telerikPrimitives:RadBorder
+					Grid.Row="1"
+					Margin="6"
+					BorderColor="#d73925"
+					CornerRadius="2">
+					<ex:GridEx>
+						<ex:GridEx.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</ex:GridEx.RowDefinitions>
+
+						<ex:LabelEx
+							Grid.Row="0"
+							Margin="5"
+							FontSize="16"
+							Text="Found 3 serial numbers. Please choose one of them:"
+							TextColor="#000"
+							VerticalTextAlignment="Center" />
+
+						<telerikInput:RadListPicker
+							x:Name="serialPicker"
+							Grid.Row="1"
+							Margin="6"
+							DisplayLabelStyle="{StaticResource displayLabelStyle}"
+							PlaceholderLabelStyle="{StaticResource placeholderLabelStyle}"
+							BorderColor="#ddd"
+							BorderThickness="2"
+							CornerRadius="1"
+							DisplayMemberPath="FullName"
+							Placeholder="Choose item...">
+							<telerikInput:RadListPicker.SelectorSettings>
+								<telerikInput:PickerPopupSelectorSettings PopupViewStyle="{StaticResource popupViewStyle}" />
+							</telerikInput:RadListPicker.SelectorSettings>
+							<telerikInput:RadListPicker.ItemTemplate>
+								<DataTemplate>
+									<Label
+										FontSize="18"
+										Text="{Binding Name}"
+										TextColor="#000"
+										HorizontalTextAlignment="Center"
+										VerticalTextAlignment="Center" />
+								</DataTemplate>
+							</telerikInput:RadListPicker.ItemTemplate>
+							<telerikInput:RadListPicker.SelectedItemTemplate>
+								<DataTemplate>
+									<Label
+										FontSize="22"
+										Text="{Binding Name}"
+										TextColor="#000"
+										HorizontalTextAlignment="Center"
+										VerticalTextAlignment="Center" />
+								</DataTemplate>
+							</telerikInput:RadListPicker.SelectedItemTemplate>
+						</telerikInput:RadListPicker>
+
+
+
+					</ex:GridEx>
+
+				</telerikPrimitives:RadBorder>
+
+			</ex:GridEx>
+
+
+			<ex:GridEx Grid.Column="1">
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</ex:GridEx.RowDefinitions>
+
+				<telerikPrimitives:RadBorder
+					Grid.Row="0"
+					Margin="6"
+					BorderColor="#008d4c"
+					CornerRadius="2">
+					<ex:GridEx>
+						<ex:GridEx.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</ex:GridEx.RowDefinitions>
+
+						<ex:LabelEx
+							Grid.Row="0"
+							Margin="5"
+							BackgroundColor="White"
+							FontAttributes="Bold"
+							FontSize="20"
+							Text="Selected serial numbers:"
+							TextColor="#000"
+							VerticalTextAlignment="Center" />
+
+						<telerikPrimitives:RadBorder
+							Grid.Row="1"
+							Margin="6"
+							Padding="4"
+							BackgroundColor="#E5E5E5"
+							CornerRadius="2">
+							<ex:GridEx>
+								<ex:GridEx.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</ex:GridEx.RowDefinitions>
+								<ex:GridEx.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</ex:GridEx.ColumnDefinitions>
+
+								<ex:LabelEx
+									Grid.Row="0"
+									Grid.Column="0"
+									Margin="2"
+									FontSize="16"
+									Text="Polyforce Primer, 0.9 L #4142"
+									TextColor="#000"
+									VerticalTextAlignment="Center" />
+								<ex:LabelEx
+									Grid.Row="1"
+									Grid.Column="0"
+									Margin="2"
+									FontSize="14"
+									Text="Warehouse"
+									TextColor="#565656"
+									VerticalTextAlignment="Center" />
+								<telerikInput:RadButton
+									Grid.Row="0"
+									Grid.RowSpan="2"
+									Grid.Column="1"
+									VerticalContentAlignment="Center"
+									VerticalOptions="Center"
+									BackgroundColor="#ddd"
+									TextColor="Red"
+									FontAttributes="Bold"
+									FontSize="40"
+									Style="{StaticResource ButtonStyle1}"
+									Text="&#10006;" />
+							</ex:GridEx>
+
+						</telerikPrimitives:RadBorder>
+
+						<telerikPrimitives:RadBorder
+							Grid.Row="2"
+							Margin="6"
+							Padding="4"
+							BackgroundColor="#E5E5E5"
+							CornerRadius="2">
+							<ex:GridEx>
+								<ex:GridEx.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</ex:GridEx.RowDefinitions>
+								<ex:GridEx.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+								</ex:GridEx.ColumnDefinitions>
+
+								<ex:LabelEx
+									Grid.Row="0"
+									Grid.Column="0"
+									Margin="2"
+									FontSize="16"
+									Text="Polyforce Adhesive, 0.375 L #6142"
+									TextColor="#000"
+									VerticalTextAlignment="Center" />
+								<ex:LabelEx
+									Grid.Row="1"
+									Grid.Column="0"
+									Margin="2"
+									FontSize="14"
+									Text="Warehouse"
+									TextColor="#565656"
+									VerticalTextAlignment="Center" />
+								<telerikInput:RadButton
+									Grid.Row="0"
+									Grid.RowSpan="2"
+									Grid.Column="1"
+									VerticalContentAlignment="Center"
+									VerticalOptions="Center"
+									BackgroundColor="#ddd"
+									TextColor="Red"
+									FontAttributes="Bold"
+									FontSize="40"
+									Style="{StaticResource ButtonStyle1}"
+									Text="&#10006;" />
+							</ex:GridEx>
+
+						</telerikPrimitives:RadBorder>
+
+						<ex:LabelEx
+							Grid.Row="4"
+							Margin="5,30,5,5"
+							BackgroundColor="White"
+							FontAttributes="Bold"
+							FontSize="20"
+							Text="How do you want to deal with them?"
+							TextColor="#000"
+							VerticalTextAlignment="Center" />
+
+						<ex:GridEx Grid.Row="5">
+							<ex:GridEx.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</ex:GridEx.ColumnDefinitions>
+
+							<telerikInput:RadButton
+								Grid.Column="0"
+								Margin="5"
+								VerticalOptions="Center"
+								BackgroundColor="#3c8dbc"
+								TextColor="White"
+								FontAttributes="Bold"
+								FontSize="22"
+								Style="{StaticResource ButtonStyle1}"
+								Text="Receive" />
+							<telerikInput:RadButton
+								Grid.Column="1"
+								Margin="5"
+								VerticalOptions="Center"
+								BackgroundColor="#ac2925"
+								TextColor="White"
+								FontAttributes="Bold"
+								FontSize="22"
+								Style="{StaticResource ButtonStyle1}"
+								Text="Use" />
+							<telerikInput:RadButton
+								Grid.Column="2"
+								Margin="5"
+								VerticalOptions="Center"
+								BackgroundColor="#d58512"
+								TextColor="White"
+								FontAttributes="Bold"
+								FontSize="22"
+								Style="{StaticResource ButtonStyle1}"
+								Text="Return" />
+
+						</ex:GridEx>
+
+					</ex:GridEx>
+
+				</telerikPrimitives:RadBorder>
+			</ex:GridEx>
+
+
+
+			<ex:GridEx Grid.Column="2">
+				<ex:GridEx.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</ex:GridEx.RowDefinitions>
+
+				<telerikPrimitives:RadBorder
+					Grid.Row="0"
+					Margin="6"
+					BorderColor="#008d4c"
+					CornerRadius="2">
+					<ex:GridEx>
+						<ex:GridEx.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</ex:GridEx.RowDefinitions>
+
+						<ex:LabelEx
+							Grid.Row="0"
+							Margin="5"
+							BackgroundColor="White"
+							FontAttributes="Bold"
+							FontSize="20"
+							Text="Recently submitted:"
+							TextColor="#000"
+							VerticalTextAlignment="Center" />
+						<ScrollView Grid.Row="1">
+							<StackLayout>
+								<telerikPrimitives:RadBorder
+									Grid.Row="1"
+									Margin="6"
+									Padding="4"
+									BackgroundColor="#E5E5E5"
+									CornerRadius="2">
+									<ex:GridEx>
+										<ex:GridEx.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</ex:GridEx.RowDefinitions>
+										<ex:GridEx.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="Auto" />
+										</ex:GridEx.ColumnDefinitions>
+
+										<ex:LabelEx
+											Grid.Row="0"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Bold"
+											Text="Polyforce Adhesive, 0.375 L #10726"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="1"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											Text="Returned on Mon, Mar 09 '20"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<telerikInput:RadButton
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Grid.Column="1"
+											VerticalContentAlignment="Center"
+											VerticalOptions="Center"
+											BackgroundColor="#3c8dbc"
+											TextColor="White"
+											FontAttributes="Bold"
+											FontSize="12"
+											Style="{StaticResource ButtonStyle1}"
+											Text="Select" />
+									</ex:GridEx>
+
+								</telerikPrimitives:RadBorder>
+
+								<telerikPrimitives:RadBorder
+									Grid.Row="2"
+									Margin="6"
+									Padding="4"
+									BackgroundColor="#E5E5E5"
+									CornerRadius="2">
+									<ex:GridEx>
+										<ex:GridEx.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</ex:GridEx.RowDefinitions>
+										<ex:GridEx.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="Auto" />
+										</ex:GridEx.ColumnDefinitions>
+
+										<ex:LabelEx
+											Grid.Row="0"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Bold"
+											Text="Polyforce Adhesive, 0.375 L #7119"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="1"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											Text="Returned on Mon, Mar 09 '20"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<telerikInput:RadButton
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Grid.Column="1"
+											VerticalContentAlignment="Center"
+											VerticalOptions="Center"
+											BackgroundColor="#3c8dbc"
+											TextColor="White"
+											FontAttributes="Bold"
+											FontSize="12"
+											Style="{StaticResource ButtonStyle1}"
+											Text="Select" />
+									</ex:GridEx>
+
+								</telerikPrimitives:RadBorder>
+									
+								<telerikPrimitives:RadBorder
+									Grid.Row="3"
+									Margin="6"
+									Padding="4"
+									BackgroundColor="#E5E5E5"
+									CornerRadius="2">
+									<ex:GridEx>
+										<ex:GridEx.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</ex:GridEx.RowDefinitions>
+										<ex:GridEx.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="Auto" />
+										</ex:GridEx.ColumnDefinitions>
+
+										<ex:LabelEx
+											Grid.Row="0"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Bold"
+											Text="Polyforce Plus - 5hr Red Activator, 0.1 L #545"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="1"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Italic"
+											Text="Project: 130 QQE 1007 Inc - Office Improvements"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="2"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											Text="Returned on Mon, Mar 09 '20"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />								
+										<telerikInput:RadButton
+
+											Grid.Row="0"
+											Grid.RowSpan="3"
+											Grid.Column="1"
+											VerticalContentAlignment="Center"
+											VerticalOptions="Center"
+											BackgroundColor="#3c8dbc"
+											TextColor="White"
+											FontAttributes="Bold"
+											FontSize="12"
+											Style="{StaticResource ButtonStyle1}"
+											Text="Select" />
+									</ex:GridEx>
+
+								</telerikPrimitives:RadBorder>
+
+								<telerikPrimitives:RadBorder
+									Grid.Row="4"
+									Margin="6"
+									Padding="4"
+									BackgroundColor="#E5E5E5"
+									CornerRadius="2">
+									<ex:GridEx>
+										<ex:GridEx.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</ex:GridEx.RowDefinitions>
+										<ex:GridEx.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="Auto" />
+										</ex:GridEx.ColumnDefinitions>
+
+										<ex:LabelEx
+											Grid.Row="0"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Bold"
+											Text="Polyforce Plus - 5hr Red Activator, 0.1 L #545"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="1"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											FontAttributes="Italic"
+											Text="Project: 130 QQE 1007 Inc - Office Improvements"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<ex:LabelEx
+											Grid.Row="2"
+											Grid.Column="0"
+											Margin="2"
+											FontSize="12"
+											Text="Returned on Mon, Mar 09 '20"
+											TextColor="#565656"
+											VerticalTextAlignment="Center" />
+										<telerikInput:RadButton
+
+											Grid.Row="0"
+											Grid.RowSpan="3"
+											Grid.Column="1"
+											VerticalContentAlignment="Center"
+											VerticalOptions="Center"
+											BackgroundColor="#3c8dbc"
+											TextColor="White"
+											FontAttributes="Bold"
+											FontSize="12"
+											Style="{StaticResource ButtonStyle1}"
+											Text="Select" />
+									</ex:GridEx>
+
+								</telerikPrimitives:RadBorder>
+							</StackLayout>
+						</ScrollView>	
+
+					</ex:GridEx>
+
+				</telerikPrimitives:RadBorder>
+			</ex:GridEx>
+
+
+
+		</ex:GridEx>
+
+
+
+	</ex:AbsoluteLayoutForPage>
+</ex:ContentPageEx>

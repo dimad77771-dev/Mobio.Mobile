@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	x:Class="OneBuilder.Mobile.App"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
+	xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Core"
+	xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.XamarinForms.Common"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikDataGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+	xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+	xmlns:telerikConversationalUI="clr-namespace:Telerik.XamarinForms.ConversationalUI;assembly=Telerik.XamarinForms.ConversationalUI"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary MergedWith="telerikCommon:BlueResources" />
+				<ResourceDictionary MergedWith="telerikInput:TelerikThemeStyles" />
+				<ResourceDictionary MergedWith="telerikPrimitives:TelerikThemeStyles" />
+				<ResourceDictionary MergedWith="telerikDataControls:TelerikThemeStyles" />
+			</ResourceDictionary.MergedDictionaries>
+			<!--<ResourceDictionary MergedWith="telerikChart:TelerikThemeStyles" />-->
+			<!--<ResourceDictionary MergedWith="telerikDataGrid:TelerikThemeStyles" />
+			<ResourceDictionary MergedWith="telerikConversationalUI:TelerikThemeStyles" />-->
+
+			<Color x:Key="RegularTextColor">Black</Color>
+			<Color x:Key="HeaderTextColor">Black</Color>
+			<Color x:Key="HeaderBackgroundColor">#ECF0F5</Color>
+			<Color x:Key="PageBackgroundColor">#F1F2F5</Color>
+			
+			<OnPlatform x:Key="ButtonTextColor" x:TypeArguments="forms:Color">
+				<On Platform="iOS">#007AFF</On>
+				<On Platform="Android">Black</On>
+				<On Platform="UWP">Black</On>
+			</OnPlatform>
+			<!--<Color x:Key="ButtonTextColor">Black</Color>-->
+			
+			<Color x:Key="ButtonBackgroundColor">#1188FF</Color>
+			<Color x:Key="SearchBackgroundColor">White</Color>
+			<Color x:Key="WatermarkTextColor">#707070</Color>
+			<Color x:Key="HyperlinkTextColor">#1188FF</Color>
+			<Color x:Key="ListViewBorderColor">#F1F2F5</Color>
+			<Color x:Key="ListViewBackgroundColor">White</Color>
+
+			<x:String x:Key="BackIconText">&#xE80E;</x:String>
+			<x:String x:Key="InfoIconText">&#xE815;</x:String>
+			<x:String x:Key="SearchIconText">&#xE810;</x:String>
+			<x:String x:Key="ClearIconText">&#xE80A;</x:String>
+			<x:String x:Key="ExpandedIconText">&#xE80D;</x:String>
+			<x:String x:Key="CollapsedIconText">&#xE806;</x:String>
+			<x:String x:Key="HyperlinkIconText">&#xF08E;</x:String>
+
+			<!--<Style x:Key="labelFormTitleStyle" TargetType="ex:LabelEx">
+				<Setter Property="TextColor" Value="#8a8a8a" />
+			</Style>
+
+			<Style x:Key="labelFormDataStyle" TargetType="ex:LabelEx">
+				<Setter Property="TextColor" Value="Black" />
+			</Style>
+
+			<Style x:Key="labelListData" TargetType="ex:LabelEx">
+				<Setter Property="TextColor" Value="Black" />
+			</Style>
+
+			<Style x:Key="labelListDataSmall" TargetType="ex:LabelEx">
+				<Setter Property="TextColor" Value="Black" />
+			</Style>-->
+
+			<telerikCommon:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+			<converters:ImageSourceConverter x:Key="ImageSourceConverter" />
+			<converters:DebugConverter x:Key="DebugConverter" />
+
+			<OnPlatform x:Key="IconsFontFamily" x:TypeArguments="x:String">
+				<On Platform="iOS">telerikfontexamples</On>
+				<On Platform="Android">Fonts/telerikfontexamples.ttf#telerikfontexamples</On>
+				<On Platform="UWP">/Assets/Fonts/telerikfontexamples.ttf#telerikfontexamples</On>
+			</OnPlatform>
+
+			<OnPlatform x:Key="RegularFontFamily" x:TypeArguments="x:String">
+				<On Platform="iOS">SFProText-Regular</On>
+				<On Platform="Android">Fonts/Roboto-Regular.ttf#Roboto</On>
+				<On Platform="UWP">/Assets/Fonts/segoeui.ttf#Segoe UI</On>
+			</OnPlatform>
+
+			<OnPlatform x:Key="MediumFontFamily" x:TypeArguments="x:String">
+				<On Platform="iOS">SFProText-Medium</On>
+				<On Platform="Android">Fonts/Roboto-Medium.ttf#Roboto</On>
+				<On Platform="UWP">/Assets/Fonts/segoeuib.ttf#Segoe UI</On>
+			</OnPlatform>
+			
+
+			<Style x:Key="HeaderTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource HeaderTextColor}" />
+			</Style>
+
+			<Style x:Key="TitleTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+			</Style>
+
+			<Style x:Key="GroupTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+			</Style>
+
+			<Style x:Key="HyperlinkTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource HyperlinkTextColor}" />
+			</Style>
+
+			<Style x:Key="HyperlinkIconStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource IconsFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource HyperlinkTextColor}" />
+			</Style>
+
+			<Style x:Key="RegularTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+			</Style>
+
+			<Style x:Key="IconTextStyle" TargetType="{x:Type Label}">
+				<Setter Property="WidthRequest" Value="40" />
+				<Setter Property="HeightRequest" Value="40" />
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource IconsFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+				<Setter Property="HorizontalTextAlignment" Value="Center" />
+				<Setter Property="VerticalTextAlignment" Value="Center" />
+			</Style>
+
+			<Style x:Key="RoundButtonStyle" TargetType="{x:Type telerikInput:RadButton}">
+				<Setter Property="HeightRequest" Value="40" />
+				<Setter Property="BorderWidth" Value="0" />
+				<Setter Property="BorderRadius" Value="20" />
+				<Setter Property="BorderColor" Value="Transparent" />
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontFamily" Value="{StaticResource RegularFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource ButtonBackgroundColor}" />
+			</Style>
+
+			<Style x:Key="HeaderButtonStyle" TargetType="{x:Type telerikInput:RadButton}">
+				<Setter Property="WidthRequest" Value="40" />
+				<Setter Property="HeightRequest" Value="40" />
+				<Setter Property="BorderWidth" Value="0" />
+				<Setter Property="BorderRadius" Value="0" />
+				<Setter Property="BorderColor" Value="Transparent" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="FontFamily" Value="{StaticResource IconsFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+			</Style>
+
+			<Style x:Key="NavigationBarButtonStyle" TargetType="{x:Type telerikInput:RadButton}">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="Padding" Value="3" />
+				<Setter Property="Margin" Value="3,6" />
+			</Style>
+
+
+			<Style x:Key="IconButtonStyle" TargetType="{x:Type telerikInput:RadButton}">
+				<Setter Property="WidthRequest" Value="40" />
+				<Setter Property="HeightRequest" Value="40" />
+				<Setter Property="BorderWidth" Value="0" />
+				<Setter Property="BorderRadius" Value="0" />
+				<Setter Property="BorderColor" Value="Transparent" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="FontFamily" Value="{StaticResource IconsFontFamily}" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+			</Style>
+
+			<Style x:Key="SearchEntryStyle" TargetType="{x:Type telerikInput:RadEntry}">
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="TextColor" Value="{StaticResource RegularTextColor}" />
+				<Setter Property="WatermarkTextColor" Value="{StaticResource WatermarkTextColor}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource SearchBackgroundColor}" />
+				<Setter Property="VerticalTextAlignment" Value="Center" />
+				<Setter Property="BorderStyle">
+					<Setter.Value>
+						<telerikInput:BorderStyle
+							CornerRadius="8"
+							BorderThickness="0"
+							BorderColor="Transparent" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="BrowseListStyle" TargetType="{x:Type telerikDataControls:RadListView}">
+				<Setter Property="SelectionMode" Value="None" />
+				<Setter Property="BackgroundColor" Value="{StaticResource ListViewBackgroundColor}" />
+				<Setter Property="ItemStyle">
+					<Setter.Value>
+						<telerikListView:ListViewItemStyle
+							BorderWidth="2"
+							BorderLocation="Bottom"
+							BorderColor="{StaticResource ListViewBorderColor}" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="LayoutDefinition">
+					<Setter.Value>
+						<telerikListView:ListViewLinearLayout GroupHeaderLength="48" ItemLength="48" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="SearchListStyle" TargetType="{x:Type telerikDataControls:RadListView}">
+				<Setter Property="SelectionMode" Value="None" />
+				<Setter Property="BackgroundColor" Value="{StaticResource ListViewBackgroundColor}" />
+				<Setter Property="ItemStyle">
+					<Setter.Value>
+						<telerikListView:ListViewItemStyle BorderLocation="None" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="LayoutDefinition">
+					<Setter.Value>
+						<telerikListView:ListViewLinearLayout GroupHeaderLength="48" ItemLength="48" />
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<Style x:Key="BoldCellLabelStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="Black" />
+			</Style>
+
+			<Style x:Key="MainCellLabelStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="13" />
+				<Setter Property="FontAttributes" Value="None" />
+				<Setter Property="TextColor" Value="Gray" />
+			</Style>
+
+			<Style x:Key="MainCellDataStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="13" />
+				<Setter Property="FontAttributes" Value="None" />
+				<Setter Property="TextColor" Value="Black" />
+			</Style>
+
+
+			<Style x:Key="ButtonStyle1" TargetType="{x:Type telerikInput:RadButton}">
+			</Style>
+
+			<x:String x:Key="formatdate">{0:dd.MM.yyyy}</x:String>
+			<x:String x:Key="formatmoney">{0:$###,###,###,###,##0.00}</x:String>
+
+
+
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telerik.XamarinForms.PdfViewer</name>
+    </assembly>
+    <members>
+        <member name="T:Telerik.XamarinForms.PdfViewer.SearchToast">
+            <summary>
+            A view used to display information about the current state of the search operation and search results. This view may be
+            displayed when searching is in progress, when search finishes, when there are no search results, when the search results
+            change, and when the main result changes. For finer control over the text in the view and its show duration please use the 
+            <see cref="M:Telerik.XamarinForms.PdfViewer.SearchToolbarItem.GetToastInfo"/> method.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchToolbarItem.ToastStyle">
+            <summary>
+            Gets or sets the style for the <see cref="T:Telerik.XamarinForms.PdfViewer.SearchToast"/> view that displays information about the search results.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.SearchToolbarItem.GetToastInfo">
+            <summary>
+            Override this method to customize the text in the notification toast based on the search state. This means
+            to take into consideration things like the current <see cref="P:Telerik.XamarinForms.PdfViewer.SearchSettings.TextSearchResult"/>, the last searched 
+            <see cref="P:Telerik.XamarinForms.PdfViewer.SearchSettings.Text"/>, whether or not searching is in progress (<see cref="P:Telerik.XamarinForms.PdfViewer.SearchSettings.IsBusy"/>), and other 
+            information from the <see cref="T:Telerik.XamarinForms.PdfViewer.RadPdfViewer"/> and the <see cref="P:Telerik.XamarinForms.PdfViewer.SearchToolbarItem.SearchSettings"/>.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.SearchTrigger">
+            <summary>
+            Defines when a search operation should be performed.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SearchTrigger.None">
+            <summary>
+            A search operation is not triggered by anything. Only programmatic calls will start a search operation.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SearchTrigger.TextChanged">
+            <summary>
+            A search operation is triggerd every time the Text changes.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SearchTrigger.Completed">
+            <summary>
+            A search operation is triggerd when the corresponding entry completes (by pressing Enter/Return key).
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.Stream">
+            <summary>
+            Gets or sets the delegate responsible for returning a Stream for the RadFixedDocument. The stream is closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.Import(System.IO.Stream)">
+            <summary>
+            Creates a RadFixedDocument to be used in the RadPdfViewer. The stream is not closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.StreamDocumentSource.ImportAsync(System.IO.Stream)">
+            <summary>
+            Creates a RadFixedDocument asynchronously to be used in the RadPdfViewer. The stream is not closed automatically.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.BeginUsingPage(System.Int32)">
+            <summary>
+            Loads the page, i.e. document.CacheManager.BeginUsingPage is called and the IDisposable
+            object is cached. This allows features like selection and annotations to work.
+            In case there is an error while loading the page, i.e. when the
+            BeginUsingPage method throws an exception, then loading has failed, so the page is not in use.
+            See the <see cref="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.IsUsingPage(System.Int32)" /> method.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.PdfPageCacheManager.IsUsingPage(System.Int32)">
+            <summary>
+            Checks if the page is loaded, i.e. that BeginUsingPage was called with no exceptions
+            and that the IDisposable object is cached. See the <see cref="!:TryBeginUsingPage" /> method.
+            </summary>
+            <returns>A value indicating whether the page is successfully loaded.</returns>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.PdfViewportUtils">
+            <summary>
+            This class exists because the meaning of Viewport in v1 and v2 of the PdfViewer is different. 
+            In v1 the Viewport's scroll is dependent on the zoom, and its size is the same as the size of the presenter.
+            Also in v1 a root-size-helper is used which distorts the page size.
+            </summary>
+        </member>
+        <member name="E:Telerik.XamarinForms.PdfViewer.RadPdfViewer.SourcePasswordNeeded">
+            <summary>
+            An event that is raised during document import if a password is needed. This event may be
+            raised on a non-UI thread. The password can be provided in the event args.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.Selection.CustomPdfSelectionIndicator">
+            <summary>
+            This class is a POC for a potential extensibility point - custom selection indicators.
+            Some API changes must be done before the base PdfSelectionIndicator is made public.
+            Also take into consideration how to make it possible to set stroke and stroke thickness.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.Selection.CopySelectionCommand">
+            <summary>
+            A command that executes the default behavior of copy-selection in the
+            PdfViewer, which is to put the selected text in the clipboard of the 
+            current platform and clear the selection unless mouse interaction is detected.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.SearchResultsFill">
+            <summary>
+            Gets or sets the fill of all search results, except the main result.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.MainSearchResultFill">
+            <summary>
+            Gets or sets the fill of the main search result.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.TextSearchWorker">
+            <summary>
+            The object that performs the text search and notifies for the search progress changes.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.IsBusy">
+            <summary>
+            Gets a value indicating whether or not a search operation is in progress.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.TextSearchResult">
+            <summary>
+            Gets a value representing the current search result. This property contains all the results that are found 
+            and the main result. The value of this property is null when no search was performed. The value of this 
+            property is <see cref="F:Telerik.XamarinForms.PdfViewer.TextSearchResult.NotFound"/> when no results are found.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SearchSettings.Phrases">
+            <summary>
+            Gets or sets an array of strings with which a search operation is performed.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.SearchSettings.SearchAsync(System.String,Telerik.Windows.Documents.Fixed.Search.TextSearchOptions)">
+            <summary>
+            Starts an async search operation with the provided text and options. For finer control use the <see cref="P:Telerik.XamarinForms.PdfViewer.SearchSettings.TextSearchWorker"/> property.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.SearchSettings.CancelSearch">
+            <summary>
+            Cancels the search operation.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.SearchSettings.SearchPhrases(System.String[],Telerik.Windows.Documents.Fixed.Search.TextSearchOptions)">
+            <summary>
+            Starts an async search operation for all strings in the phrases array, with the provided options. 
+            For finer control use the <see cref="P:Telerik.XamarinForms.PdfViewer.SearchSettings.TextSearchWorker"/> property.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.SearchContext">
+            <summary>
+            An object containing information about the search operation.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SearchContext.SearchProgress">
+            <summary>
+            Used by the <see cref="T:Telerik.XamarinForms.PdfViewer.TextSearchWorker"/> to notify the <see cref="T:Telerik.XamarinForms.PdfViewer.RadPdfViewer"/> about changes (new results) in the search operation.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SearchContext.CancellationToken">
+            <summary>
+            Used by the <see cref="T:Telerik.XamarinForms.PdfViewer.TextSearchWorker"/> to check whether or not the search operation is cancelled.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.TextSearchResult">
+            <summary>
+            An object that contains information about the search results that are to be displayed in the <see cref="T:Telerik.XamarinForms.PdfViewer.RadPdfViewer"/>. 
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.TextSearchResult.SearchResults">
+            <summary>
+            Gets a collection of all search results, including the <see cref="F:Telerik.XamarinForms.PdfViewer.TextSearchResult.MainSearchResult"/>, found by a search operation.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.TextSearchWorker">
+            <summary>
+            Performs async text search in a <see cref="T:Telerik.Windows.Documents.Fixed.Model.RadFixedDocument"/>. The results will be displayed by the <see cref="T:Telerik.XamarinForms.PdfViewer.RadPdfViewer"/> in the order they are provided.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.TextSearchWorker.SearchAsync(Telerik.XamarinForms.PdfViewer.SearchContext)">
+            <summary>
+            Performs async text search. This method is executed on the main UI thread and returns a <see cref="T:System.Threading.Tasks.Task"/> in which the actual 
+            text search is performed.
+            </summary>
+        </member>
+        <member name="M:Telerik.XamarinForms.PdfViewer.TextSearchWorker.Search(Telerik.XamarinForms.PdfViewer.SearchContext)">
+            <summary>
+            Performs text search in a thread different from the main UI thread. Override this method when in need to implement custom
+            search logic. Take into consideration that because this does not run in the main thread, access to UI elements and properties
+            may be limited. Use a <see cref="!:lock"/> statement with the TextDocument as the mutex (example lock(context.Document.TextDocument)) when 
+            accessing the <see cref="T:Telerik.Windows.Documents.Fixed.Model.RadFixedDocument"/> in order to avoid errors due to concurrent accessing. When creating 
+            a <see cref="T:Telerik.XamarinForms.PdfViewer.TextSearchResult"/> only set the <see cref="F:Telerik.XamarinForms.PdfViewer.TextSearchResult.MainSearchResult"/> if you want to override 
+            the currently displayed main search result.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition">
+            <summary>
+            An enumeration that denotes the position and direction of the SelectionMenu arrow.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.None">
+            <summary>
+            No position could be determined and the arrow should not be displayed.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.Up">
+            <summary>
+            The arrow should be displayed at the top of the SelectionMenu and should point upwards.
+            </summary>
+        </member>
+        <member name="F:Telerik.XamarinForms.PdfViewer.SelectionMenuArrowPosition.Down">
+            <summary>
+            The arrow should be displayed at the bottom of the SelectionMenu and should point downwards.
+            </summary>
+        </member>
+        <member name="T:Telerik.XamarinForms.PdfViewer.CopySelectionMenuItem">
+            <summary>
+            A menu item that executes the default <see cref="T:Telerik.XamarinForms.PdfViewer.Selection.CopySelectionCommand"/>.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SelectionSettings.SelectionMenuControlTemplate">
+            <summary>
+            Gets or sets the ControlTemplate of the <see cref="T:Telerik.XamarinForms.PdfViewer.SelectionMenu"/> that is used 
+            to display the MenuItems items.
+            </summary>
+        </member>
+        <member name="P:Telerik.XamarinForms.PdfViewer.SelectionSettings.MenuItems">
+            <summary>
+            Gets or sets a collection of menu items that are displayed in the SelectionMenu that is
+            shown when there is visible selection in the PdfViewer.
+            </summary>
+        </member>
+    </members>
+</doc>
