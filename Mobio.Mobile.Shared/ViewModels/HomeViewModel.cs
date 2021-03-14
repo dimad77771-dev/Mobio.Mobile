@@ -16,7 +16,6 @@ namespace OneBuilder.Mobile.ViewModels
 	public class HomeViewModel : PageViewModel
 	{
 		public ICommand LogoutCommand => CommandFunc.CreateAsync(Logout);
-		public ICommand EnterSerialNumberCommand => CommandFunc.CreateAsync(OpenEnterSerialNumber, CanEnterSerialNumberCommand);
 		//public ObservableCollection<LabourDTO> EmployeeItems { get; set; } = new ObservableCollection<LabourDTO>();
 		//public LabourDTO EmployeeSelectedItem { get; set; }
 
@@ -41,11 +40,6 @@ namespace OneBuilder.Mobile.ViewModels
 		}
 
 
-		async Task OpenEnterSerialNumber()
-		{
-			var model = new SerialViewModel();
-			await NavFunc.NavigateToAsync(model);
-		}
 		bool CanEnterSerialNumberCommand()
 		{
 			//return (EmployeeSelectedItem != null);

@@ -76,8 +76,8 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			//var homeViewModel = new HomeViewModel();
-			var homeViewModel = new SerialViewModel();
-			await NavFunc.NavigateToAsync(homeViewModel);
+			//var homeViewModel = new SerialViewModel();
+			//await NavFunc.NavigateToAsync(homeViewModel);
 		}
 
 		public override async Task<bool> BeforePageClose()

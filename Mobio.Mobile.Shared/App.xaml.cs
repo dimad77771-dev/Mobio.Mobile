@@ -42,11 +42,6 @@ namespace OneBuilder.Mobile
 
 			if (UserOptions.Exists())
 			{
-				//var homeViewModel = new HomeViewModel();
-
-				var homeViewModel = new SerialViewModel();
-				//var homeViewModel = new AllOperationsViewModel();
-				await NavFunc.NavigateToAsync(homeViewModel);
 			}
 			else
 			{

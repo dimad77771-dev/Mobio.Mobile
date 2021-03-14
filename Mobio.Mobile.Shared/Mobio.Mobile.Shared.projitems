@@ -17,35 +17,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\EmailAddressPickView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab3View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab2View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialTab1View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Utils\MainPage2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AllOperationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\SerialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -58,7 +34,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\EntryExOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\IdiomVisible.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\AnimationBlinkingBehavior.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\DataGridViewOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListPickerOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\EditorExOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadTabViewOperationBehavior.cs" />
@@ -105,23 +80,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\OrderReportEmailsDTO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\GridFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StyleFunc.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\EmailAddressPickView.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>EmailAddressPickView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EmailAddressPickViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab3View.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SerialTab3View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab2View.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SerialTab2View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialTab1View.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SerialTab1View.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\StackLayoutEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ZXingDefaultOverlayEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -154,7 +112,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DBInit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DbUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\PrintReportFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\PrintFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\HtmlFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\BarcodeFunc.cs" />
@@ -181,14 +138,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\U.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\UIFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\UnhandledExceptionProccesing.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AllOperationsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PdfViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ScanBarcodeViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\AllOperationsView.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>AllOperationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SerialViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
@@ -198,16 +147,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PdfView.xaml.cs">
-      <DependentUpon>PdfView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ScanBarcodeView.xaml.cs">
-      <DependentUpon>ScanBarcodeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SerialView.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SerialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\NavigationBarView.xaml.cs">
       <DependentUpon>NavigationBarView.xaml</DependentUpon>
@@ -235,18 +174,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ScanBarcodeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PdfView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
