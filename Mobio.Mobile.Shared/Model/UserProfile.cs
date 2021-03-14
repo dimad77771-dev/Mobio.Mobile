@@ -44,5 +44,8 @@ namespace OneBuilder.Model
 
 		public string PasswordRepeat { get; set; }
 		public Xamarin.Forms.Color BorderColor { get; set; }
+
+
+		public State ProvinceOrState { get; set; }
 	}
 }

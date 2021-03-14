@@ -65,9 +65,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadListViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ScrollViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\SearchBarEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\State.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItemSlot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ProfileAdditionalData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Country.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml.cs">

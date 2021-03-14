@@ -16,7 +16,10 @@ namespace OneBuilder.Mobile.ViewModels
 {
 	public class RegisterViewModel : PageViewModel
 	{
-		public UserProfile Model;
+		public UserProfile Model { get; set; }
+		public State[] DdlStates { get; set; }
+		public string[] AAAA { get; set; } = new[] { "1", "2", "33" };
+		//url: "/utils/getCountries",
 
 		public Command CommitCommand => CommandFunc.CreateAsync(Commit);
 		public Command CancelCommand => CommandFunc.CreateAsync(Cancel);
@@ -36,6 +39,14 @@ namespace OneBuilder.Mobile.ViewModels
 
 			if (U.IsDebug)
 			{
+				DdlStates = new[]
+				{
+					new State { CountryId = 1, Name = "BC", RowId = new Guid("55872198-BE90-4D5E-B607-279700DBA029") },
+					new State { CountryId = 1, Name = "NS", RowId = new Guid("D25C24A2-88D2-409E-A035-2B0F183C1C77") },
+					new State { CountryId = 1, Name = "NL", RowId = new Guid("ACF70332-0ED2-484B-9E72-4C23F58909FA") },
+					new State { CountryId = 1, Name = "ON", RowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C") },
+				};
+
 				Model = new UserProfile
 				{
 					FirstName = "First",
@@ -51,7 +62,11 @@ namespace OneBuilder.Mobile.ViewModels
 					PasswordRepeat = "12345",
 
 					BorderColor = Color.Red,
+
+					ProvinceOrState = DdlStates[2],
 				};
+
+				
 			}
 		}
 

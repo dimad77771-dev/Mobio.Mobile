@@ -53,21 +53,6 @@
 			<x:String x:Key="CollapsedIconText">&#xE806;</x:String>
 			<x:String x:Key="HyperlinkIconText">&#xF08E;</x:String>
 
-			<!--<Style x:Key="labelFormTitleStyle" TargetType="ex:LabelEx">
-				<Setter Property="TextColor" Value="#8a8a8a" />
-			</Style>
-
-			<Style x:Key="labelFormDataStyle" TargetType="ex:LabelEx">
-				<Setter Property="TextColor" Value="Black" />
-			</Style>
-
-			<Style x:Key="labelListData" TargetType="ex:LabelEx">
-				<Setter Property="TextColor" Value="Black" />
-			</Style>
-
-			<Style x:Key="labelListDataSmall" TargetType="ex:LabelEx">
-				<Setter Property="TextColor" Value="Black" />
-			</Style>-->
 
 			<telerikCommon:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
 			<converters:ImageSourceConverter x:Key="ImageSourceConverter" />

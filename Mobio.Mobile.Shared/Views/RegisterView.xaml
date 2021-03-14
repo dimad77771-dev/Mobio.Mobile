@@ -92,25 +92,55 @@
 							BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
-					<local:LabelEx
+					<telerikInput:RadComboBox>
+						<telerikInput:RadComboBox.ItemsSource>
+							<x:Array Type="{x:Type x:String}">
+								<x:String>USA</x:String>
+								<x:String>Uganda</x:String>
+								<x:String>Ukraine</x:String>
+								<x:String>Canada</x:String>
+								<x:String>France</x:String>
+								<x:String>Italy</x:String>
+								<x:String>United Kingdom</x:String>
+								<x:String>China</x:String>
+								<x:String>Japan</x:String>
+							</x:Array>
+						</telerikInput:RadComboBox.ItemsSource>
+					</telerikInput:RadComboBox>
+
+					<telerikInput:RadComboBox ItemsSource="{Binding AAAA}"/>
+
+
+					<!--<telerikInput:RadComboBox
+						ItemsSource="{Binding DdlStates}"
+						Placeholder="Select City!"
+						PlaceholderColor="Blue"
+						BackgroundColor="LightGray"
+						FocusedBorderColor="Blue"
+						BorderColor="Black"
+						BorderThickness="2"
+						ClearButtonStyle="{StaticResource ClearButtonStyle}"
+						DisplayMemberPath="Name" />-->
+
+					<!--<ex:RadComboBoxEx
+							Placeholder="Enter Province"
+							BorderThickness="1" />-->
+
+					<!--<local:LabelEx
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
-						Text="City" />
+						Text="Province" />
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						BorderColor="#4488F6"
 						CornerRadius="3">
 						<telerikInput:RadComboBox
-							ItemsSource="{Binding Items}"
-							Placeholder="Select City!"
-							PlaceholderColor="Blue"
-							BackgroundColor="LightGray"
-							FocusedBorderColor="Blue"
-							BorderColor="Black"
-							BorderThickness="2"
-							ClearButtonStyle="{StaticResource ClearButtonStyle}"
-							DisplayMemberPath="Name" />
-					</telerikPrimitives:RadBorder>
+							SelectedItem="{Binding Model.ProvinceOrStateRowId}"
+							ItemsSource="{Binding DdlStates}"
+							DisplayMemberPath="Name"
+							Placeholder="Enter Province"
+							BorderThickness="0" />
+					</telerikPrimitives:RadBorder>-->
 
 
 
