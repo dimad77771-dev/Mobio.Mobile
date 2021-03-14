@@ -212,7 +212,6 @@
     <AndroidAsset Include="Assets\Fonts\Roboto-Regular.ttf" />
     <AndroidAsset Include="Assets\Fonts\Roboto-Thin.ttf" />
     <AndroidAsset Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
-    <AndroidAsset Include="Assets\Fonts\telerikfontexamples.ttf" />
     <AndroidResource Include="Resources\drawable-nodpi\background_2.png" />
     <AndroidResource Include="Resources\drawable-nodpi\BTN_4.9.png" />
     <AndroidResource Include="Resources\drawable-nodpi\BTN_4_down.9.png" />
@@ -321,6 +320,7 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Fonts\telerikfontexamples.ttf" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>

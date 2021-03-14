@@ -22,9 +22,6 @@
 				<ResourceDictionary MergedWith="telerikPrimitives:TelerikThemeStyles" />
 				<ResourceDictionary MergedWith="telerikDataControls:TelerikThemeStyles" />
 			</ResourceDictionary.MergedDictionaries>
-			<!--<ResourceDictionary MergedWith="telerikChart:TelerikThemeStyles" />-->
-			<!--<ResourceDictionary MergedWith="telerikDataGrid:TelerikThemeStyles" />
-			<ResourceDictionary MergedWith="telerikConversationalUI:TelerikThemeStyles" />-->
 
 			<Color x:Key="RegularTextColor">Black</Color>
 			<Color x:Key="HeaderTextColor">Black</Color>
@@ -36,7 +33,6 @@
 				<On Platform="Android">Black</On>
 				<On Platform="UWP">Black</On>
 			</OnPlatform>
-			<!--<Color x:Key="ButtonTextColor">Black</Color>-->
 			
 			<Color x:Key="ButtonBackgroundColor">#1188FF</Color>
 			<Color x:Key="SearchBackgroundColor">White</Color>
@@ -75,7 +71,7 @@
 				<On Platform="Android">Fonts/Roboto-Medium.ttf#Roboto</On>
 				<On Platform="UWP">/Assets/Fonts/segoeuib.ttf#Segoe UI</On>
 			</OnPlatform>
-			
+
 
 			<Style x:Key="HeaderTextStyle" TargetType="{x:Type Label}">
 				<Setter Property="FontSize" Value="16" />
@@ -225,6 +221,13 @@
 				<Setter Property="FontAttributes" Value="None" />
 				<Setter Property="TextColor" Value="Gray" />
 			</Style>
+
+			<Style x:Key="HeaderCellLabelStyle" TargetType="{x:Type Label}">
+				<Setter Property="FontSize" Value="17" />
+				<Setter Property="FontAttributes" Value="None" />
+				<Setter Property="TextColor" Value="#f23030" />
+			</Style>
+
 
 			<Style x:Key="MainCellDataStyle" TargetType="{x:Type Label}">
 				<Setter Property="FontSize" Value="13" />

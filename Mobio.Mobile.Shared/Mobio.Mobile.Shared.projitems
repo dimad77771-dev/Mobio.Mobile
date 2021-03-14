@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewScrollToBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ImageName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DebugConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\RadComboBoxConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageSourceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\AbsoluteLayoutForPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\BoxView2.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ButtonEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ContentPageEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EditorEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadTabViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadEntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\FontEx.cs" />

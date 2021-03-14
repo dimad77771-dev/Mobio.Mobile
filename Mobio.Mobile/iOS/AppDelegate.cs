@@ -29,7 +29,6 @@ namespace Mobio.Mobile.iOS
 			Current = this;
 			DBInit.Init();
 			global::Xamarin.Forms.Forms.Init();
-			DevExpress.XamarinForms.DataGrid.DataGrid.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 			FormsControls.Touch.Renderers.Init();
 			LoadApplication(new App());

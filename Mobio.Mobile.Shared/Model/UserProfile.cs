@@ -45,7 +45,17 @@ namespace OneBuilder.Model
 		public string PasswordRepeat { get; set; }
 		public Xamarin.Forms.Color BorderColor { get; set; }
 
-
-		public State ProvinceOrState { get; set; }
+		public State[] DdlStates { get; set; }
+		public State ProvinceOrState 
+		{ 
+			get
+			{
+				return DdlStates.SingleOrDefault(q => q.RowId == ProvinceOrStateRowId);
+			}
+			set
+			{
+				ProvinceOrStateRowId = value?.RowId;
+			}
+		}
 	}
 }

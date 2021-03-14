@@ -25,11 +25,11 @@
 	<key>CFBundleName</key>
 	<string>OneBuilder Warehouse</string>
 	<key>CFBundleDisplayName</key>
-	<string>OneBuilder Warehouse</string>
+	<string>Mobio Mobile</string>
 	<key>CFBundleIdentifier</key>
 	<string>Mobio.Mobile.iOS</string>
 	<key>CFBundleVersion</key>
-	<string>1.69</string>
+	<string>1.1</string>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Icon-60@2x</string>

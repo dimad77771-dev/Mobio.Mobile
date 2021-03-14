@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:ex="clr-namespace:OneBuilder.Mobile"
 	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
@@ -29,123 +30,399 @@
 
 			<views:NavigationBarView Grid.Row="0" />
 
-			<local:ScrollViewEx Grid.Row="1">
-				<local:StackLayoutEx Padding="20">
+			<telerikPrimitives:RadTabView
+				Grid.Row="1"
+				Margin="{Binding TabViewMargin}"
+				HeaderPosition="Top"
+				IsContentPreserved="True"
+				SelectedItem="{Binding SelectedTab, Mode=OneWayToSource}">
 
-					<local:LabelEx
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="First Name" />
-					<telerikPrimitives:RadBorder
-						Margin="2,2,2,5"
-						BorderColor="#4488F6"
-						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.FirstName}"
-							WatermarkText="Enter First Name"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
-					</telerikPrimitives:RadBorder>
-
-					<local:LabelEx
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="Last Name" />
-					<telerikPrimitives:RadBorder
-						Margin="2,2,2,5"
-						BorderColor="#4488F6"
-						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.LastName}"
-							WatermarkText="Enter Last Name"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
-					</telerikPrimitives:RadBorder>
-
-					<local:LabelEx
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="Address" />
-					<telerikPrimitives:RadBorder
-						Margin="2,2,2,5"
-						BorderColor="#4488F6"
-						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.AddressLine1}"
-							WatermarkText="Enter Address"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
-					</telerikPrimitives:RadBorder>
-
-					<local:LabelEx
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="City" />
-					<telerikPrimitives:RadBorder
-						Margin="2,2,2,5"
-						BorderColor="#4488F6"
-						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.City}"
-							WatermarkText="Enter City"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
-					</telerikPrimitives:RadBorder>
-
-					<telerikInput:RadComboBox>
-						<telerikInput:RadComboBox.ItemsSource>
-							<x:Array Type="{x:Type x:String}">
-								<x:String>USA</x:String>
-								<x:String>Uganda</x:String>
-								<x:String>Ukraine</x:String>
-								<x:String>Canada</x:String>
-								<x:String>France</x:String>
-								<x:String>Italy</x:String>
-								<x:String>United Kingdom</x:String>
-								<x:String>China</x:String>
-								<x:String>Japan</x:String>
-							</x:Array>
-						</telerikInput:RadComboBox.ItemsSource>
-					</telerikInput:RadComboBox>
-
-					<telerikInput:RadComboBox ItemsSource="{Binding AAAA}"/>
+				<telerikPrimitives:RadTabView.Items>
+					<telerikPrimitives:TabViewItem HeaderText="Profile">
+						<telerikPrimitives:TabViewItem.Content>
+							<local:ScrollViewEx>
+								<local:StackLayoutEx Padding="10">
+									<telerikPrimitives:RadBorder
+										Margin="0,0,0,2"
+										Padding="5"
+										BackgroundColor="#f5f5f5"
+										BorderColor="#dddddd"
+										CornerRadius="1">
+										<local:LabelEx
+											HorizontalTextAlignment="Start"
+											Style="{StaticResource HeaderCellLabelStyle}"
+											Text="Profile Details" />
+									</telerikPrimitives:RadBorder>
 
 
-					<!--<telerikInput:RadComboBox
-						ItemsSource="{Binding DdlStates}"
-						Placeholder="Select City!"
-						PlaceholderColor="Blue"
-						BackgroundColor="LightGray"
-						FocusedBorderColor="Blue"
-						BorderColor="Black"
-						BorderThickness="2"
-						ClearButtonStyle="{StaticResource ClearButtonStyle}"
-						DisplayMemberPath="Name" />-->
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="First Name" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.FirstName}"
+											WatermarkText="Enter First Name"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
 
-					<!--<ex:RadComboBoxEx
-							Placeholder="Enter Province"
-							BorderThickness="1" />-->
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Last Name" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.LastName}"
+											WatermarkText="Enter Last Name"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
 
-					<!--<local:LabelEx
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="Province" />
-					<telerikPrimitives:RadBorder
-						Margin="2,2,2,5"
-						BorderColor="#4488F6"
-						CornerRadius="3">
-						<telerikInput:RadComboBox
-							SelectedItem="{Binding Model.ProvinceOrStateRowId}"
-							ItemsSource="{Binding DdlStates}"
-							DisplayMemberPath="Name"
-							Placeholder="Enter Province"
-							BorderThickness="0" />
-					</telerikPrimitives:RadBorder>-->
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Address" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.AddressLine1}"
+											WatermarkText="Enter Address"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="City" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.City}"
+											WatermarkText="Enter City"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Province" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadComboBoxEx
+											Padding="5,0"
+											SelectedItem="{Binding Model.ProvinceOrState, Mode=TwoWay}"
+											ItemsSource="{Binding DdlStates}"
+											DisplayMemberPath="Name"
+											Placeholder="Enter Province"
+											CornerRadius="8"
+											BorderThickness="0" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Postcode" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Postcode}"
+											WatermarkText="Enter Postcode"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Phone" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Phone}"
+											WatermarkText="Enter Phone"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
 
 
 
-				</local:StackLayoutEx>
-			</local:ScrollViewEx>
+
+									<telerikPrimitives:RadBorder
+										Margin="0,10,0,2"
+										Padding="5"
+										BackgroundColor="#f5f5f5"
+										BorderColor="#dddddd"
+										CornerRadius="1">
+										<local:LabelEx
+											HorizontalTextAlignment="Start"
+											Style="{StaticResource HeaderCellLabelStyle}"
+											Text="Login Details" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="E-mail" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Email}"
+											WatermarkText="Enter E-mail"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Password" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Password}"
+											WatermarkText="Enter Password"
+											IsPassword="True"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Repeat password" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.PasswordRepeat}"
+											WatermarkText="Repeat password"
+											IsPassword="True"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+								</local:StackLayoutEx>
+							</local:ScrollViewEx>
+						</telerikPrimitives:TabViewItem.Content>
+					</telerikPrimitives:TabViewItem>
+
+					<telerikPrimitives:TabViewItem HeaderText="Patients (2)">
+						<telerikPrimitives:TabViewItem.Content>
+							<local:ScrollViewEx>
+								<local:StackLayoutEx Padding="10">
+									<telerikPrimitives:RadBorder
+										Margin="0,0,0,2"
+										Padding="5"
+										BackgroundColor="#f5f5f5"
+										BorderColor="#dddddd"
+										CornerRadius="1">
+										<local:LabelEx
+											HorizontalTextAlignment="Start"
+											Style="{StaticResource HeaderCellLabelStyle}"
+											Text="Profile Details" />
+									</telerikPrimitives:RadBorder>
+
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="First Name" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.FirstName}"
+											WatermarkText="Enter First Name"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Last Name" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.LastName}"
+											WatermarkText="Enter Last Name"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Address" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.AddressLine1}"
+											WatermarkText="Enter Address"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="City" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.City}"
+											WatermarkText="Enter City"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Province" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadComboBoxEx
+											Padding="5,0"
+											SelectedItem="{Binding Model.ProvinceOrState, Mode=TwoWay}"
+											ItemsSource="{Binding DdlStates}"
+											DisplayMemberPath="Name"
+											Placeholder="Enter Province"
+											CornerRadius="8"
+											BorderThickness="0" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Postcode" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Postcode}"
+											WatermarkText="Enter Postcode"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Phone" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Phone}"
+											WatermarkText="Enter Phone"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+
+
+
+									<telerikPrimitives:RadBorder
+										Margin="0,10,0,2"
+										Padding="5"
+										BackgroundColor="#f5f5f5"
+										BorderColor="#dddddd"
+										CornerRadius="1">
+										<local:LabelEx
+											HorizontalTextAlignment="Start"
+											Style="{StaticResource HeaderCellLabelStyle}"
+											Text="Login Details" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="E-mail" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Email}"
+											WatermarkText="Enter E-mail"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Password" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.Password}"
+											WatermarkText="Enter Password"
+											IsPassword="True"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+
+									<local:LabelEx
+										HorizontalTextAlignment="Start"
+										Style="{StaticResource MainCellLabelStyle}"
+										Text="Repeat password" />
+									<telerikPrimitives:RadBorder
+										Margin="2,2,2,5"
+										BorderColor="#4488F6"
+										CornerRadius="3">
+										<ex:RadEntryEx
+											Text="{Binding Model.PasswordRepeat}"
+											WatermarkText="Repeat password"
+											IsPassword="True"
+											CompletedCommand="{Binding EntryCompletedCommand}"
+											BorderStyle="{StaticResource EntryBorderStyle}" />
+									</telerikPrimitives:RadBorder>
+								</local:StackLayoutEx>
+							</local:ScrollViewEx>
+						</telerikPrimitives:TabViewItem.Content>
+					</telerikPrimitives:TabViewItem>
+				</telerikPrimitives:RadTabView.Items>
+			</telerikPrimitives:RadTabView>
 
 		</local:GridEx>
 	</local:AbsoluteLayoutForPage>

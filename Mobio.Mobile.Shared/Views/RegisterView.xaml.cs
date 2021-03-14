@@ -23,6 +23,10 @@ namespace OneBuilder.Mobile.Views
 			//aaa.Margin
 
 			//a.SetBinding(Label.RotationProperty, "Value");
+
+			
+			//var g = hhh;
+			//var hhhh = hhh2.Padding;
 		}
 	}
 }

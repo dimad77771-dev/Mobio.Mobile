@@ -34,6 +34,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task Init()
 		{
+			//await UnhandledExceptionProccesing.SendErrorServer();
+
 			HeaderTitle = "Register";
 			IsBackVisible = true;
 
@@ -53,7 +55,7 @@ namespace OneBuilder.Mobile.ViewModels
 					LastName = "Last",
 					AddressLine1 = "AddressLine1",
 					City = "City",
-					ProvinceOrStateRowId = null,
+					ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C"),
 					Postcode = "Postcode",
 					Phone = "Phone",
 
@@ -63,10 +65,11 @@ namespace OneBuilder.Mobile.ViewModels
 
 					BorderColor = Color.Red,
 
-					ProvinceOrState = DdlStates[2],
+					DdlStates = DdlStates,
 				};
 
-				
+				//Model.ProvinceOrState = DdlStates[1];
+				//Task.Delay
 			}
 		}
 
