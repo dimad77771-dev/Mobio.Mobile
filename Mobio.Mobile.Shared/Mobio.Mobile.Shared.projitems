@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ButtonEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ContentPageEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EditorEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadDatePickerEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadTabViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadEntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\EntryEx.cs" />
@@ -67,6 +68,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\RadListViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\ScrollViewEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\SearchBarEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LabConsent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ScreenQuiz.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Appointment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PatientOrderItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Patient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\State.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItemSlot.cs" />

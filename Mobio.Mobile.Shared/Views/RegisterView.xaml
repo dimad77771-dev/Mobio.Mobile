@@ -7,11 +7,13 @@
 	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
 	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
 	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
-	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls">
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	x:Name="mainPage">
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
@@ -244,14 +246,18 @@
 									x:Name="PatientList"
 									Grid.Row="0"
 									ItemsSource="{Binding Patients}"
-									SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
-									SelectionMode="Single">
+									SelectionMode="None">
+									<!--  SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"  -->
 									<ex:RadListViewEx.LayoutDefinition>
 										<telerikListView:ListViewGridLayout
 											SpanCount="2"
 											HorizontalItemSpacing="5"
 											VerticalItemSpacing="5" />
 									</ex:RadListViewEx.LayoutDefinition>
+
+									<ex:RadListViewEx.Commands>
+										<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
+									</ex:RadListViewEx.Commands>
 
 									<ex:RadListViewEx.ItemTemplate>
 										<DataTemplate>
@@ -288,21 +294,107 @@
 									HeaderPosition="Top"
 									IsContentPreserved="True">
 									<telerikPrimitives:RadTabView.Items>
-										<telerikPrimitives:TabViewItem HeaderText="Profile">
+										<telerikPrimitives:TabViewItem HeaderText="General">
 											<telerikPrimitives:TabViewItem.Content>
 
 												<local:StackLayoutEx Padding="5">
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="Institution" />
 													<telerikPrimitives:RadBorder
-														Margin="0,0,0,2"
-														Padding="5"
-														BackgroundColor="#f5f5f5"
-														BorderColor="#dddddd"
-														CornerRadius="1">
-														<local:LabelEx
-															HorizontalTextAlignment="Start"
-															Style="{StaticResource HeaderCellLabelStyle}"
-															Text="Profile Details" />
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadComboBoxEx
+															Padding="5,0"
+															SelectedItem="{Binding PatientOrderItem.InstitutionProfile, Mode=TwoWay}"
+															ItemsSource="{Binding Path=DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+															DisplayMemberPath="CompanyName"
+															Placeholder="Enter Institution"
+															CornerRadius="8"
+															BorderThickness="0" />
 													</telerikPrimitives:RadBorder>
+
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="First Name" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadEntryEx
+															Text="{Binding FirstName}"
+															WatermarkText="Enter First Name"
+															CompletedCommand="{Binding EntryCompletedCommand}"
+															BorderStyle="{StaticResource EntryBorderStyle}" />
+													</telerikPrimitives:RadBorder>
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="Last Name" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadEntryEx
+															Text="{Binding LastName}"
+															WatermarkText="Enter Last Name"
+															CompletedCommand="{Binding EntryCompletedCommand}"
+															BorderStyle="{StaticResource EntryBorderStyle}" />
+													</telerikPrimitives:RadBorder>
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="Birth Date" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadDatePickerEx
+															Date="{Binding BirthDate}"
+															MinimumDate="1901,01,01"
+															DefaultHighlightedDate="2000,01,01"
+															SpinnerFormat="MM/dd/yyyy" />
+													</telerikPrimitives:RadBorder>
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="Gender" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadComboBoxEx
+															Padding="5,0"
+															SelectedItem="{Binding Gender, Mode=TwoWay}"
+															ItemsSource="{Binding Path=DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+															Placeholder="Enter Gender"
+															CornerRadius="8"
+															BorderThickness="0" />
+													</telerikPrimitives:RadBorder>
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="Healthcare Card #" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,2,5"
+														BorderColor="#4488F6"
+														CornerRadius="3">
+														<ex:RadEntryEx
+															Text="{Binding HealthCareCardNumber}"
+															WatermarkText="Enter Healthcare Card #"
+															CompletedCommand="{Binding EntryCompletedCommand}"
+															BorderStyle="{StaticResource EntryBorderStyle}" />
+													</telerikPrimitives:RadBorder>
+
 												</local:StackLayoutEx>
 
 											</telerikPrimitives:TabViewItem.Content>

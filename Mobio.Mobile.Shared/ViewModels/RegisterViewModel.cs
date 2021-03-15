@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.Views;
+using System.Windows.Input;
+using Telerik.XamarinForms.DataControls.ListView.Commands;
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -18,14 +20,19 @@ namespace OneBuilder.Mobile.ViewModels
 	{
 		public UserProfile Model { get; set; }
 		public State[] DdlStates { get; set; }  //url: "/utils/getCountries",
+		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
 		public ObservableCollection<Patient> Patients { get; set; }
 		public Patient SelectedPatient { get; set; }
+
+		public ObservableCollection<UserProfile> DdlInstitutions { get; set; }
+		
 
 		public String PatientTabText { get; set; }
 
 
 		public Command CommitCommand => CommandFunc.CreateAsync(Commit);
 		public Command CancelCommand => CommandFunc.CreateAsync(Cancel);
+		public ICommand ItemTapCommand { get; set; }
 
 		//public Command EntryCompletedCommand => CommandFunc.CreateAsync(BusinessCodeReturn);
 
@@ -42,6 +49,8 @@ namespace OneBuilder.Mobile.ViewModels
 			HeaderTitle = "Register";
 			IsBackVisible = true;
 
+			ItemTapCommand = new Command<ItemTapCommandContext>(this.ItemTapped);
+
 			if (U.IsDebug)
 			{
 				DdlStates = new[]
@@ -51,6 +60,13 @@ namespace OneBuilder.Mobile.ViewModels
 					new State { CountryId = 1, Name = "NL", RowId = new Guid("ACF70332-0ED2-484B-9E72-4C23F58909FA") },
 					new State { CountryId = 1, Name = "ON", RowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C") },
 				};
+
+				DdlInstitutions = new[]
+				{
+					new UserProfile{ RowId = new Guid("1DB56EDF-C171-42A9-8C82-64A79E21C159"), CompanyName = "School 1" },
+					new UserProfile{ RowId = new Guid("C9CF120F-830C-4226-86EC-AE61AAE51B76"), CompanyName = "School 2" },
+					new UserProfile{ RowId = new Guid("4E58878C-F951-49CA-A040-510F6AB33A23"), CompanyName = "School 3" },
+				}.ToObservableCollection();
 
 				Model = new UserProfile
 				{
@@ -81,12 +97,16 @@ namespace OneBuilder.Mobile.ViewModels
 						RowId = Guid.NewGuid(),
 						FirstName = "Piter",
 						LastName = "Pen",
+						BirthDate = new DateTime(2003,11,7),
+						Gender = "Male",
 					},
 					new Patient
 					{
 						RowId = Guid.NewGuid(),
 						FirstName = "Glen",
 						LastName = "Robinson",
+						BirthDate = new DateTime(1977,8,17),
+						Gender = "Female",
 					},
 					new Patient
 					{
@@ -126,24 +146,28 @@ namespace OneBuilder.Mobile.ViewModels
 					},
 				}.ToObservableCollection();
 
+				Patients[0].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[0].RowId;
+				Patients[1].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[1].RowId;
+
+				Patients.Select(q => q.PatientOrderItem).ForEach(q => q.DdlInstitutions = DdlInstitutions);
+
+
 				if (Patients.Any())
 				{
 					SelectedPatient = Patients.First();
 				}
 
-
 				RecalcPatients();
-
-				this.PropertyChanged += OnAnyPropertyChanged;
 			}
 		}
 
-		private void OnAnyPropertyChanged(object sender, PropertyChangedEventArgs e)
+
+
+		void ItemTapped(ItemTapCommandContext context)
 		{
-			if (e.PropertyName == nameof(SelectedPatient))
-			{
-				RecalcPatients();
-			}
+			var patient = (Patient)context.Item;
+			SelectedPatient = patient;
+			RecalcPatients();
 		}
 
 		void RecalcPatients()
