@@ -28,6 +28,7 @@ namespace Mobio.Mobile.iOS
         {
 			Current = this;
 			DBInit.Init();
+			LabelHtml.Forms.Plugin.iOS.HtmlLabelRenderer.Initialize();
 			global::Xamarin.Forms.Forms.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 			FormsControls.Touch.Renderers.Init();

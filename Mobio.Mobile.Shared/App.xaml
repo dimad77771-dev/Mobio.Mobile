@@ -53,6 +53,7 @@
 			<telerikCommon:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
 			<converters:ImageSourceConverter x:Key="ImageSourceConverter" />
 			<converters:DebugConverter x:Key="DebugConverter" />
+			<converters:TranslateConverter x:Key="T" />
 
 			<OnPlatform x:Key="IconsFontFamily" x:TypeArguments="x:String">
 				<On Platform="iOS">telerikfontexamples</On>

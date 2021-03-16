@@ -13,6 +13,8 @@ using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.Views;
 using System.Windows.Input;
 using Telerik.XamarinForms.DataControls.ListView.Commands;
+using T = Telerik.XamarinForms.Input;
+using Telerik.XamarinForms.Input;
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -23,9 +25,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
 		public ObservableCollection<Patient> Patients { get; set; }
 		public Patient SelectedPatient { get; set; }
-
 		public ObservableCollection<UserProfile> DdlInstitutions { get; set; }
-		
 
 		public String PatientTabText { get; set; }
 
@@ -48,6 +48,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 			HeaderTitle = "Register";
 			IsBackVisible = true;
+
 
 			ItemTapCommand = new Command<ItemTapCommandContext>(this.ItemTapped);
 
@@ -149,7 +150,21 @@ namespace OneBuilder.Mobile.ViewModels
 				Patients[0].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[0].RowId;
 				Patients[1].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[1].RowId;
 
-				Patients.Select(q => q.PatientOrderItem).ForEach(q => q.DdlInstitutions = DdlInstitutions);
+				foreach (var patient in Patients)
+				{
+					patient.RegisterViewModel = this;
+					patient.PatientOrderItem.DdlInstitutions = DdlInstitutions;
+					patient.CalendarDisplayDate = new DateTime(2021, 1, 18);
+					patient.CalendarSetStyleForCell = (q) => CalendarEvaluateCellStyle(patient, q);
+				}
+
+					
+
+				//CalendarAppointments = new []
+				//{
+				//	new T.Appointment() { StartDate = CalendarDisplayDate, EndDate = CalendarDisplayDate, Title = "-", Color = Color.Green },
+				//	new T.Appointment() { StartDate = CalendarDisplayDate.AddDays(1), EndDate = CalendarDisplayDate.AddDays(1), Title = "-", Color = Color.Green },
+				//}.ToObservableCollection();
 
 
 				if (Patients.Any())
@@ -181,7 +196,32 @@ namespace OneBuilder.Mobile.ViewModels
 				patient.TextColor = selected ? Color.FromHex("#fff") : Color.FromHex("#333");
 				patient.BorderColor = selected ? Color.FromHex("#8c8c8c") : Color.FromHex("#8c8c8c");
 
+				patient.ScheduleItemSlots = new[]
+				{
+					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,00,00), Finish = new DateTime(2000,1,1, 12,15,00), IsFull = true, IsSelectedSlot = false },
+					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,15,00), Finish = new DateTime(2000,1,1, 12,30,00), IsFull = false, IsSelectedSlot = false },
+					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,30,00), Finish = new DateTime(2000,1,1, 12,45,00), IsFull = false, IsSelectedSlot = true },
+					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,45,00), Finish = new DateTime(2000,1,1, 13,00,00), IsFull = false, IsSelectedSlot = false },
+				}.ToObservableCollection();
 			}
+		}
+
+		CalendarCellStyle CalendarEvaluateCellStyle(Patient patient, CalendarCell cell)
+		{
+			if (cell is CalendarDayCell)
+			{
+				var dcell = (CalendarDayCell)cell;
+				if ( new[] { 12, 25, 26 }.Contains(dcell.Date.Day))
+				{
+					return new CalendarCellStyle
+					{
+						BackgroundColor = Color.FromHex("#00FF00"),
+						BorderColor = Color.Green,
+					};
+				}
+			}
+
+			return null; // default style
 		}
 
 		public override async Task OnAppearingEx(ContentPageEx view)

@@ -2,9 +2,12 @@ using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Telerik.XamarinForms.Input;
 using Xamarin.Forms;
+using T = Telerik.XamarinForms.Input;
 
 namespace OneBuilder.Model
 {
@@ -43,5 +46,12 @@ namespace OneBuilder.Model
 		public Color TextColor { get; set; }
 		public Color BackgroundColor { get; set; }
 		public Color BorderColor { get; set; }
+
+		public RegisterViewModel RegisterViewModel { get; set; }
+		public DateTime CalendarDisplayDate { get; set; }
+		public ObservableCollection<T.Appointment> CalendarAppointments { get; set; }
+		public Func<CalendarCell, CalendarCellStyle> CalendarSetStyleForCell { get; set; }
+
+		public ObservableCollection<ScheduleItemSlot> ScheduleItemSlots { get; set; }
 	}
 }

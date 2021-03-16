@@ -9,6 +9,7 @@
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
 	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
@@ -22,6 +23,60 @@
 				BorderThickness="0"
 				BorderColor="{Binding Model.BorderColor}"
 				CornerRadius="8" />
+
+			<Style x:Key="H4" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="#222222" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="H5" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="#222222" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="Main" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="10" />
+				<Setter Property="TextColor" Value="#666666" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="GreenStrong" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="10" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="#3c763d" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+			<Style x:Key="GreenBorder" TargetType="ex:RadBorderEx">
+				<Setter Property="Margin" Value="2" />
+				<Setter Property="Padding" Value="10,3" />
+				<Setter Property="BackgroundColor" Value="#dff0d8" />
+				<Setter Property="BorderColor" Value="#d6e9c6" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="CornerRadius" Value="3" />
+			</Style>
+
+			<Style x:Key="Break" TargetType="ex:LabelEx">
+				<Setter Property="Margin" Value="0,0,0,5" />
+			</Style>
+
+			<Style x:Key="IAuthorizeCheckBox" TargetType="ex:RadCheckBoxEx">
+				<Setter Property="Margin" Value="0,0,0,0" />
+				<Setter Property="VerticalOptions" Value="Center" />
+			</Style>
+
+			<Style
+				x:Key="IAuthorizeLabel"
+				TargetType="ex:LabelEx"
+				BasedOn="{StaticResource MainCellLabelStyle}">
+				<Setter Property="Margin" Value="0,0,0,0" />
+				<Setter Property="VerticalOptions" Value="Center" />
+			</Style>
+
+
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
@@ -239,7 +294,7 @@
 							<ex:GridEx Padding="10">
 								<ex:GridEx.RowDefinitions>
 									<RowDefinition Height="*" />
-									<RowDefinition Height="2*" />
+									<RowDefinition Height="600" />
 								</ex:GridEx.RowDefinitions>
 
 								<ex:RadListViewEx
@@ -286,125 +341,595 @@
 								</ex:RadListViewEx>
 
 
-								<telerikPrimitives:RadTabView
+								<ex:RadAccordionEx
 									x:Name="PatientDetails"
 									Grid.Row="1"
-									Margin="0"
-									BindingContext="{Binding SelectedPatient}"
-									HeaderPosition="Top"
-									IsContentPreserved="True">
-									<telerikPrimitives:RadTabView.Items>
-										<telerikPrimitives:TabViewItem HeaderText="General">
-											<telerikPrimitives:TabViewItem.Content>
+									Margin="3"
+									CanCollapseAllItems="True"
+									AnimationDuration="500"
+									AnimationEasing="SpringOut"
+									Spacing="2">
 
-												<local:StackLayoutEx Padding="5">
+									<ex:AccordionItemEx HeaderText="General" IsExpanded="True">
+										<ex:AccordionItemEx.Content>
+											<local:StackLayoutEx Padding="5">
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="Institution" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadComboBoxEx
+														Padding="5,0"
+														SelectedItem="{Binding PatientOrderItem.InstitutionProfile, Mode=TwoWay}"
+														ItemsSource="{Binding Path=DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+														DisplayMemberPath="CompanyName"
+														Placeholder="Enter Institution"
+														CornerRadius="8"
+														BorderThickness="0" />
+												</telerikPrimitives:RadBorder>
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="Institution" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadComboBoxEx
-															Padding="5,0"
-															SelectedItem="{Binding PatientOrderItem.InstitutionProfile, Mode=TwoWay}"
-															ItemsSource="{Binding Path=DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
-															DisplayMemberPath="CompanyName"
-															Placeholder="Enter Institution"
-															CornerRadius="8"
-															BorderThickness="0" />
-													</telerikPrimitives:RadBorder>
+
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="First Name" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadEntryEx
+														Text="{Binding FirstName}"
+														WatermarkText="Enter First Name"
+														CompletedCommand="{Binding EntryCompletedCommand}"
+														BorderStyle="{StaticResource EntryBorderStyle}" />
+												</telerikPrimitives:RadBorder>
+
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="Last Name" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadEntryEx
+														Text="{Binding LastName}"
+														WatermarkText="Enter Last Name"
+														CompletedCommand="{Binding EntryCompletedCommand}"
+														BorderStyle="{StaticResource EntryBorderStyle}" />
+												</telerikPrimitives:RadBorder>
+
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="Birth Date" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadDatePickerEx
+														Date="{Binding BirthDate}"
+														MinimumDate="1901,01,01"
+														DefaultHighlightedDate="2000,01,01"
+														SpinnerFormat="MM/dd/yyyy" />
+												</telerikPrimitives:RadBorder>
+
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="Gender" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadComboBoxEx
+														Padding="5,0"
+														SelectedItem="{Binding Gender, Mode=TwoWay}"
+														ItemsSource="{Binding Path=DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+														Placeholder="Enter Gender"
+														CornerRadius="8"
+														BorderThickness="0" />
+												</telerikPrimitives:RadBorder>
+
+												<local:LabelEx
+													HorizontalTextAlignment="Start"
+													Style="{StaticResource MainCellLabelStyle}"
+													Text="Healthcare Card #" />
+												<telerikPrimitives:RadBorder
+													Margin="2,2,2,5"
+													BorderColor="#4488F6"
+													CornerRadius="3">
+													<ex:RadEntryEx
+														Text="{Binding HealthCareCardNumber}"
+														WatermarkText="Enter Healthcare Card #"
+														CompletedCommand="{Binding EntryCompletedCommand}"
+														BorderStyle="{StaticResource EntryBorderStyle}" />
+												</telerikPrimitives:RadBorder>
+											</local:StackLayoutEx>
+										</ex:AccordionItemEx.Content>
+									</ex:AccordionItemEx>
+
+									<ex:AccordionItemEx HeaderText="Questionnaire">
+										<ex:AccordionItemEx.Content>
+											<ex:ScrollViewEx Padding="5">
+												<ex:GridEx Margin="0,10,0,0">
+													<ex:GridEx.ColumnDefinitions>
+														<ColumnDefinition Width="*" />
+														<ColumnDefinition Width="5" />
+														<ColumnDefinition Width="*" />
+														<ColumnDefinition Width="5" />
+														<ColumnDefinition Width="*" />
+													</ex:GridEx.ColumnDefinitions>
+													<ex:GridEx.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="30" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="30" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="30" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</ex:GridEx.RowDefinitions>
+
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="0"
+														Margin="0,0,0,3"
+														Text="FEVER"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="1"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="2"
+														Margin="0,0,0,3"
+														Text="RUNNY NOSE"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="1"
+														Grid.Column="2"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:LabelEx
+														Grid.Row="0"
+														Grid.Column="4"
+														Margin="0,0,0,3"
+														Text="DIFFICULTY BREATHING"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="1"
+														Grid.Column="4"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
 
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="First Name" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadEntryEx
-															Text="{Binding FirstName}"
-															WatermarkText="Enter First Name"
-															CompletedCommand="{Binding EntryCompletedCommand}"
-															BorderStyle="{StaticResource EntryBorderStyle}" />
-													</telerikPrimitives:RadBorder>
+													<ex:LabelEx
+														Grid.Row="3"
+														Grid.Column="0"
+														Margin="0,0,0,3"
+														Text="COUGH"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="4"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="Last Name" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadEntryEx
-															Text="{Binding LastName}"
-															WatermarkText="Enter Last Name"
-															CompletedCommand="{Binding EntryCompletedCommand}"
-															BorderStyle="{StaticResource EntryBorderStyle}" />
-													</telerikPrimitives:RadBorder>
+													<ex:LabelEx
+														Grid.Row="3"
+														Grid.Column="2"
+														Margin="0,0,0,3"
+														Text="LOSS OF TASTE OR SMELL"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="4"
+														Grid.Column="2"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="Birth Date" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadDatePickerEx
-															Date="{Binding BirthDate}"
-															MinimumDate="1901,01,01"
-															DefaultHighlightedDate="2000,01,01"
-															SpinnerFormat="MM/dd/yyyy" />
-													</telerikPrimitives:RadBorder>
+													<ex:LabelEx
+														Grid.Row="3"
+														Grid.Column="4"
+														Margin="0,0,0,3"
+														Text="NAUSEA, VOMITING, DIARRHEA"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="4"
+														Grid.Column="4"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="Gender" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadComboBoxEx
-															Padding="5,0"
-															SelectedItem="{Binding Gender, Mode=TwoWay}"
-															ItemsSource="{Binding Path=DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
-															Placeholder="Enter Gender"
-															CornerRadius="8"
-															BorderThickness="0" />
-													</telerikPrimitives:RadBorder>
 
-													<local:LabelEx
-														HorizontalTextAlignment="Start"
-														Style="{StaticResource MainCellLabelStyle}"
-														Text="Healthcare Card #" />
-													<telerikPrimitives:RadBorder
-														Margin="2,2,2,5"
-														BorderColor="#4488F6"
-														CornerRadius="3">
-														<ex:RadEntryEx
-															Text="{Binding HealthCareCardNumber}"
-															WatermarkText="Enter Healthcare Card #"
-															CompletedCommand="{Binding EntryCompletedCommand}"
-															BorderStyle="{StaticResource EntryBorderStyle}" />
-													</telerikPrimitives:RadBorder>
+													<ex:LabelEx
+														Grid.Row="6"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Margin="0,0,0,3"
+														Text="SORE THROAT OR DIFFICULTIES SWALLOWING"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="7"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:LabelEx
+														Grid.Row="6"
+														Grid.Column="4"
+														Margin="0,0,0,3"
+														Text="FEELING TIRED OR UNWELL"
+														VerticalTextAlignment="Center"
+														FontSize="15" />
+													<StackLayout
+														Grid.Row="7"
+														Grid.Column="4"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:HtmlLabelEx
+														Grid.Row="9"
+														Grid.Column="0"
+														Margin="0,0,0,3"
+														Text="Have You Been In Close Contact With Someone Who Has Confirmed &lt;b&gt;COVID-19&lt;/b&gt; In The Past 14 Days?"
+														VerticalTextAlignment="Center"
+														FontSize="13" />
+													<StackLayout
+														Grid.Row="10"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:LabelEx
+														Grid.Row="9"
+														Grid.Column="2"
+														Margin="0,0,0,3"
+														Text="Have You Returned From Travel Outside Canada In The Past 14 Days?"
+														VerticalTextAlignment="Center"
+														FontSize="13" />
+													<StackLayout
+														Grid.Row="10"
+														Grid.Column="2"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+
+													<ex:LabelEx
+														Grid.Row="9"
+														Grid.Column="4"
+														Margin="0,0,0,3"
+														Text="Have You Traveled In A Pressurized Aircraft In The Past 14 Days?"
+														VerticalTextAlignment="Center"
+														FontSize="13" />
+													<StackLayout
+														Grid.Row="10"
+														Grid.Column="4"
+														Orientation="Horizontal">
+														<telerikPrimitives:RadCheckBox />
+														<ex:LabelEx
+															Text="Yes"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
+														<ex:LabelEx
+															Text="No"
+															FontSize="12"
+															VerticalTextAlignment="Center" />
+													</StackLayout>
+												</ex:GridEx>
+											</ex:ScrollViewEx>
+										</ex:AccordionItemEx.Content>
+									</ex:AccordionItemEx>
+
+									<ex:AccordionItemEx HeaderText="Lab Consent">
+										<ex:AccordionItemEx.Content>
+											<ex:ScrollViewEx Padding="5">
+												<local:StackLayoutEx>
+													<local:LabelEx Style="{StaticResource H4}" Text="{converters:T ResourceId=Covid19TestingPcrTestOr}" />
+													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=Covid19IsAnInfectiousIllness}" />
+
+													<local:LabelEx Style="{StaticResource Break}" />
+													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PrivacyNotice}" />
+													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=WeAreCollectingYourTest}" />
+
+													<local:LabelEx Style="{StaticResource Break}" />
+													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PleaseCarefullyReadAndSign}" />
+													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=ThroughYourSignatureBelowYou}" />
+
+													<local:LabelEx Style="{StaticResource Break}" />
+													<ex:RadBorderEx Style="{StaticResource GreenBorder}">
+														<local:LabelEx Style="{StaticResource GreenStrong}" Text="{converters:T ResourceId=YouAlsoUnderstandThatGvt}" />
+													</ex:RadBorderEx>
+
+													<ex:GridEx
+														Margin="10,5,2,5"
+														ColumnSpacing="10"
+														RowSpacing="5">
+														<ex:GridEx.ColumnDefinitions>
+															<ColumnDefinition Width="Auto" />
+															<ColumnDefinition Width="*" />
+														</ex:GridEx.ColumnDefinitions>
+														<ex:GridEx.RowDefinitions>
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+														</ex:GridEx.RowDefinitions>
+
+														<ex:RadCheckBoxEx
+															Grid.Row="0"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="0"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=IAuthorizeThisCovid19Testing}" />
+
+														<ex:RadCheckBoxEx
+															Grid.Row="1"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="1"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=IAuthorizeMyTestResults}" />
+
+														<ex:RadCheckBoxEx
+															Grid.Row="2"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="2"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=IAcknowledgeThatAPositive}" />
+
+														<ex:RadCheckBoxEx
+															Grid.Row="3"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="3"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=IUnderstandTheTestingUnit}" />
+
+														<ex:RadCheckBoxEx
+															Grid.Row="4"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="4"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=IUnderstandThatAsWith}" />
+
+														<ex:RadCheckBoxEx
+															Grid.Row="5"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															IsChecked="False" />
+														<local:LabelEx
+															Grid.Row="5"
+															Grid.Column="1"
+															Style="{StaticResource IAuthorizeLabel}"
+															Text="{converters:T ResourceId=ITheUndersignedHaveBeen}" />
+													</ex:GridEx>
+
+													<local:LabelEx Style="{StaticResource Break}" />
+													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=Acknowledgment}" />
+													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=PleaseBeAwareThatTest}" />
 
 												</local:StackLayoutEx>
+											</ex:ScrollViewEx>
+										</ex:AccordionItemEx.Content>
+									</ex:AccordionItemEx>
 
-											</telerikPrimitives:TabViewItem.Content>
-										</telerikPrimitives:TabViewItem>
-									</telerikPrimitives:RadTabView.Items>
+									<ex:AccordionItemEx HeaderText="Appointment">
+										<ex:AccordionItemEx.Content>
+											<ex:GridEx Padding="5" BackgroundColor="Transparent" HeightRequest="600">
+												<ex:GridEx.RowDefinitions>
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+												</ex:GridEx.RowDefinitions>
 
-								</telerikPrimitives:RadTabView>
+												<ex:RadCalendarEx
+													x:Name="rrrr"
+													Grid.Row="2"
+													HeightRequest="200"
+													DisplayDate="{Binding CalendarDisplayDate}"
+													SetStyleForCell="{Binding CalendarSetStyleForCell}" />
+												<!--
+													AppointmentsSource="{Binding CalendarAppointments}"
+													HeightRequest="400"
+												-->
+												<Button Grid.Row="1" Text="HHHHH">
+													
+												</Button>
+
+												<ex:RadListViewEx
+													x:Name="ScheduleItemSlotList"
+													Grid.Row="0"
+													HeightRequest="300"
+													Margin="0,5,0,0"
+													ItemsSource="{Binding ScheduleItemSlots, Converter={StaticResource DebugConverter}}"
+													SelectionMode="None">
+													<ex:RadListViewEx.LayoutDefinition>
+														<telerikListView:ListViewGridLayout
+															SpanCount="3"
+															HorizontalItemSpacing="5"
+															VerticalItemSpacing="5" />
+													</ex:RadListViewEx.LayoutDefinition>
+
+													<ex:RadListViewEx.Commands>
+														<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
+													</ex:RadListViewEx.Commands>
+
+													<ex:RadListViewEx.ItemTemplate>
+														<DataTemplate>
+															<telerikListView:ListViewTemplateCell>
+																<telerikListView:ListViewTemplateCell.View>
+																	<ex:GridEx>
+																		<telerikPrimitives:RadBorder
+																			Margin="2"
+																			Padding="2"
+																			BackgroundColor="{Binding BackgroundColor}"
+																			BorderColor="{Binding BorderColor}"
+																			CornerRadius="2">
+																			<ex:LabelEx
+																				FontSize="16"
+																				HeightRequest="35"
+																				Text="{Binding FullSlotText}"
+																				TextColor="{Binding TextColor}"
+																				TextDecorations="{Binding TextDecoration}"
+																				HorizontalTextAlignment="Center"
+																				VerticalTextAlignment="Center" />
+																		</telerikPrimitives:RadBorder>
+																	</ex:GridEx>
+																</telerikListView:ListViewTemplateCell.View>
+															</telerikListView:ListViewTemplateCell>
+														</DataTemplate>
+													</ex:RadListViewEx.ItemTemplate>
+												</ex:RadListViewEx>
+											</ex:GridEx>
+										</ex:AccordionItemEx.Content>
+									</ex:AccordionItemEx>
+
+
+								</ex:RadAccordionEx>
 
 							</ex:GridEx>
-
 
 						</telerikPrimitives:TabViewItem.Content>
 					</telerikPrimitives:TabViewItem>

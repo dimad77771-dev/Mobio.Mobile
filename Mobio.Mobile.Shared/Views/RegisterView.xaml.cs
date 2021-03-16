@@ -24,6 +24,8 @@ namespace OneBuilder.Mobile.Views
 			RadComboBox aaaa;
 			RadListView bbb;
 			RadDatePicker aaaaa1;
+			RadTabView jjj;
+			TabViewHeader aaa111;
 			//aaa.Margin
 
 			//a.SetBinding(Label.RotationProperty, "Value");
@@ -31,6 +33,14 @@ namespace OneBuilder.Mobile.Views
 
 			//var g = hhh;
 			//var hhhh = hhh2.Padding;
+
+			//var CalendarDisplayDate = new DateTime(2021, 1, 18);
+			//rrrr.DisplayDate = CalendarDisplayDate;
+			//rrrr.AppointmentsSource = new[]
+			//{
+			//	new Appointment() { StartDate = CalendarDisplayDate, EndDate = CalendarDisplayDate, Title = "-", Color = Color.Green },
+			//	new Appointment() { StartDate = CalendarDisplayDate.AddDays(1), EndDate = CalendarDisplayDate.AddDays(1), Title = "-", Color = Color.Green },
+			//}.ToObservableCollection();
 		}
 
 		

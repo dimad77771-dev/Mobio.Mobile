@@ -30,13 +30,12 @@ namespace OneBuilder.Sqlite
 		public static void Build()
 		{
 			var database = Current;
-            if (U.IsDebug)
-            {
-				//database.TraceListener = new DBLogger();
-				database.Trace = true;
-				database.Tracer = (q) => U.Log4("SQL=" + q);
-
-			}
+			//if (U.IsDebug)
+			//{
+			//	//database.TraceListener = new DBLogger();
+			//	database.Trace = true;
+			//	database.Tracer = (q) => U.Log4("SQL=" + q);
+			//}
 
 			DB.CreateTable<UserOptions>();
 
@@ -51,12 +50,15 @@ namespace OneBuilder.Sqlite
 
 
 			//DBZDebugData.Run(database);
-        }
+
+			Globalization.DbInit();
+
+		}
 
 		public static SQLiteConnection Current { get; set; }
 		public static List<Type> AllTables = new List<Type>();
 
-		private static TableQuery<T> Table<T>() where T : new()
+		public static TableQuery<T> Table<T>() where T : new()
 		{
 			return Current.Table<T>();
         }

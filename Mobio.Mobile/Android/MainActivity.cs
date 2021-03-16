@@ -25,6 +25,7 @@ namespace OneBuilder.Mobile.Droid
 			AndroidEnvironment.UnhandledExceptionRaiser += MyApp_UnhandledExceptionHandler;
 			DBInit.Init();
 
+			LabelHtml.Forms.Plugin.Droid.HtmlLabelRenderer.Initialize();
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			LoadApplication(new App());
