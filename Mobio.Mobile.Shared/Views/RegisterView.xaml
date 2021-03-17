@@ -85,7 +85,6 @@
 				<Setter Property="FontSize" Value="12" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
 			</Style>
-
 			<Style
 				x:Key="NoCheckLabel"
 				TargetType="ex:LabelEx"
@@ -102,18 +101,25 @@
 				TargetType="ex:LabelEx"
 				BasedOn="{StaticResource MainCellLabelStyle}">
 				<Setter Property="FontSize" Value="15" />
+				<Setter Property="Margin" Value="0,5,5,5" />
+				<Setter Property="TextColor" Value="#212121" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
 			</Style>
 
 			<Style x:Key="YesCheckBox" TargetType="ex:RadCheckBoxEx">
+				<Setter Property="Margin" Value="5,5,0,5" />
+				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="CheckedColor" Value="Green" />
 			</Style>
 			<Style x:Key="NoCheckBox" TargetType="ex:RadCheckBoxEx">
-				<Setter Property="Margin" Value="10,0,0,0" />
+				<Setter Property="Margin" Value="0,5,0,5" />
+				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="CheckedColor" Value="Red" />
 			</Style>
 
 			<Style x:Key="QuestionnaireBorder" TargetType="ex:RadBorderEx">
-				<Setter Property="Margin" Value="2" />
-				<Setter Property="BorderColor" Value="#4488F6" />
+				<Setter Property="Margin" Value="0" />
+				<Setter Property="BorderColor" Value="#C6C6C6" />
 				<Setter Property="CornerRadius" Value="3" />
 			</Style>
 
@@ -392,7 +398,7 @@
 									AnimationEasing="SpringOut"
 									Spacing="2">
 
-									<ex:AccordionItemEx HeaderText="General" IsExpanded="True">
+									<ex:AccordionItemEx HeaderText="General">
 										<ex:AccordionItemEx.Content>
 											<local:StackLayoutEx Padding="5">
 												<local:LabelEx
@@ -494,18 +500,28 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Questionnaire">
+									<ex:AccordionItemEx HeaderText="Questionnaire" IsExpanded="True">
 										<ex:AccordionItemEx.Content>
 											<ex:ScrollViewEx Padding="5">
 												<ex:GridEx
-													Margin="5"
-													RowSpacing="10"
+													Margin="0"
+													RowSpacing="3"
 													ColumnSpacing="20">
 													<ex:GridEx.ColumnDefinitions>
 														<ColumnDefinition Width="Auto" />
 														<ColumnDefinition Width="*" />
 													</ex:GridEx.ColumnDefinitions>
 													<ex:GridEx.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
 														<RowDefinition Height="Auto" />
 														<RowDefinition Height="Auto" />
 													</ex:GridEx.RowDefinitions>
@@ -528,9 +544,15 @@
 													<ex:LabelEx
 														Grid.Row="0"
 														Grid.Column="1"
-														Text="FEVER"
+														Text="{converters:T ResourceId=Fever, ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
+													<ex:RadBorderEx
+														Grid.Row="1"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
 														Grid.Row="1"
 														Grid.Column="0"
@@ -543,242 +565,200 @@
 													<ex:LabelEx
 														Grid.Row="1"
 														Grid.Column="1"
-														Text="RUNNY NOSE"
+														Text="{converters:T ResourceId=RunnyNose, ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 
-													<!--<ex:LabelEx
-														Grid.Row="0"
-														Grid.Column="2"
-														Margin="0,0,0,3"
-														Text="RUNNY NOSE"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
+													<ex:RadBorderEx
+														Grid.Row="2"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
-														Grid.Row="1"
-														Grid.Column="2"
+														Grid.Row="2"
+														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
-
 													<ex:LabelEx
-														Grid.Row="0"
-														Grid.Column="4"
-														Margin="0,0,0,3"
-														Text="DIFFICULTY BREATHING"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
-													<StackLayout
-														Grid.Row="1"
-														Grid.Column="4"
-														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-													</StackLayout>
+														Grid.Row="2"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=DifficultyBreathing, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
 
-
-													<ex:LabelEx
+													<ex:RadBorderEx
 														Grid.Row="3"
 														Grid.Column="0"
-														Margin="0,0,0,3"
-														Text="COUGH"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
+													<StackLayout
+														Grid.Row="3"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+													</StackLayout>
+													<ex:LabelEx
+														Grid.Row="3"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=Cough, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
+
+													<ex:RadBorderEx
+														Grid.Row="4"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
 														Grid.Row="4"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
-
 													<ex:LabelEx
-														Grid.Row="3"
-														Grid.Column="2"
-														Margin="0,0,0,3"
-														Text="LOSS OF TASTE OR SMELL"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
-													<StackLayout
 														Grid.Row="4"
-														Grid.Column="2"
-														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-													</StackLayout>
+														Grid.Column="1"
+														Text="{converters:T ResourceId=LossOfTasteOrSmell, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:LabelEx
-														Grid.Row="3"
-														Grid.Column="4"
-														Margin="0,0,0,3"
-														Text="NAUSEA, VOMITING, DIARRHEA"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
+													<ex:RadBorderEx
+														Grid.Row="5"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
-														Grid.Row="4"
-														Grid.Column="4"
+														Grid.Row="5"
+														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
-
-
 													<ex:LabelEx
+														Grid.Row="5"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=NauseaVomitingDiarrhea, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
+
+													<ex:RadBorderEx
 														Grid.Row="6"
 														Grid.Column="0"
 														Grid.ColumnSpan="2"
-														Margin="0,0,0,3"
-														Text="SORE THROAT OR DIFFICULTIES SWALLOWING"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
-														Grid.Row="7"
+														Grid.Row="6"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
-
 													<ex:LabelEx
 														Grid.Row="6"
-														Grid.Column="4"
-														Margin="0,0,0,3"
-														Text="FEELING TIRED OR UNWELL"
-														VerticalTextAlignment="Center"
-														FontSize="15" />
+														Grid.Column="1"
+														Text="{converters:T ResourceId=SoreThroatOrDifficultiesSwallowing, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
+
+													<ex:RadBorderEx
+														Grid.Row="7"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
 														Grid.Row="7"
-														Grid.Column="4"
-														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-													</StackLayout>
-
-													<ex:HtmlLabelEx
-														Grid.Row="9"
-														Grid.Column="0"
-														Margin="0,0,0,3"
-														Text="Have You Been In Close Contact With Someone Who Has Confirmed &lt;b&gt;COVID-19&lt;/b&gt; In The Past 14 Days?"
-														VerticalTextAlignment="Center"
-														FontSize="13" />
-													<StackLayout
-														Grid.Row="10"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
+													<ex:LabelEx
+														Grid.Row="7"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=FeelingTiredOrUnwell, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
 
+													<ex:RadBorderEx
+														Grid.Row="8"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
+													<StackLayout
+														Grid.Row="8"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+													</StackLayout>
+													<ex:LabelEx
+														Grid.Row="8"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=HaveYouBeenInClose, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
+
+													<ex:RadBorderEx
+														Grid.Row="9"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
+													<StackLayout
+														Grid.Row="9"
+														Grid.Column="0"
+														Orientation="Horizontal">
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+													</StackLayout>
 													<ex:LabelEx
 														Grid.Row="9"
-														Grid.Column="2"
-														Margin="0,0,0,3"
-														Text="Have You Returned From Travel Outside Canada In The Past 14 Days?"
-														VerticalTextAlignment="Center"
-														FontSize="13" />
-													<StackLayout
-														Grid.Row="10"
-														Grid.Column="2"
-														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-													</StackLayout>
+														Grid.Column="1"
+														Text="{converters:T ResourceId=HaveYouReturnedFromTravel, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:LabelEx
-														Grid.Row="9"
-														Grid.Column="4"
-														Margin="0,0,0,3"
-														Text="Have You Traveled In A Pressurized Aircraft In The Past 14 Days?"
-														VerticalTextAlignment="Center"
-														FontSize="13" />
+													<ex:RadBorderEx
+														Grid.Row="10"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{StaticResource QuestionnaireBorder}">
+													</ex:RadBorderEx>
 													<StackLayout
 														Grid.Row="10"
-														Grid.Column="4"
+														Grid.Column="0"
 														Orientation="Horizontal">
-														<telerikPrimitives:RadCheckBox />
-														<ex:LabelEx
-															Text="Yes"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-														<telerikPrimitives:RadCheckBox Margin="5,0,0,0" />
-														<ex:LabelEx
-															Text="No"
-															FontSize="12"
-															VerticalTextAlignment="Center" />
-													</StackLayout>-->
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" />
+														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" />
+														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+													</StackLayout>
+													<ex:LabelEx
+														Grid.Row="10"
+														Grid.Column="1"
+														Text="{converters:T ResourceId=HaveYouTraveledInA, ToUpper=True}"
+														Style="{StaticResource QuestionnaireLabel}" />
+
+
 												</ex:GridEx>
 											</ex:ScrollViewEx>
 										</ex:AccordionItemEx.Content>
