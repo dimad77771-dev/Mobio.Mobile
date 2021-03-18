@@ -30,6 +30,9 @@ namespace Mobio.Mobile.iOS
 			DBInit.Init();
 			LabelHtml.Forms.Plugin.iOS.HtmlLabelRenderer.Initialize();
 			global::Xamarin.Forms.Forms.Init();
+			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+			var ignore = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 			FormsControls.Touch.Renderers.Init();
 			LoadApplication(new App());

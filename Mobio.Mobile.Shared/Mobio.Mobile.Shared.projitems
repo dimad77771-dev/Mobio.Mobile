@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewEndItemSwipeBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewScrollToBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ImageName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\T.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TranslateConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\DebugConverter.cs" />

@@ -26,7 +26,11 @@ namespace OneBuilder.Mobile.Droid
 			DBInit.Init();
 
 			LabelHtml.Forms.Plugin.Droid.HtmlLabelRenderer.Initialize();
+			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+			FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
+			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
+			var ignore = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			LoadApplication(new App());
         }

@@ -9,6 +9,7 @@
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
 	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
@@ -124,15 +125,27 @@
 				<Setter Property="CornerRadius" Value="3" />
 			</Style>
 
-			<ControlTemplate x:Key="PatientHeaderControlTemplate" >
+			<ControlTemplate x:Key="PatientHeaderControlTemplate">
 				<ex:GridEx BindingContext="{TemplateBinding BindingContext}">
 					<ex:GridEx.ColumnDefinitions>
-						<ColumnDefinition Width="200" />
+						<ColumnDefinition Width="40" />
 						<ColumnDefinition Width="*" />
 					</ex:GridEx.ColumnDefinitions>
-					<!--<Label Grid.Column="0" Text="&#xE901;" FontSize="120" TextColor="Green" FontFamily="{StaticResource GlyphiconsFontFamily}" />-->
-					<Label Grid.Column="0" Text="&#9989;" TextColor="Green" VerticalTextAlignment="Center"  />
-					<!--<Label Grid.Column="0" Text="A" IsVisible="{Binding Path=HasError}" />-->
+					<svg:SvgCachedImage
+						Source="error.svg"
+						Grid.Column="0"
+						HorizontalOptions="Start"
+						IsVisible="{Binding Path=HasError}"
+						WidthRequest="16"
+						HeightRequest="16" />
+					<svg:SvgCachedImage
+						Source="success.svg"
+						Grid.Column="0"
+						HorizontalOptions="Start"
+						IsVisible="{Binding Path=HasError, Converter={StaticResource InverseBoolConverter}}"
+						WidthRequest="16"
+						HeightRequest="16" />					
+					
 					<Label Grid.Column="1" Text="{Binding Source={RelativeSource AncestorType={x:Type ex:AccordionItemEx}}, Path=HeaderText}" />
 				</ex:GridEx>
 
@@ -944,7 +957,7 @@
 													HeightRequest="200"
 													DisplayDate="{Binding CalendarDisplayDate}"
 													SetStyleForCell="{Binding CalendarSetStyleForCell}" />
-												
+
 												<ex:RadListViewEx
 													x:Name="ScheduleItemSlotList"
 													Grid.Row="1"
