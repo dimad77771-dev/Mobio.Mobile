@@ -29,16 +29,11 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public String PatientTabText { get; set; }
 
-
 		public Command CommitCommand => CommandFunc.CreateAsync(Commit);
 		public Command CancelCommand => CommandFunc.CreateAsync(Cancel);
 		public ICommand ItemTapCommand { get; set; }
 
-		//public Command EntryCompletedCommand => CommandFunc.CreateAsync(BusinessCodeReturn);
-
-		//public Keyboard BusinessCodeKeyboard => Keyboard.Create(KeyboardFlags.None);
-		//public Keyboard UserNameKeyboard => Keyboard.Create(KeyboardFlags.None);
-		//public Keyboard PasswordKeyboard => Keyboard.Create(KeyboardFlags.None);
+		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
 
 		public Boolean IsCommit { get; set; }
 
@@ -49,11 +44,14 @@ namespace OneBuilder.Mobile.ViewModels
 			HeaderTitle = "Register";
 			IsBackVisible = true;
 
-
 			ItemTapCommand = new Command<ItemTapCommandContext>(this.ItemTapped);
+
+			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			if (U.IsDebug)
 			{
+				PatientHeaderModels[General].HasError = true;
+
 				DdlStates = new[]
 				{
 					new State { CountryId = 1, Name = "BC", RowId = new Guid("55872198-BE90-4D5E-B607-279700DBA029") },
@@ -254,7 +252,22 @@ namespace OneBuilder.Mobile.ViewModels
 		}
 
 
+		const string General = nameof(General);
+		const string ScreenQuestionnaire = nameof(ScreenQuestionnaire);
+		const string LabConsent = nameof(LabConsent);
+		const string Appointment = nameof(Appointment);
+		string[] AllPatientTabs = { General, ScreenQuestionnaire, LabConsent, Appointment };
+
+
+
+		public class PatientHeaderModel : ViewModelBase
+		{
+			public bool HasError { get; set; }
+			public string ErrorText { get; set; } = "\u231B";
+		}
+
 
 	}
 }
+
 

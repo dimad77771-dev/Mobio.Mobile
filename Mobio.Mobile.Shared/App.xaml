@@ -55,6 +55,13 @@
 			<converters:DebugConverter x:Key="DebugConverter" />
 			<converters:TranslateConverter x:Key="T" />
 
+			<OnPlatform x:Key="GlyphiconsFontFamily" x:TypeArguments="x:String">
+				<On Platform="iOS">glyphicons-halflings-regular</On>
+				<On Platform="Android">Fonts/glyphicons-halflings-regular.ttf#telerikfontexamples</On>
+				<On Platform="UWP">/Assets/Fonts/glyphicons-halflings-regular.ttf#telerikfontexamples</On>
+			</OnPlatform>
+
+
 			<OnPlatform x:Key="IconsFontFamily" x:TypeArguments="x:String">
 				<On Platform="iOS">telerikfontexamples</On>
 				<On Platform="Android">Fonts/telerikfontexamples.ttf#telerikfontexamples</On>

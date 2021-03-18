@@ -9,6 +9,7 @@
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
@@ -122,6 +123,21 @@
 				<Setter Property="BorderColor" Value="#C6C6C6" />
 				<Setter Property="CornerRadius" Value="3" />
 			</Style>
+
+			<ControlTemplate x:Key="PatientHeaderControlTemplate" >
+				<ex:GridEx BindingContext="{TemplateBinding BindingContext}">
+					<ex:GridEx.ColumnDefinitions>
+						<ColumnDefinition Width="200" />
+						<ColumnDefinition Width="*" />
+					</ex:GridEx.ColumnDefinitions>
+					<!--<Label Grid.Column="0" Text="&#xE901;" FontSize="120" TextColor="Green" FontFamily="{StaticResource GlyphiconsFontFamily}" />-->
+					<Label Grid.Column="0" Text="&#9989;" TextColor="Green" VerticalTextAlignment="Center"  />
+					<!--<Label Grid.Column="0" Text="A" IsVisible="{Binding Path=HasError}" />-->
+					<Label Grid.Column="1" Text="{Binding Source={RelativeSource AncestorType={x:Type ex:AccordionItemEx}}, Path=HeaderText}" />
+				</ex:GridEx>
+
+			</ControlTemplate>
+
 
 
 		</ResourceDictionary>
@@ -336,7 +352,7 @@
 						</telerikPrimitives:TabViewItem.Content>
 					</telerikPrimitives:TabViewItem>
 
-					<telerikPrimitives:TabViewItem HeaderText="{Binding PatientTabText}">
+					<telerikPrimitives:TabViewItem HeaderText="{Binding PatientTabText}" IsSelected="True">
 						<telerikPrimitives:TabViewItem.Content>
 							<ex:GridEx Padding="10">
 								<ex:GridEx.RowDefinitions>
@@ -399,6 +415,11 @@
 									Spacing="2">
 
 									<ex:AccordionItemEx HeaderText="General">
+										<ex:AccordionItemEx.Header>
+											<telerikPrimitives:AccordionItemHeader>
+												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
+											</telerikPrimitives:AccordionItemHeader>
+										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<local:StackLayoutEx Padding="5">
 												<local:LabelEx
@@ -500,7 +521,12 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Questionnaire" IsExpanded="True">
+									<ex:AccordionItemEx HeaderText="Screen Questionnaire" IsExpanded="True">
+										<ex:AccordionItemEx.Header>
+											<telerikPrimitives:AccordionItemHeader>
+												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[ScreenQuestionnaire], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
+											</telerikPrimitives:AccordionItemHeader>
+										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<ex:ScrollViewEx Padding="5">
 												<ex:GridEx
@@ -544,7 +570,8 @@
 													<ex:LabelEx
 														Grid.Row="0"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=Fever, ToUpper=True}"
+														Text="{converters:T ResourceId=Fever,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -565,7 +592,8 @@
 													<ex:LabelEx
 														Grid.Row="1"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=RunnyNose, ToUpper=True}"
+														Text="{converters:T ResourceId=RunnyNose,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 
@@ -587,7 +615,8 @@
 													<ex:LabelEx
 														Grid.Row="2"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=DifficultyBreathing, ToUpper=True}"
+														Text="{converters:T ResourceId=DifficultyBreathing,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -608,7 +637,8 @@
 													<ex:LabelEx
 														Grid.Row="3"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=Cough, ToUpper=True}"
+														Text="{converters:T ResourceId=Cough,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -629,7 +659,8 @@
 													<ex:LabelEx
 														Grid.Row="4"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=LossOfTasteOrSmell, ToUpper=True}"
+														Text="{converters:T ResourceId=LossOfTasteOrSmell,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -650,7 +681,8 @@
 													<ex:LabelEx
 														Grid.Row="5"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=NauseaVomitingDiarrhea, ToUpper=True}"
+														Text="{converters:T ResourceId=NauseaVomitingDiarrhea,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -671,7 +703,8 @@
 													<ex:LabelEx
 														Grid.Row="6"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=SoreThroatOrDifficultiesSwallowing, ToUpper=True}"
+														Text="{converters:T ResourceId=SoreThroatOrDifficultiesSwallowing,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -692,7 +725,8 @@
 													<ex:LabelEx
 														Grid.Row="7"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=FeelingTiredOrUnwell, ToUpper=True}"
+														Text="{converters:T ResourceId=FeelingTiredOrUnwell,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -713,7 +747,8 @@
 													<ex:LabelEx
 														Grid.Row="8"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouBeenInClose, ToUpper=True}"
+														Text="{converters:T ResourceId=HaveYouBeenInClose,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -734,7 +769,8 @@
 													<ex:LabelEx
 														Grid.Row="9"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouReturnedFromTravel, ToUpper=True}"
+														Text="{converters:T ResourceId=HaveYouReturnedFromTravel,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 													<ex:RadBorderEx
@@ -755,7 +791,8 @@
 													<ex:LabelEx
 														Grid.Row="10"
 														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouTraveledInA, ToUpper=True}"
+														Text="{converters:T ResourceId=HaveYouTraveledInA,
+														                    ToUpper=True}"
 														Style="{StaticResource QuestionnaireLabel}" />
 
 
@@ -765,6 +802,11 @@
 									</ex:AccordionItemEx>
 
 									<ex:AccordionItemEx HeaderText="Lab Consent">
+										<ex:AccordionItemEx.Header>
+											<telerikPrimitives:AccordionItemHeader BindingContext="{Binding Path=PatientHeaderModels1, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
+												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[LabConsent], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
+											</telerikPrimitives:AccordionItemHeader>
+										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<ex:ScrollViewEx Padding="5">
 												<local:StackLayoutEx>
@@ -883,6 +925,11 @@
 									</ex:AccordionItemEx>
 
 									<ex:AccordionItemEx HeaderText="Appointment">
+										<ex:AccordionItemEx.Header>
+											<telerikPrimitives:AccordionItemHeader BindingContext="{Binding Path=PatientHeaderModels1, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
+												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
+											</telerikPrimitives:AccordionItemHeader>
+										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<ex:GridEx Padding="5" BackgroundColor="Transparent">
 												<ex:GridEx.RowDefinitions>
@@ -897,11 +944,7 @@
 													HeightRequest="200"
 													DisplayDate="{Binding CalendarDisplayDate}"
 													SetStyleForCell="{Binding CalendarSetStyleForCell}" />
-												<!--
-													AppointmentsSource="{Binding CalendarAppointments}"
-													HeightRequest="400"
-												-->
-
+												
 												<ex:RadListViewEx
 													x:Name="ScheduleItemSlotList"
 													Grid.Row="1"
@@ -948,7 +991,6 @@
 											</ex:GridEx>
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
-
 
 								</ex:RadAccordionEx>
 

@@ -27,6 +27,12 @@ namespace OneBuilder.Mobile.Views
 			RadTabView jjj;
 			TabViewHeader aaa111;
 			//aaa.Margin
+			ContentView kkk = null;
+			//kkk.
+			//kkk.ControlTemplate
+			ControlTemplate uu1;
+			DataTemplate uu2 = null;
+			//kkk.ControlTemplate = uu2;
 
 			//a.SetBinding(Label.RotationProperty, "Value");
 

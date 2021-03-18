@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>12.1</string>
 	<key>CFBundleName</key>
-	<string>OneBuilder Warehouse</string>
+	<string>OneBuilder Warehouse</string> 
 	<key>CFBundleDisplayName</key>
 	<string>Mobio Mobile</string>
 	<key>CFBundleIdentifier</key>
@@ -52,6 +52,7 @@
 	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Fonts/glyphicons-halflings-regular.ttf</string>
 		<string>Fonts/telerikfontexamples.ttf</string>
 		<string>Fonts/SF-Pro-Text-Medium.otf</string>
 		<string>Fonts/SF-Pro-Text-MediumItalic.otf</string>
