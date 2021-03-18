@@ -420,6 +420,8 @@
     <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\error.svg" />
     <BundleResource Include="Resources\success.svg" />
+    <BundleResource Include="Resources\button_add.png" />
+    <BundleResource Include="Resources\button_save.png" />
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -132,26 +132,34 @@
 						<ColumnDefinition Width="*" />
 					</ex:GridEx.ColumnDefinitions>
 					<svg:SvgCachedImage
-						Source="error.svg"
 						Grid.Column="0"
+						Source="error.svg"
 						HorizontalOptions="Start"
 						IsVisible="{Binding Path=HasError}"
 						WidthRequest="16"
 						HeightRequest="16" />
 					<svg:SvgCachedImage
-						Source="success.svg"
 						Grid.Column="0"
+						Source="success.svg"
 						HorizontalOptions="Start"
 						IsVisible="{Binding Path=HasError, Converter={StaticResource InverseBoolConverter}}"
 						WidthRequest="16"
-						HeightRequest="16" />					
-					
+						HeightRequest="16" />
+
 					<Label Grid.Column="1" Text="{Binding Source={RelativeSource AncestorType={x:Type ex:AccordionItemEx}}, Path=HeaderText}" />
 				</ex:GridEx>
 
 			</ControlTemplate>
 
-
+			<Style x:Key="PatientButtonStyle" TargetType="ex:RadButtonEx">
+				<Setter Property="Margin" Value="8,10,8,5" />
+				<Setter Property="ContentLayout" Value="left,10" />
+				<Setter Property="HeightRequest" Value="30" />
+				<Setter Property="FontSize" Value="11" />
+				<Setter Property="BorderColor" Value="#333333" />
+				<Setter Property="BorderRadius" Value="8" />
+				<Setter Property="BorderWidth" Value="1" />
+			</Style>
 
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
@@ -369,8 +377,9 @@
 						<telerikPrimitives:TabViewItem.Content>
 							<ex:GridEx Padding="10">
 								<ex:GridEx.RowDefinitions>
+									<RowDefinition Height="100" />
 									<RowDefinition Height="*" />
-									<RowDefinition Height="600" />
+									<RowDefinition Height="Auto" />
 								</ex:GridEx.RowDefinitions>
 
 								<ex:RadListViewEx
@@ -415,7 +424,6 @@
 									</ex:RadListViewEx.ItemTemplate>
 
 								</ex:RadListViewEx>
-
 
 								<ex:RadAccordionEx
 									x:Name="PatientDetails"
@@ -1006,6 +1014,31 @@
 									</ex:AccordionItemEx>
 
 								</ex:RadAccordionEx>
+
+								<ex:GridEx Grid.Row="2">
+									<ex:GridEx.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+									</ex:GridEx.ColumnDefinitions>
+									<ex:RadButtonEx
+										Grid.Column="0"
+										Text="Delete Patient"
+										BackgroundColor="#d9534f"
+										BorderColor="#d43f3a"
+										TextColor="Wheat"
+										Style="{StaticResource PatientButtonStyle}" />
+									<ex:RadButtonEx
+										Grid.Column="1"
+										Text="Add Patient"
+										Image="button_add.png"
+										Style="{StaticResource PatientButtonStyle}" />
+									<ex:RadButtonEx
+										Grid.Column="2"
+										Text="Save"
+										Image="button_save.png"
+										Style="{StaticResource PatientButtonStyle}" />
+								</ex:GridEx>
 
 							</ex:GridEx>
 
