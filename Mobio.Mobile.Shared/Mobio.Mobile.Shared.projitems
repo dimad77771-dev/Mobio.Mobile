@@ -44,6 +44,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewEndItemSwipeBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewScrollToBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ImageName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TwoStateBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ThreeStateBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\InverseBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\T.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TranslateConverter.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Globalization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LabConsent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Localizations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Order.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScreenQuiz.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Appointment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\PatientOrderItem.cs" />
@@ -90,6 +93,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\ProfileAdditionalData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Country.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserProfile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>

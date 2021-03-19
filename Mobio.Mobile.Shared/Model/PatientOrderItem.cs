@@ -1,3 +1,4 @@
+using OneBuilder.Mobile;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
 using System;
@@ -48,18 +49,26 @@ namespace OneBuilder.Model
 		public ScreenQuiz ScreenQuiz { get; set; }
 		public LabConsent LabConsent { get; set; }
 
+		public bool IsShowQRCode => !string.IsNullOrEmpty(QRCode);
+		public ImageSource QRCodeImageSource => ImageFunc.GetStreamFromBase64String(QRCode);
 
-		public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
-		public UserProfile InstitutionProfile
-		{
-			get
-			{
-				return DdlInstitutions.SingleOrDefault(q => q.RowId == InstitutionProfileRowId);
-			}
-			set
-			{
-				InstitutionProfileRowId = value?.RowId;
-			}
-		}
+		public bool IsShowTestKitPhoto => !string.IsNullOrEmpty(TestKitPhoto);
+		public ImageSource TestKitPhotoImageSource => ImageFunc.GetStreamFromBase64String(TestKitPhoto);
+
+		public bool IsShowResultPhoto => !string.IsNullOrEmpty(TestKitPhoto);
+
+
+		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
+		//public UserProfile InstitutionProfile
+		//{
+		//	get
+		//	{
+		//		return DdlInstitutions.SingleOrDefault(q => q.RowId == InstitutionProfileRowId);
+		//	}
+		//	set
+		//	{
+		//		InstitutionProfileRowId = value?.RowId;
+		//	}
+		//}
 	}
 }

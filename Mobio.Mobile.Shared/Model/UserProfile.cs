@@ -1,4 +1,5 @@
 using OneBuilder.Mobile.Constants;
+using OneBuilder.Mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace OneBuilder.Model
 {
-	public class UserProfile
+	public class UserProfile : ViewModelBase
 	{
 		public Guid RowId { get; set; }
 		public bool? IsCorporate { get; set; }
@@ -41,21 +42,23 @@ namespace OneBuilder.Model
 		public List<ProfileAdditionalData> AdditionalDatas { get; set; }
 		public DateTime? CalendarStart { get; set; }
 
+		//public string uuu => ProvinceOrStateRowId == null ? "<null>" : ProvinceOrStateRowId.ToString();
+
 
 		public string PasswordRepeat { get; set; }
 		public Xamarin.Forms.Color BorderColor { get; set; }
 
-		public State[] DdlStates { get; set; }
-		public State ProvinceOrState 
-		{ 
-			get
-			{
-				return DdlStates.SingleOrDefault(q => q.RowId == ProvinceOrStateRowId);
-			}
-			set
-			{
-				ProvinceOrStateRowId = value?.RowId;
-			}
-		}
+		//public State[] DdlStates { get; set; } = new State[0];
+		//public State ProvinceOrState 
+		//{ 
+		//	get
+		//	{
+		//		return DdlStates.SingleOrDefault(q => q.RowId == ProvinceOrStateRowId);
+		//	}
+		//	set
+		//	{
+		//		ProvinceOrStateRowId = value?.RowId;
+		//	}
+		//}
 	}
 }

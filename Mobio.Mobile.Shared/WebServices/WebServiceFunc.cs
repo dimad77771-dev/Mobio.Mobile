@@ -97,6 +97,122 @@ namespace OneBuilder.WebServices
 			public string ErrorText { get; set; }
 		}
 
+		async public static Task<Order> GetOrder(Guid id)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/home/getorder?id=" + id;
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.GetAsync(url);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return null;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var json = await response.Content.ReadAsStringAsync();
+				var result = DeserializeObjectFromWebServer<Order>(json);
+				if (result.IsError)
+				{
+					return null;
+				}
+				return result.data;
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return null;
+			}
+		}
+
+		async public static Task<UserProfile[]> GetInstitutionsForSchedule()
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/utils/getInstitutionsForSchedule";
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.GetAsync(url);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return null;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var json = await response.Content.ReadAsStringAsync();
+				var rez = DeserializeObjectFromWebServer<UserProfile[]>(json);
+				if (rez.IsError)
+				{
+					return null;
+				}
+				var rrr = rez.data ?? new UserProfile[0];
+				return rrr;
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return null;
+			}
+		}
+
+		async public static Task<State[]> GetStates(int countryId)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/utils/getstates?countryId=" + countryId;
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.GetAsync(url);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return null;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var json = await response.Content.ReadAsStringAsync();
+				var result = DeserializeObjectFromWebServer<State[]>(json);
+				if (result.IsError)
+				{
+					return null;
+				}
+				return result.data ?? new State[0];
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return null;
+			}
+		}
+
+		#region old
 		async public static Task<FindStockItemsDTO[]> FindStockItemsBySerialNumber(Guid businessRowId, string serialNumber = "", Guid? stockItemRowId = null)
 		{
 			var httpClient = new HttpClient();
@@ -407,10 +523,6 @@ namespace OneBuilder.WebServices
 				return null;
 			}
 		}
-
-
-
-
 
 		async public static Task<TimesheetMaterialRecordDTO[]> GetAllocatedSubmitMaterialRecords(Guid businessRowId)
 		{
@@ -854,7 +966,7 @@ namespace OneBuilder.WebServices
 				return null;
 			}
 		}
-
+		#endregion
 
 		async public static Task<String> PushErrorLog(PushErrorLogArgument arg)
 		{

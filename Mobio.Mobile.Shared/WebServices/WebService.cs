@@ -20,7 +20,7 @@ namespace OneBuilder.WebServices
 #if DEBUG
 		public static string BASEADR = @"http://192.168.1.81";
 		public static string BASESERVICE = BASEADR + @"/HouseNotes.WCF/TimesheetService.svc/";
-		public static string WEBBASEADR = @"http://192.168.1.81:8999";
+		public static string WEBBASEADR = @"http://192.168.1.81:50010";
 
 		//public static string BASEADR = @"https://obo.imgroup.ca";
 		//public static string BASESERVICE = BASEADR + @"/TimesheetService.svc/";
@@ -155,7 +155,6 @@ namespace OneBuilder.WebServices
 			return oret;
 		}
 
-
 		async public Task<WebGetBytesServiceRetrun> GetBytes(String url0)
 		{
 			var oret = new WebGetBytesServiceRetrun();
@@ -179,8 +178,6 @@ namespace OneBuilder.WebServices
 			return oret;
 		}
 
-
-
 		static byte[] Decompress(byte[] data)
 		{
 			using (var compressedStream = new MemoryStream(data))
@@ -198,7 +195,6 @@ namespace OneBuilder.WebServices
             content.Add("DeviceId", UserOptions.GetDeviceId().ToString());
             content.Add("Password", UserOptions.GetPassword());
 		}
-		
 
 		public static WebService Instance
 		{
@@ -207,9 +203,6 @@ namespace OneBuilder.WebServices
 				return new WebService();
 			}
 		}
-
-
-
 	}
 
 

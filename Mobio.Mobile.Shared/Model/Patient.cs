@@ -40,7 +40,7 @@ namespace OneBuilder.Model
 		public string Ip_Created { get; set; }
 		public string Ip_Modified { get; set; }
 
-		public PatientOrderItem PatientOrderItem { get; set; } = new PatientOrderItem();
+		public PatientOrderItem PatientOrderItem { get; set; }
 
 		public string FullPatientName => LastName + FirstName != "" ? LastName + ", " + FirstName : "New Record";
 		public Color TextColor { get; set; }

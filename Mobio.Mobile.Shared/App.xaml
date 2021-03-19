@@ -55,6 +55,9 @@
 			<converters:DebugConverter x:Key="DebugConverter" />
 			<converters:TranslateConverter x:Key="T" />
 			<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+			<converters:ThreeStateBoolConverter x:Key="ThreeStateBoolConverter" />
+			<converters:TwoStateBoolConverter x:Key="TwoStateBoolConverter" />
+			
 
 			<OnPlatform x:Key="GlyphiconsFontFamily" x:TypeArguments="x:String">
 				<On Platform="iOS"></On>

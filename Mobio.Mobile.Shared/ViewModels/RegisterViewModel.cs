@@ -20,12 +20,16 @@ namespace OneBuilder.Mobile.ViewModels
 {
 	public class RegisterViewModel : PageViewModel
 	{
-		public UserProfile Model { get; set; }
-		public State[] DdlStates { get; set; }  //url: "/utils/getCountries",
+		public Guid OrderRowId { get; set; }
+		public Order Order { get; set; }
+
+		public State[] DdlStates { get; set; }
 		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
-		public ObservableCollection<Patient> Patients { get; set; }
-		public Patient SelectedPatient { get; set; }
 		public ObservableCollection<UserProfile> DdlInstitutions { get; set; }
+
+		public UserProfile Model { get; set; }
+		public ObservableCollection<PatientOrderItem> PatientOrderItems { get; set; }
+		public PatientOrderItem SelectedPatientOrderItem { get; set; }
 
 		public String PatientTabText { get; set; }
 
@@ -41,155 +45,73 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			//await UnhandledExceptionProccesing.SendErrorServer();
 
+			//OrderRowId = new Guid("c1f3ef4a-cf61-4924-994a-6cc2cee8228e");
+			OrderRowId = new Guid("4CB06476-B10C-406A-98A2-7A6693A4E590");
+
 			HeaderTitle = "Register";
 			IsBackVisible = true;
-
 			ItemTapCommand = new Command<ItemTapCommandContext>(this.ItemTapped);
-
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
-			if (U.IsDebug)
+			U.RequestMainThread(async () =>
 			{
-				PatientHeaderModels[General].HasError = true;
+				//if (U.IsDebug) LoadDebug();
 
-				DdlStates = new[]
+				if (!await LoadData()) return;
+
+				if (PatientOrderItems.Any())
 				{
-					new State { CountryId = 1, Name = "BC", RowId = new Guid("55872198-BE90-4D5E-B607-279700DBA029") },
-					new State { CountryId = 1, Name = "NS", RowId = new Guid("D25C24A2-88D2-409E-A035-2B0F183C1C77") },
-					new State { CountryId = 1, Name = "NL", RowId = new Guid("ACF70332-0ED2-484B-9E72-4C23F58909FA") },
-					new State { CountryId = 1, Name = "ON", RowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C") },
-				};
-
-				DdlInstitutions = new[]
-				{
-					new UserProfile{ RowId = new Guid("1DB56EDF-C171-42A9-8C82-64A79E21C159"), CompanyName = "School 1" },
-					new UserProfile{ RowId = new Guid("C9CF120F-830C-4226-86EC-AE61AAE51B76"), CompanyName = "School 2" },
-					new UserProfile{ RowId = new Guid("4E58878C-F951-49CA-A040-510F6AB33A23"), CompanyName = "School 3" },
-				}.ToObservableCollection();
-
-				Model = new UserProfile
-				{
-					FirstName = "First",
-					LastName = "Last",
-					AddressLine1 = "AddressLine1",
-					City = "City",
-					ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C"),
-					Postcode = "Postcode",
-					Phone = "Phone",
-
-					Email = "email@mail.com",
-					Password = "12345",
-					PasswordRepeat = "12345",
-
-					BorderColor = Color.Red,
-
-					DdlStates = DdlStates,
-				};
-
-				//Model.ProvinceOrState = DdlStates[1];
-				//Task.Delay
-
-				Patients = new[]
-				{
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Piter",
-						LastName = "Pen",
-						BirthDate = new DateTime(2003,11,7),
-						Gender = "Male",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Glen",
-						LastName = "Robinson",
-						BirthDate = new DateTime(1977,8,17),
-						Gender = "Female",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Gabija",
-						LastName = "Summers",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Vincenzo",
-						LastName = "Saunders",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Kalum",
-						LastName = "Edwards",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Reggie",
-						LastName = "Neal",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Torin",
-						LastName = "Mclean",
-					},
-					new Patient
-					{
-						RowId = Guid.NewGuid(),
-						FirstName = "Paulina",
-						LastName = "Valenzuela",
-					},
-				}.ToObservableCollection();
-
-				Patients[0].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[0].RowId;
-				Patients[1].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[1].RowId;
-
-				foreach (var patient in Patients)
-				{
-					patient.RegisterViewModel = this;
-					patient.PatientOrderItem.DdlInstitutions = DdlInstitutions;
-					patient.CalendarDisplayDate = new DateTime(2021, 1, 18);
-					patient.CalendarSetStyleForCell = (q) => CalendarEvaluateCellStyle(patient, q);
+					SelectedPatientOrderItem = PatientOrderItems.First();
 				}
-
-					
-
-				//CalendarAppointments = new []
-				//{
-				//	new T.Appointment() { StartDate = CalendarDisplayDate, EndDate = CalendarDisplayDate, Title = "-", Color = Color.Green },
-				//	new T.Appointment() { StartDate = CalendarDisplayDate.AddDays(1), EndDate = CalendarDisplayDate.AddDays(1), Title = "-", Color = Color.Green },
-				//}.ToObservableCollection();
-
-
-				if (Patients.Any())
-				{
-					SelectedPatient = Patients.First();
-				}
-
 				RecalcPatients();
+			});
+
+
+		}
+
+
+		async Task<bool> LoadData()
+		{
+			UIFunc.ShowLoading();
+
+			var task1 = WebServiceFunc.GetOrder(OrderRowId);
+			var task2 = WebServiceFunc.GetInstitutionsForSchedule();
+			var task3 = WebServiceFunc.GetStates(1);
+			await Task.WhenAll(task1, task2, task3);
+			if (task1.Result == null || task2.Result == null || task3.Result == null)
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return false;
 			}
+
+			Order = task1.Result;
+			DdlInstitutions = task2.Result.OrderBy(q => q.CompanyName).ToObservableCollection();
+			DdlStates = task3.Result.OrderBy(q => q.Name).ToArray();
+
+			Model = Order.UserProfile;
+			PatientOrderItems = Order.Pois.ToObservableCollection();
+
+			UIFunc.HideLoading();
+			return true;
 		}
 
 
 
 		void ItemTapped(ItemTapCommandContext context)
 		{
-			var patient = (Patient)context.Item;
-			SelectedPatient = patient;
+			var item = (PatientOrderItem)context.Item;
+			SelectedPatientOrderItem = item;
 			RecalcPatients();
 		}
 
 		void RecalcPatients()
 		{
-			PatientTabText = "Patients (" + Patients.Count + ")";
+			PatientTabText = "Patients (" + PatientOrderItems.Count + ")";
 
-			foreach (var patient in Patients)
+			foreach (var poitem in PatientOrderItems)
 			{
-				var selected = (patient == SelectedPatient);
+				var selected = (poitem == SelectedPatientOrderItem);
+				var patient = poitem.Patient;
 				patient.BackgroundColor = selected ? Color.FromHex("#d12323") : Color.Transparent;
 				patient.TextColor = selected ? Color.FromHex("#fff") : Color.FromHex("#333");
 				patient.BorderColor = selected ? Color.FromHex("#8c8c8c") : Color.FromHex("#8c8c8c");
@@ -251,15 +173,114 @@ namespace OneBuilder.Mobile.ViewModels
 			
 		}
 
+		//void LoadDebug()
+		//{
+		//	PatientHeaderModels[General].HasError = true;
+
+		//	DdlStates = new[]
+		//	{
+		//		new State { CountryId = 1, Name = "BC", RowId = new Guid("55872198-BE90-4D5E-B607-279700DBA029") },
+		//		new State { CountryId = 1, Name = "NS", RowId = new Guid("D25C24A2-88D2-409E-A035-2B0F183C1C77") },
+		//		new State { CountryId = 1, Name = "NL", RowId = new Guid("ACF70332-0ED2-484B-9E72-4C23F58909FA") },
+		//		new State { CountryId = 1, Name = "ON", RowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C") },
+		//	};
+
+		//	DdlInstitutions = new[]
+		//	{
+		//		new UserProfile{ RowId = new Guid("1DB56EDF-C171-42A9-8C82-64A79E21C159"), CompanyName = "School 1" },
+		//		new UserProfile{ RowId = new Guid("C9CF120F-830C-4226-86EC-AE61AAE51B76"), CompanyName = "School 2" },
+		//		new UserProfile{ RowId = new Guid("4E58878C-F951-49CA-A040-510F6AB33A23"), CompanyName = "School 3" },
+		//	}.ToObservableCollection();
+
+		//	Model = new UserProfile
+		//	{
+		//		FirstName = "First",
+		//		LastName = "Last",
+		//		AddressLine1 = "AddressLine1",
+		//		City = "City",
+		//		ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C"),
+		//		Postcode = "Postcode",
+		//		Phone = "Phone",
+
+		//		Email = "email@mail.com",
+		//		Password = "12345",
+		//		PasswordRepeat = "12345",
+
+		//		BorderColor = Color.Red,
+
+		//		//DdlStates = DdlStates,
+		//	};
+
+		//	//Model.ProvinceOrState = DdlStates[1];
+		//	//Task.Delay
+
+		//	Patients = new[]
+		//	{
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Piter",
+		//			LastName = "Pen",
+		//			BirthDate = new DateTime(2003,11,7),
+		//			Gender = "Male",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Glen",
+		//			LastName = "Robinson",
+		//			BirthDate = new DateTime(1977,8,17),
+		//			Gender = "Female",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Gabija",
+		//			LastName = "Summers",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Vincenzo",
+		//			LastName = "Saunders",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Kalum",
+		//			LastName = "Edwards",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Reggie",
+		//			LastName = "Neal",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Torin",
+		//			LastName = "Mclean",
+		//		},
+		//		new Patient
+		//		{
+		//			RowId = Guid.NewGuid(),
+		//			FirstName = "Paulina",
+		//			LastName = "Valenzuela",
+		//		},
+		//	}.ToObservableCollection();
+
+		//	Patients[0].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[0].RowId;
+		//	Patients[1].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[1].RowId;
+		//}
+
 
 		const string General = nameof(General);
 		const string ScreenQuestionnaire = nameof(ScreenQuestionnaire);
 		const string LabConsent = nameof(LabConsent);
 		const string Appointment = nameof(Appointment);
-		string[] AllPatientTabs = { General, ScreenQuestionnaire, LabConsent, Appointment };
-
-
-
+		const string TestRelated = nameof(TestRelated);
+		string[] AllPatientTabs = { General, ScreenQuestionnaire, LabConsent, Appointment, TestRelated };
 		public class PatientHeaderModel : ViewModelBase
 		{
 			public bool HasError { get; set; }

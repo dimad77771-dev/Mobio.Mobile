@@ -135,6 +135,7 @@ namespace OneBuilder.Mobile
 		public static String StandartErrorUpdateText => "Error during update. Try later";
 		public static String StandartErrorRetrieveText => "Error during retrieve data. Try later";
 		public static String StandartUpdatingText => "Submitting...";
+		public static String StandartLoadingText => "Loading...";
 		public static String InternalError => "Internal Error. Try later";
 
 
