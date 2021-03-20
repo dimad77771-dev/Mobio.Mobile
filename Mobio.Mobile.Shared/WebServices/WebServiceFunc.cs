@@ -100,7 +100,7 @@ namespace OneBuilder.WebServices
 		async public static Task<Order> GetOrder(Guid id)
 		{
 			var httpClient = new HttpClient();
-			var url = WebService.WEBBASEADR + @"/home/getorder?id=" + id;
+			var url = WebService.WEBBASEADR + @"/account/getorder?id=" + id;
 
 			HttpResponseMessage response = null;
 			try

@@ -1,6 +1,5 @@
 ﻿using OneBuilder.Model;
 using OneBuilder.WebServices;
-using PropertyChanged;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -14,8 +13,8 @@ using OneBuilder.Mobile.Views;
 using System.Windows.Input;
 using Telerik.XamarinForms.DataControls.ListView.Commands;
 using T = Telerik.XamarinForms.Input;
-using Telerik.XamarinForms.Input;
 using OneBuilder.Mobile.Behaviors;
+
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -34,13 +33,18 @@ namespace OneBuilder.Mobile.ViewModels
 		public PatientOrderItem SelectedPatientOrderItem { get; set; }
 
 		public RadCalendarOperationBehaviorManager CalendarManager { get; set; } = new RadCalendarOperationBehaviorManager();
-		public Boolean IsShowCalendar => SelectedPatientOrderItem?.InstitutionProfileRowId != null;
+		public Boolean IsShowCalendar { get; set; }
+		public ObservableCollection<ScheduleItemSlot> CurrentScheduleItemSlots { get; set; }
 
 		public String PatientTabText { get; set; }
+		public Boolean IsShowTestRelatedTab { get; set; }
 
-		public Command CommitCommand => CommandFunc.CreateAsync(Commit);
-		public Command CancelCommand => CommandFunc.CreateAsync(Cancel);
-		public ICommand ItemTapCommand { get; set; }
+		public Command PatientAddCommand { get; set; }
+		public Command PatientDeleteCommand { get; set; }
+		public Command CommitCommand { get; set; }
+		public Command CancelCommand { get; set; }
+		public Command PatientItemTapCommand { get; set; }
+		public Command ScheduleItemSlotTapCommand { get; set; }
 
 		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
 
@@ -55,8 +59,19 @@ namespace OneBuilder.Mobile.ViewModels
 
 			HeaderTitle = "Register";
 			IsBackVisible = true;
-			ItemTapCommand = new Command<ItemTapCommandContext>(this.ItemTapped);
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
+
+			
+			PatientAddCommand = CommandFunc.CreateAsync(PatientAdd);
+			PatientDeleteCommand = CommandFunc.CreateAsync(PatientDelete, () => SelectedPatientOrderItem != null);
+			CommitCommand = CommandFunc.CreateAsync(Commit);
+			CancelCommand = CommandFunc.CreateAsync(Cancel);
+			PatientItemTapCommand = new Command<ItemTapCommandContext>(PatientItemTap);
+			ScheduleItemSlotTapCommand = new Command<ItemTapCommandContext>(ScheduleItemSlotTap);
+
+
+
+			//this.PropertyChanged += PropertyChangedAction;
 
 			U.RequestMainThread(async () =>
 			{
@@ -64,16 +79,16 @@ namespace OneBuilder.Mobile.ViewModels
 
 				if (!await LoadData()) return;
 
-				if (PatientOrderItems.Any())
-				{
-					SelectedPatientOrderItem = PatientOrderItems.First();
-				}
-				CalcPatients();
+				CalendarManager.Control.SelectionChanged += (s, e) => CalcCurrentScheduleItemSlots();
+				SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
+				CalcAll();
 			});
-
-
 		}
 
+		//private void PropertyChangedAction(object sender, PropertyChangedEventArgs e)
+		//{
+		//	if (e.PropertyName == nameof())
+		//}
 
 		async Task<bool> LoadData()
 		{
@@ -109,24 +124,58 @@ namespace OneBuilder.Mobile.ViewModels
 
 			Model = Order.UserProfile;
 			PatientOrderItems = Order.Pois.ToObservableCollection();
+			SetupPatientOrderItems(PatientOrderItems);
 
 			UIFunc.HideLoading();
 			return true;
 		}
 
 
-
-		void ItemTapped(ItemTapCommandContext context)
+		void PatientItemTap(ItemTapCommandContext context)
 		{
 			var item = (PatientOrderItem)context.Item;
+			SetSelectedPatientOrderItem(item);
+		}
+
+		void ScheduleItemSlotTap(ItemTapCommandContext context)
+		{
+			var item = (ScheduleItemSlot)context.Item;
+			SetSelectedPatientOrderItem(item);
+		}
+
+
+		
+
+		void SetSelectedPatientOrderItem(PatientOrderItem item)
+		{
 			SelectedPatientOrderItem = item;
 			CalcAll();
+		}
+
+		void SetupPatientOrderItems(IEnumerable<PatientOrderItem> items)
+		{
+			items.ForEach(q => q.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q,e));
+		}
+
+		void OnPatientOrderItemChanged(PatientOrderItem pitem, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == nameof(pitem.InstitutionProfileRowId))
+			{
+				CalcAppointment();
+			}
 		}
 
 		void CalcAll()
 		{
 			CalcPatients();
 			CalcAppointment();
+			CalcVisible();
+			this.ChangeAllCanExecute();
+		}
+
+		void CalcVisible()
+		{
+			IsShowTestRelatedTab = SelectedPatientOrderItem?.PatientOrderItemStatusRowId == new Guid("e9eed1aa-d220-4415-b4af-d7b27baef450");
 		}
 
 		void CalcPatients()
@@ -145,25 +194,75 @@ namespace OneBuilder.Mobile.ViewModels
 
 		void CalcAppointment()
 		{
+			var institutionProfileRowId = SelectedPatientOrderItem?.InstitutionProfileRowId;
+			IsShowCalendar = (institutionProfileRowId != null);
+			if (!IsShowCalendar)
+			{
+				return;
+			}
 
+			var calendar = CalendarManager.Control;
+			calendar.SetStyleForCell = null;
+			calendar.SetStyleForCell = CalendarEvaluateCellStyle;
+
+			var selectedDate = (GetCurrentScheduleItemSlot()?.Start)?.Date;
+			calendar.SelectedDate = selectedDate;
+
+			CalcCurrentScheduleItemSlots();
 		}
 
-		CalendarCellStyle CalendarEvaluateCellStyle(CalendarCell cell)
+		void CalcCurrentScheduleItemSlots()
 		{
-			if (cell is CalendarDayCell)
+			var calendar = CalendarManager.Control;
+			var selectedDate = calendar.SelectedDate;
+			var allScheduleItemSlots = GetCurrentScheduleItemSlots();
+			CurrentScheduleItemSlots = allScheduleItemSlots.Where(q => q.Start.Date == selectedDate).ToObservableCollection();
+		}
+
+		ScheduleItemSlot GetCurrentScheduleItemSlot()
+		{
+			var scheduleItemSlots = GetCurrentScheduleItemSlots();
+			var scheduleItemSlotRowId = SelectedPatientOrderItem?.Appointment?.ScheduleItemSlotRowId;
+			var scheduleItemSlot = scheduleItemSlots.FirstOrDefault(q => q.RowId == scheduleItemSlotRowId);
+			return scheduleItemSlot;
+		}
+
+
+		T.CalendarCellStyle CalendarEvaluateCellStyle(T.CalendarCell cell)
+		{
+			if (cell is T.CalendarDayCell)
 			{
-				var dcell = (CalendarDayCell)cell;
-				if ( new[] { 1, 4, 12, 25, 26 }.Contains(dcell.Date.Day))
+				if (IsShowCalendar)
 				{
-					return new CalendarCellStyle
+					var dcell = (T.CalendarDayCell)cell;
+					var scheduleItemSlots = GetCurrentScheduleItemSlots();
+					var allDates = scheduleItemSlots.Select(q => q.Start.Date).Distinct().ToArray();
+					if (allDates.Contains(dcell.Date))
 					{
-						BackgroundColor = Color.FromHex("#00FF00"),
-						BorderColor = Color.Green,
-					};
+						return new T.CalendarCellStyle
+						{
+							BackgroundColor = Color.FromHex("#00FF00"),
+							BorderColor = Color.Green,
+						};
+					}
 				}
 			}
 
 			return null; // default style
+		}
+
+		ScheduleItemSlot[] GetCurrentScheduleItemSlots()
+		{
+			var institutionProfileRowId = GetCurrentInstitutionRowId();
+			var scheduleItemSlots = new ScheduleItemSlot[0];
+			AllBookingSlots.TryGetValue(institutionProfileRowId, out scheduleItemSlots);
+			return scheduleItemSlots;
+		}
+
+		Guid GetCurrentInstitutionRowId()
+		{
+			var institutionProfileRowId = SelectedPatientOrderItem?.InstitutionProfileRowId ?? default(Guid);
+			return institutionProfileRowId;
 		}
 
 		public override async Task OnAppearingEx(ContentPageEx view)
@@ -183,6 +282,57 @@ namespace OneBuilder.Mobile.ViewModels
 			//var homeViewModel = new SerialViewModel();
 			//await NavFunc.NavigateToAsync(homeViewModel);
 		}
+
+		public async Task PatientAdd()
+		{
+			var patient = new Patient
+			{
+				RowId = Guid.NewGuid(),
+				FirstName = "",
+				LastName = "",
+			};
+			var appointment = new Appointment
+			{
+				RowId = Guid.NewGuid(),
+			};
+			var screenQuiz = new ScreenQuiz
+			{
+				RowId = Guid.NewGuid(),
+			};
+			var labConsent = new LabConsent
+			{
+				RowId = Guid.NewGuid(),
+			};
+
+			var patientOrderItem = new PatientOrderItem
+			{
+				RowId = Guid.NewGuid(),
+				IsNewRow = true,
+				Patient = patient,
+				Appointment = appointment,
+				ScreenQuiz = screenQuiz,
+				LabConsent = labConsent,
+			};
+
+			PatientOrderItems.Add(patientOrderItem);
+			SelectedPatientOrderItem = patientOrderItem;
+			CalcAll();
+		}
+
+		public async Task PatientDelete()
+		{
+			if (SelectedPatientOrderItem == null) return;
+			if (!await UIFunc.ConfirmAsync($"Delete row \"{SelectedPatientOrderItem.Patient.FullPatientName}\"?"))
+			{
+				return;
+			}
+
+			PatientOrderItems.Remove(SelectedPatientOrderItem);
+			SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
+			CalcAll();
+		}
+
+
 
 		public override async Task<bool> BeforePageClose()
 		{

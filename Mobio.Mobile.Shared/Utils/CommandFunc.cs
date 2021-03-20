@@ -1,5 +1,6 @@
 using OneBuilder.Mobile;
 using OneBuilder.Mobile.Services;
+using OneBuilder.Mobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,14 @@ namespace OneBuilder.Mobile
 			var commands = props.Select(q => (Command)q.GetValue(viewmodel)).ToArray();
 			commands.ForEach(q => q.ChangeCanExecute());
 		}
+
+		public static void ChangeAllCanExecute(this PageViewModel viewmodel)
+		{
+			var props = viewmodel.GetType().GetProperties().Where(q => q.PropertyType.Equals(typeof(Command))).ToArray();
+			var commands = props.Select(q => (Command)q.GetValue(viewmodel)).ToArray();
+			commands.ForEach(q => q.ChangeCanExecute());
+		}
+
 
 	}
 }

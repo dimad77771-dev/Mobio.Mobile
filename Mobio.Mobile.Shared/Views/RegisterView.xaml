@@ -399,7 +399,7 @@
 									</ex:RadListViewEx.LayoutDefinition>
 
 									<ex:RadListViewEx.Commands>
-										<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
+										<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding PatientItemTapCommand}" />
 									</ex:RadListViewEx.Commands>
 
 									<ex:RadListViewEx.ItemTemplate>
@@ -410,6 +410,7 @@
 														<telerikPrimitives:RadBorder
 															Margin="2"
 															Padding="2"
+															HeightRequest="30"
 															BackgroundColor="{Binding Patient.BackgroundColor}"
 															BorderColor="{Binding Patient.BorderColor}"
 															CornerRadius="2">
@@ -978,8 +979,10 @@
 													x:Name="ScheduleItemSlotList"
 													Grid.Row="1"
 													Margin="0,5,0,0"
-													IsVisible="{Binding IsShowCalendar, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
-													ItemsSource="{Binding ScheduleItemSlots}"
+													HeightRequest="200"
+													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"													
+													IsVisible="{Binding IsShowCalendar}"
+													ItemsSource="{Binding CurrentScheduleItemSlots}"
 													SelectionMode="None">
 													<ex:RadListViewEx.LayoutDefinition>
 														<telerikListView:ListViewGridLayout
@@ -989,7 +992,7 @@
 													</ex:RadListViewEx.LayoutDefinition>
 
 													<ex:RadListViewEx.Commands>
-														<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
+														<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ScheduleItemSlotTapCommand}" />
 													</ex:RadListViewEx.Commands>
 
 													<ex:RadListViewEx.ItemTemplate>
@@ -1022,7 +1025,7 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" >
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -1274,16 +1277,19 @@
 										BackgroundColor="#d9534f"
 										BorderColor="#d43f3a"
 										TextColor="Wheat"
+										Command="{Binding PatientDeleteCommand}"
 										Style="{StaticResource PatientButtonStyle}" />
 									<ex:RadButtonEx
 										Grid.Column="1"
 										Text="{converters:T ResourceId=AddPatient}"
 										Image="button_add.png"
+										Command="{Binding PatientAddCommand}"
 										Style="{StaticResource PatientButtonStyle}" />
 									<ex:RadButtonEx
 										Grid.Column="2"
 										Text="{converters:T ResourceId=Save}"
 										Image="button_save.png"
+										Command="{Binding CommitCommand}"
 										Style="{StaticResource PatientButtonStyle}" />
 								</ex:GridEx>
 

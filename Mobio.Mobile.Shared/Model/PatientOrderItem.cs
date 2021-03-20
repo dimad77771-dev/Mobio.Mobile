@@ -60,6 +60,9 @@ namespace OneBuilder.Model
 
 		public string _ResultInterpretation => string.IsNullOrEmpty(ResultInterpretation) ? " " : ResultInterpretation;
 
+
+		public bool IsNewRow { get; set; } = false;
+
 		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
 		//public UserProfile InstitutionProfile
 		//{
