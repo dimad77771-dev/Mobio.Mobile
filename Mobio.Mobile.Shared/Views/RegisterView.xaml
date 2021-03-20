@@ -182,7 +182,7 @@
 				SelectedItem="{Binding SelectedTab, Mode=OneWayToSource}">
 
 				<ex:RadTabViewEx.Items>
-					<telerikPrimitives:TabViewItem HeaderText="Profile">
+					<telerikPrimitives:TabViewItem HeaderText="{converters:T ResourceId=Profile}">
 						<telerikPrimitives:TabViewItem.Content>
 							<local:ScrollViewEx>
 								<local:StackLayoutEx Padding="10">
@@ -195,14 +195,14 @@
 										<local:LabelEx
 											HorizontalTextAlignment="Start"
 											Style="{StaticResource HeaderCellLabelStyle}"
-											Text="Profile Details" />
+											Text="{converters:T ResourceId=ProfileDetails}" />
 									</telerikPrimitives:RadBorder>
 
 
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="First Name" />
+										Text="{converters:T ResourceId=FirstName}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -210,7 +210,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.FirstName}"
-											WatermarkText="Enter First Name"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -218,7 +217,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Last Name" />
+										Text="{converters:T ResourceId=LastName}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -226,7 +225,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.LastName}"
-											WatermarkText="Enter Last Name"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -234,7 +232,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Address" />
+										Text="{converters:T ResourceId=Address}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -242,7 +240,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.AddressLine1}"
-											WatermarkText="Enter Address"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -250,7 +247,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="City" />
+										Text="{converters:T ResourceId=City}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -258,7 +255,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.City}"
-											WatermarkText="Enter City"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -267,7 +263,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Province" />
+										Text="{converters:T ResourceId=Province}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -288,7 +284,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Postcode" />
+										Text="{converters:T ResourceId=Postcode}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -296,7 +292,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.Postcode}"
-											WatermarkText="Enter Postcode"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -304,7 +299,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Phone" />
+										Text="{converters:T ResourceId=Phone}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -312,7 +307,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.Phone}"
-											WatermarkText="Enter Phone"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -329,13 +323,13 @@
 										<local:LabelEx
 											HorizontalTextAlignment="Start"
 											Style="{StaticResource HeaderCellLabelStyle}"
-											Text="Login Details" />
+											Text="{converters:T ResourceId=LoginDetails}" />
 									</telerikPrimitives:RadBorder>
 
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="E-mail" />
+										Text="{converters:T ResourceId=Email}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -343,7 +337,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.Email}"
-											WatermarkText="Enter E-mail"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
@@ -351,7 +344,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Password" />
+										Text="{converters:T ResourceId=Password}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -359,7 +352,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.Password}"
-											WatermarkText="Enter Password"
 											IsPassword="True"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
@@ -368,7 +360,7 @@
 									<local:LabelEx
 										HorizontalTextAlignment="Start"
 										Style="{StaticResource MainCellLabelStyle}"
-										Text="Repeat password" />
+										Text="{converters:T ResourceId=RepeatPassword}" />
 									<telerikPrimitives:RadBorder
 										Margin="2,2,2,5"
 										HeightRequest="{StaticResource HHH}"
@@ -376,7 +368,6 @@
 										CornerRadius="3">
 										<ex:RadEntryEx
 											Text="{Binding Model.PasswordRepeat}"
-											WatermarkText="Repeat password"
 											IsPassword="True"
 											CompletedCommand="{Binding EntryCompletedCommand}"
 											BorderStyle="{StaticResource EntryBorderStyle}" />
@@ -447,7 +438,7 @@
 									AnimationEasing="SpringOut"
 									Spacing="2">
 
-									<ex:AccordionItemEx HeaderText="General">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -458,7 +449,7 @@
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="Institution" />
+													Text="{converters:T ResourceId=Institution}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
@@ -479,37 +470,31 @@
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="First Name" />
+													Text="{converters:T ResourceId=FirstName}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
 													BorderColor="#4488F6"
 													CornerRadius="3">
-													<ex:RadEntryEx
-														Text="{Binding Patient.FirstName}"
-														WatermarkText="Enter First Name"
-														BorderStyle="{StaticResource EntryBorderStyle}" />
+													<ex:RadEntryEx Text="{Binding Patient.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 												</telerikPrimitives:RadBorder>
 
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="Last Name" />
+													Text="{converters:T ResourceId=LastName}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
 													BorderColor="#4488F6"
 													CornerRadius="3">
-													<ex:RadEntryEx
-														Text="{Binding Patient.LastName}"
-														WatermarkText="Enter Last Name"
-														BorderStyle="{StaticResource EntryBorderStyle}" />
+													<ex:RadEntryEx Text="{Binding Patient.LastName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 												</telerikPrimitives:RadBorder>
 
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="Birth Date" />
+													Text="{converters:T ResourceId=BirthDate}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
@@ -525,7 +510,7 @@
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="Gender" />
+													Text="{converters:T ResourceId=Gender}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
@@ -543,22 +528,19 @@
 												<local:LabelEx
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
-													Text="Healthcare Card #" />
+													Text="{converters:T ResourceId=HealthcareCard}" />
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
 													BorderColor="#4488F6"
 													CornerRadius="3">
-													<ex:RadEntryEx
-														Text="{Binding Patient.HealthCareCardNumber}"
-														WatermarkText="Enter Healthcare Card #"
-														BorderStyle="{StaticResource EntryBorderStyle}" />
+													<ex:RadEntryEx Text="{Binding Patient.HealthCareCardNumber}" BorderStyle="{StaticResource EntryBorderStyle}" />
 												</telerikPrimitives:RadBorder>
 											</local:StackLayoutEx>
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Screen Questionnaire">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=ScreenQuestionnaire}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[ScreenQuestionnaire], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -599,9 +581,9 @@
 														Grid.Row="0"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.Fever, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.FeverYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.Fever, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.FeverNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -621,9 +603,9 @@
 														Grid.Row="1"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoise, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoise, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -644,9 +626,9 @@
 														Grid.Row="2"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathing, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathing, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -666,9 +648,9 @@
 														Grid.Row="3"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.Cough, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.CoughYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.Cough, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.CoughNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -688,9 +670,9 @@
 														Grid.Row="4"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTaste, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTaste, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -710,9 +692,9 @@
 														Grid.Row="5"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.Nausea, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.Nausea, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -732,9 +714,9 @@
 														Grid.Row="6"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroat, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroat, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -754,9 +736,9 @@
 														Grid.Row="7"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.Tired, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TiredYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.Tired, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TiredNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -776,9 +758,9 @@
 														Grid.Row="8"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovid, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovid, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -798,9 +780,9 @@
 														Grid.Row="9"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturn, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturn, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -820,9 +802,9 @@
 														Grid.Row="10"
 														Grid.Column="0"
 														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressured, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='+'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredYes}" />
 														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressured, Converter={StaticResource ThreeStateBoolConverter}, ConverterParameter='-'}" />
+														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredNo}" />
 														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
 													</StackLayout>
 													<ex:LabelEx
@@ -833,12 +815,14 @@
 														Style="{StaticResource QuestionnaireLabel}" />
 
 
+
+
 												</ex:GridEx>
 											</ex:ScrollViewEx>
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Lab Consent">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=LabConsent}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[LabConsent], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -961,7 +945,7 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Appointment">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=Appointment}" IsExpanded="True">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -975,17 +959,26 @@
 													<RowDefinition Height="Auto" />
 												</ex:GridEx.RowDefinitions>
 
-												<ex:RadCalendarEx
-													x:Name="rrrr"
+												<ex:LabelEx
 													Grid.Row="0"
+													IsVisible="{Binding !IsShowCalendar}"
+													Text="{converters:T ResourceId=InstitutionNotYetSelected}" />
+
+												<ex:RadCalendarEx
+													Grid.Row="0"
+													IsVisible="{Binding IsShowCalendar}"
 													HeightRequest="200"
-													DisplayDate="{Binding CalendarDisplayDate}"
-													SetStyleForCell="{Binding CalendarSetStyleForCell}" />
+													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
+													<ex:RadCalendarEx.Behaviors>
+														<behaviors:RadCalendarOperationBehavior Manager="{Binding CalendarManager, Mode=TwoWay}" />
+													</ex:RadCalendarEx.Behaviors>
+												</ex:RadCalendarEx>
 
 												<ex:RadListViewEx
 													x:Name="ScheduleItemSlotList"
 													Grid.Row="1"
 													Margin="0,5,0,0"
+													IsVisible="{Binding IsShowCalendar, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
 													ItemsSource="{Binding ScheduleItemSlots}"
 													SelectionMode="None">
 													<ex:RadListViewEx.LayoutDefinition>
@@ -1029,7 +1022,7 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="Test Related" IsExpanded="True">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -1046,7 +1039,7 @@
 													<telerikPrimitives:RadBorder
 														Margin="2,2,2,5"
 														HeightRequest="{StaticResource HHH}"
-														BorderColor="#4488F6"
+														BorderColor="#CCC"
 														CornerRadius="3">
 														<ex:RadEntryEx
 															Text="{Binding TestKitId}"
@@ -1061,7 +1054,7 @@
 													<telerikPrimitives:RadBorder
 														Margin="2,2,2,5"
 														HeightRequest="{StaticResource HHH}"
-														BorderColor="#4488F6"
+														BorderColor="#CCC"
 														CornerRadius="3">
 														<ex:RadEntryEx
 															Text="{Binding TestKitType}"
@@ -1076,7 +1069,7 @@
 													<telerikPrimitives:RadBorder
 														Margin="2,2,2,5"
 														HeightRequest="{StaticResource HHH}"
-														BorderColor="#4488F6"
+														BorderColor="#CCC"
 														CornerRadius="3">
 														<ex:RadEntryEx
 															Text="{Binding TestKitUsedDate, StringFormat='{0:MM/dd/yyyy}'}"
@@ -1111,18 +1104,154 @@
 
 													<local:LabelEx
 														Margin="0,20,0,0"
-														IsVisible="{Binding IsShowTestResultsImage}"
+														IsVisible="{Binding IsShowResultPhoto}"
 														HorizontalTextAlignment="Center"
 														Style="{StaticResource MainCellLabelStyle}"
-														Text="{converters:T ResourceId=TestKitImage}" />
+														Text="{converters:T ResourceId=TestResultsImage}" />
 													<Image
-														IsVisible="{Binding IsShowTestKitPhoto}"
-														Source="{Binding TestKitPhotoImageSource}"
+														IsVisible="{Binding IsShowResultPhoto}"
+														Source="{Binding ResultPhotoImageSource}"
 														HeightRequest="300"
 														WidthRequest="300" />
 
+													<ex:GridEx ColumnSpacing="20">
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="Auto" />
+															<ColumnDefinition Width="*" />
+														</Grid.ColumnDefinitions>
+														<Grid.RowDefinitions>
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+														</Grid.RowDefinitions>
+
+														<local:LabelEx
+															Grid.Row="0"
+															Grid.Column="0"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=PreliminaryPositive}" />
+														<ex:RadCheckBoxEx
+															Grid.Row="1"
+															Grid.Column="0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															VerticalOptions="Start"
+															IsEnabled="False"
+															IsChecked="{Binding IsResult1Positive, Converter={StaticResource TwoStateBoolConverter}}" />
+
+														<local:LabelEx
+															Grid.Row="0"
+															Grid.Column="1"
+															Margin="2,2,0,0"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=Result}" />
+														<telerikPrimitives:RadBorder
+															Grid.Row="1"
+															Grid.Column="1"
+															Margin="2,2,5,5"
+															HeightRequest="{StaticResource HHH}"
+															BorderColor="#CCC"
+															CornerRadius="3">
+															<ex:RadEntryEx
+																Text="{Binding Result1Value}"
+																BorderStyle="{StaticResource EntryBorderStyle}"
+																IsEnabled="False" />
+														</telerikPrimitives:RadBorder>
 
 
+														<local:LabelEx
+															Grid.Row="2"
+															Grid.Column="0"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=Negative}" />
+														<ex:RadCheckBoxEx
+															Grid.Row="3"
+															Grid.Column="0"
+															Margin="2,2,0,0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															VerticalOptions="Start"
+															IsEnabled="False"
+															IsChecked="{Binding IsResult2Positive, Converter={StaticResource TwoStateBoolConverter}}" />
+
+														<local:LabelEx
+															Grid.Row="2"
+															Grid.Column="1"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=Result}" />
+														<telerikPrimitives:RadBorder
+															Grid.Row="3"
+															Grid.Column="1"
+															Margin="2,2,5,5"
+															HeightRequest="{StaticResource HHH}"
+															BorderColor="#CCC"
+															CornerRadius="3">
+															<ex:RadEntryEx
+																Text="{Binding Result2Value}"
+																BorderStyle="{StaticResource EntryBorderStyle}"
+																IsEnabled="False" />
+														</telerikPrimitives:RadBorder>
+
+
+														<local:LabelEx
+															Grid.Row="4"
+															Grid.Column="0"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=Invalid}" />
+														<ex:RadCheckBoxEx
+															Grid.Row="5"
+															Grid.Column="0"
+															Margin="2,2,0,0"
+															Style="{StaticResource IAuthorizeCheckBox}"
+															VerticalOptions="Start"
+															IsEnabled="False"
+															IsChecked="{Binding IsResult3Positive, Converter={StaticResource TwoStateBoolConverter}}" />
+
+														<local:LabelEx
+															Grid.Row="4"
+															Grid.Column="1"
+															HorizontalTextAlignment="Start"
+															Style="{StaticResource MainCellLabelStyle}"
+															Text="{converters:T ResourceId=Result}" />
+														<telerikPrimitives:RadBorder
+															Grid.Row="5"
+															Grid.Column="1"
+															Margin="2,2,5,5"
+															HeightRequest="{StaticResource HHH}"
+															BorderColor="#CCC"
+															CornerRadius="3">
+															<ex:RadEntryEx
+																Text="{Binding Result3Value}"
+																BorderStyle="{StaticResource EntryBorderStyle}"
+																IsEnabled="False" />
+														</telerikPrimitives:RadBorder>
+
+
+													</ex:GridEx>
+
+													<local:LabelEx
+														HorizontalTextAlignment="Start"
+														Style="{StaticResource MainCellLabelStyle}"
+														Text="{converters:T ResourceId=ResultInterpretation}" />
+													<telerikPrimitives:RadBorder
+														Margin="2,2,5,5"
+														Padding="5,2"
+														BorderColor="#CCC"
+														CornerRadius="3">
+														<ex:LabelEx Text="{Binding _ResultInterpretation}" LineBreakMode="WordWrap" />
+													</telerikPrimitives:RadBorder>
 
 
 
@@ -1141,19 +1270,19 @@
 									</ex:GridEx.ColumnDefinitions>
 									<ex:RadButtonEx
 										Grid.Column="0"
-										Text="Delete Patient"
+										Text="{converters:T ResourceId=Delete}"
 										BackgroundColor="#d9534f"
 										BorderColor="#d43f3a"
 										TextColor="Wheat"
 										Style="{StaticResource PatientButtonStyle}" />
 									<ex:RadButtonEx
 										Grid.Column="1"
-										Text="Add Patient"
+										Text="{converters:T ResourceId=AddPatient}"
 										Image="button_add.png"
 										Style="{StaticResource PatientButtonStyle}" />
 									<ex:RadButtonEx
 										Grid.Column="2"
-										Text="Save"
+										Text="{converters:T ResourceId=Save}"
 										Image="button_save.png"
 										Style="{StaticResource PatientButtonStyle}" />
 								</ex:GridEx>

@@ -17,6 +17,9 @@ namespace OneBuilder.Mobile.Views
 		{
 			InitializeComponent();
 
+			//var g = calendar;
+			//var kkk2 = this.BindingContext;
+
 			Telerik.XamarinForms.Input.RadEntry a = null;
 			Telerik.XamarinForms.Input.BorderStyle b;
 			Button ff;

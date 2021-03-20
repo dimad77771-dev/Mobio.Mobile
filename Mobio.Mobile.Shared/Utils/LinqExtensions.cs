@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace OneBuilder.Mobile
+namespace System.Linq
 {
 	public static class LinqExtensions
 	{

@@ -55,8 +55,10 @@ namespace OneBuilder.Model
 		public bool IsShowTestKitPhoto => !string.IsNullOrEmpty(TestKitPhoto);
 		public ImageSource TestKitPhotoImageSource => ImageFunc.GetStreamFromBase64String(TestKitPhoto);
 
-		public bool IsShowResultPhoto => !string.IsNullOrEmpty(TestKitPhoto);
+		public bool IsShowResultPhoto => !string.IsNullOrEmpty(ResultPhoto);
+		public ImageSource ResultPhotoImageSource => ImageFunc.GetStreamFromBase64String(ResultPhoto);
 
+		public string _ResultInterpretation => string.IsNullOrEmpty(ResultInterpretation) ? " " : ResultInterpretation;
 
 		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
 		//public UserProfile InstitutionProfile

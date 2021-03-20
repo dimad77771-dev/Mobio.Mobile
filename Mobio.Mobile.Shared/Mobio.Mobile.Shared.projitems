@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\AnimationBlinkingBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListPickerOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\EditorExOperationBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadCalendarOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadTabViewOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadPdfViewerOperationBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviors\RadListViewOperationBehavior.cs" />

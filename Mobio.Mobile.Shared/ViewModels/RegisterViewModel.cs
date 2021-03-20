@@ -15,6 +15,7 @@ using System.Windows.Input;
 using Telerik.XamarinForms.DataControls.ListView.Commands;
 using T = Telerik.XamarinForms.Input;
 using Telerik.XamarinForms.Input;
+using OneBuilder.Mobile.Behaviors;
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -26,10 +27,14 @@ namespace OneBuilder.Mobile.ViewModels
 		public State[] DdlStates { get; set; }
 		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
 		public ObservableCollection<UserProfile> DdlInstitutions { get; set; }
+		public Dictionary<Guid, ScheduleItemSlot[]> AllBookingSlots { get; set; } = new Dictionary<Guid, ScheduleItemSlot[]>();
 
 		public UserProfile Model { get; set; }
 		public ObservableCollection<PatientOrderItem> PatientOrderItems { get; set; }
 		public PatientOrderItem SelectedPatientOrderItem { get; set; }
+
+		public RadCalendarOperationBehaviorManager CalendarManager { get; set; } = new RadCalendarOperationBehaviorManager();
+		public Boolean IsShowCalendar => SelectedPatientOrderItem?.InstitutionProfileRowId != null;
 
 		public String PatientTabText { get; set; }
 
@@ -63,7 +68,7 @@ namespace OneBuilder.Mobile.ViewModels
 				{
 					SelectedPatientOrderItem = PatientOrderItems.First();
 				}
-				RecalcPatients();
+				CalcPatients();
 			});
 
 
@@ -88,6 +93,20 @@ namespace OneBuilder.Mobile.ViewModels
 			DdlInstitutions = task2.Result.OrderBy(q => q.CompanyName).ToObservableCollection();
 			DdlStates = task3.Result.OrderBy(q => q.Name).ToArray();
 
+			var institutionRowIds = DdlInstitutions.Select(q => q.RowId).ToArray();
+			var slotTasks = institutionRowIds.Select(q => WebServiceFunc.GetBookingSlots(q)).ToArray();
+			await Task.WhenAll(slotTasks);
+			if (slotTasks.Any(q => q.Result == null))
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return false;
+			}
+			for(int i = 0; i < institutionRowIds.Length; i++)
+			{
+				AllBookingSlots.Add(institutionRowIds[i], slotTasks[i].Result);
+			}
+			
+
 			Model = Order.UserProfile;
 			PatientOrderItems = Order.Pois.ToObservableCollection();
 
@@ -101,12 +120,18 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			var item = (PatientOrderItem)context.Item;
 			SelectedPatientOrderItem = item;
-			RecalcPatients();
+			CalcAll();
 		}
 
-		void RecalcPatients()
+		void CalcAll()
 		{
-			PatientTabText = "Patients (" + PatientOrderItems.Count + ")";
+			CalcPatients();
+			CalcAppointment();
+		}
+
+		void CalcPatients()
+		{
+			PatientTabText = Globalization.T("Patients") + " (" + PatientOrderItems.Count + ")";
 
 			foreach (var poitem in PatientOrderItems)
 			{
@@ -115,23 +140,20 @@ namespace OneBuilder.Mobile.ViewModels
 				patient.BackgroundColor = selected ? Color.FromHex("#d12323") : Color.Transparent;
 				patient.TextColor = selected ? Color.FromHex("#fff") : Color.FromHex("#333");
 				patient.BorderColor = selected ? Color.FromHex("#8c8c8c") : Color.FromHex("#8c8c8c");
-
-				patient.ScheduleItemSlots = new[]
-				{
-					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,00,00), Finish = new DateTime(2000,1,1, 12,15,00), IsFull = true, IsSelectedSlot = false },
-					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,15,00), Finish = new DateTime(2000,1,1, 12,30,00), IsFull = false, IsSelectedSlot = false },
-					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,30,00), Finish = new DateTime(2000,1,1, 12,45,00), IsFull = false, IsSelectedSlot = true },
-					new ScheduleItemSlot { Start = new DateTime(2000,1,1, 12,45,00), Finish = new DateTime(2000,1,1, 13,00,00), IsFull = false, IsSelectedSlot = false },
-				}.ToObservableCollection();
 			}
 		}
 
-		CalendarCellStyle CalendarEvaluateCellStyle(Patient patient, CalendarCell cell)
+		void CalcAppointment()
+		{
+
+		}
+
+		CalendarCellStyle CalendarEvaluateCellStyle(CalendarCell cell)
 		{
 			if (cell is CalendarDayCell)
 			{
 				var dcell = (CalendarDayCell)cell;
-				if ( new[] { 12, 25, 26 }.Contains(dcell.Date.Day))
+				if ( new[] { 1, 4, 12, 25, 26 }.Contains(dcell.Date.Day))
 				{
 					return new CalendarCellStyle
 					{
