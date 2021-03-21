@@ -14,7 +14,7 @@ using System.Windows.Input;
 using Telerik.XamarinForms.DataControls.ListView.Commands;
 using T = Telerik.XamarinForms.Input;
 using OneBuilder.Mobile.Behaviors;
-
+using System.Diagnostics;
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -48,6 +48,9 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
 
+		public bool NavigationBarButton1IsVisible { get; set; } = true;
+		public String NavigationBarButton1Text { get; set; } = Globalization.T("Profile");
+
 		public Boolean IsCommit { get; set; }
 
 		public override async Task Init()
@@ -64,7 +67,7 @@ namespace OneBuilder.Mobile.ViewModels
 			
 			PatientAddCommand = CommandFunc.CreateAsync(PatientAdd);
 			PatientDeleteCommand = CommandFunc.CreateAsync(PatientDelete, () => SelectedPatientOrderItem != null);
-			CommitCommand = CommandFunc.CreateAsync(Commit);
+			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasPatientOrderItemError());
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
 			PatientItemTapCommand = new Command<ItemTapCommandContext>(PatientItemTap);
 			ScheduleItemSlotTapCommand = new Command<ItemTapCommandContext>(ScheduleItemSlotTap);
@@ -153,14 +156,39 @@ namespace OneBuilder.Mobile.ViewModels
 
 		void SetupPatientOrderItems(IEnumerable<PatientOrderItem> items)
 		{
-			items.ForEach(q => q.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q,e));
+			items.ForEach(q =>
+			{
+				q.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, e.PropertyName);
+				q.Patient.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, "Patient." + e.PropertyName);
+				q.LabConsent.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, "LabConsent." + e.PropertyName);
+				q.ScreenQuiz.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, "ScreenQuiz." + e.PropertyName);
+			});
 		}
 
-		void OnPatientOrderItemChanged(PatientOrderItem pitem, PropertyChangedEventArgs e)
+		void OnPatientOrderItemChanged(PatientOrderItem pitem, string propertyName)
 		{
-			if (e.PropertyName == nameof(pitem.InstitutionProfileRowId))
+			if (propertyName == nameof(pitem.InstitutionProfileRowId))
 			{
 				CalcAppointment();
+			}
+
+			var fields = new[] { "InstitutionProfileRowId", "Patient.FirstName", "Patient.LastName", "Patient.BirthDate" };
+			if (fields.Contains(propertyName))
+			{
+				ValidateGeneral();
+				CommandEnabledRefresh();
+			}
+
+			if (propertyName.StartsWith("LabConsent."))
+			{
+				ValidateLabConsent();
+				CommandEnabledRefresh();
+			}
+
+			if (propertyName.StartsWith("ScreenQuiz."))
+			{
+				ValidateScreenQuestionnaire();
+				CommandEnabledRefresh();
 			}
 		}
 
@@ -169,6 +197,12 @@ namespace OneBuilder.Mobile.ViewModels
 			CalcPatients();
 			CalcAppointment();
 			CalcVisible();
+			ValidateAll();
+			CommandEnabledRefresh();
+		}
+
+		void CommandEnabledRefresh()
+		{
 			this.ChangeAllCanExecute();
 		}
 
@@ -235,6 +269,8 @@ namespace OneBuilder.Mobile.ViewModels
 		void SetCurrentScheduleItemSlotRowId(Guid scheduleItemSlotRowId)
 		{
 			SelectedPatientOrderItem.Appointment.ScheduleItemSlotRowId = scheduleItemSlotRowId;
+			ValidateAppointment();
+			CommandEnabledRefresh();
 		}
 
 
@@ -367,107 +403,91 @@ namespace OneBuilder.Mobile.ViewModels
 			
 		}
 
-		//void LoadDebug()
-		//{
-		//	PatientHeaderModels[General].HasError = true;
+		void ValidateAll()
+		{
+			ValidateGeneral();
+			ValidateScreenQuestionnaire();
+			ValidateLabConsent();
+			ValidateAppointment();
+		}
 
-		//	DdlStates = new[]
-		//	{
-		//		new State { CountryId = 1, Name = "BC", RowId = new Guid("55872198-BE90-4D5E-B607-279700DBA029") },
-		//		new State { CountryId = 1, Name = "NS", RowId = new Guid("D25C24A2-88D2-409E-A035-2B0F183C1C77") },
-		//		new State { CountryId = 1, Name = "NL", RowId = new Guid("ACF70332-0ED2-484B-9E72-4C23F58909FA") },
-		//		new State { CountryId = 1, Name = "ON", RowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C") },
-		//	};
+		public ObservableCollection<string> ErrorsGeneral { get; set; } = new ObservableCollection<string>();
+		void ValidateGeneral()
+		{
+			var errors = new List<string>();
+			if (SelectedPatientOrderItem != null)
+			{
+				if (SelectedPatientOrderItem.InstitutionProfileRowId == null)
+				{
+					errors.Add("InstitutionProfileRowId");
+				}
+				if (IsEmptyFieldValue(SelectedPatientOrderItem.Patient.FirstName))
+				{
+					errors.Add("FirstName");
+				}
+				if (IsEmptyFieldValue(SelectedPatientOrderItem.Patient.LastName))
+				{
+					errors.Add("LastName");
+				}
+				if (SelectedPatientOrderItem.Patient.BirthDate == null)
+				{
+					errors.Add("BirthDate");
+				}
+			}
+			ErrorsGeneral = errors.ToObservableCollection();
 
-		//	DdlInstitutions = new[]
-		//	{
-		//		new UserProfile{ RowId = new Guid("1DB56EDF-C171-42A9-8C82-64A79E21C159"), CompanyName = "School 1" },
-		//		new UserProfile{ RowId = new Guid("C9CF120F-830C-4226-86EC-AE61AAE51B76"), CompanyName = "School 2" },
-		//		new UserProfile{ RowId = new Guid("4E58878C-F951-49CA-A040-510F6AB33A23"), CompanyName = "School 3" },
-		//	}.ToObservableCollection();
+			PatientHeaderModels[General].HasError = errors.Any();
+		}
 
-		//	Model = new UserProfile
-		//	{
-		//		FirstName = "First",
-		//		LastName = "Last",
-		//		AddressLine1 = "AddressLine1",
-		//		City = "City",
-		//		ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C"),
-		//		Postcode = "Postcode",
-		//		Phone = "Phone",
+		void ValidateScreenQuestionnaire()
+		{
+			var valid = true;
 
-		//		Email = "email@mail.com",
-		//		Password = "12345",
-		//		PasswordRepeat = "12345",
+			if (SelectedPatientOrderItem != null)
+			{
+				var screenQuiz = SelectedPatientOrderItem.ScreenQuiz;
+				var values = new[] { screenQuiz.Fever,screenQuiz.Cough,screenQuiz.RunnyNoise,screenQuiz.LossOfTaste,screenQuiz.DifficultyBreathing,screenQuiz.SoreThroat,
+										screenQuiz.Nausea,screenQuiz.Tired,screenQuiz.ContactWithCovid,screenQuiz.TravelReturn,screenQuiz.TravelPressured };
+				valid = values.All(q => q != null);
+			}
 
-		//		BorderColor = Color.Red,
+			PatientHeaderModels[ScreenQuestionnaire].HasError = !valid;
+		}
 
-		//		//DdlStates = DdlStates,
-		//	};
+		void ValidateLabConsent()
+		{
+			var valid = true;
+			
+			if (SelectedPatientOrderItem != null)
+			{
+				var labConsent = SelectedPatientOrderItem.LabConsent;
+				valid = (labConsent.Auth1 == true && labConsent.Auth2 == true && labConsent.Auth3 == true
+					&& labConsent.Auth4 == true && labConsent.Auth5 == true && labConsent.Auth6 == true);
+			}
 
-		//	//Model.ProvinceOrState = DdlStates[1];
-		//	//Task.Delay
+			PatientHeaderModels[LabConsent].HasError = !valid;
+		}
 
-		//	Patients = new[]
-		//	{
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Piter",
-		//			LastName = "Pen",
-		//			BirthDate = new DateTime(2003,11,7),
-		//			Gender = "Male",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Glen",
-		//			LastName = "Robinson",
-		//			BirthDate = new DateTime(1977,8,17),
-		//			Gender = "Female",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Gabija",
-		//			LastName = "Summers",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Vincenzo",
-		//			LastName = "Saunders",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Kalum",
-		//			LastName = "Edwards",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Reggie",
-		//			LastName = "Neal",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Torin",
-		//			LastName = "Mclean",
-		//		},
-		//		new Patient
-		//		{
-		//			RowId = Guid.NewGuid(),
-		//			FirstName = "Paulina",
-		//			LastName = "Valenzuela",
-		//		},
-		//	}.ToObservableCollection();
+		void ValidateAppointment()
+		{
+			var valid = true;
+			if (SelectedPatientOrderItem != null)
+			{
+				valid = (GetCurrentScheduleItemSlotRowId() != null && GetCurrentScheduleItemSlotRowId() != default(Guid));
+			}
+			PatientHeaderModels[Appointment].HasError = !valid;
+		}
 
-		//	Patients[0].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[0].RowId;
-		//	Patients[1].PatientOrderItem.InstitutionProfileRowId = DdlInstitutions[1].RowId;
-		//}
+		bool HasPatientOrderItemError()
+		{
+			return PatientHeaderModels.Any(q => q.Value.HasError);
+		}
 
+		bool IsEmptyFieldValue(string arg)
+		{
+			return string.IsNullOrEmpty((arg ?? "").Trim());
+		}
+		
 
 		const string General = nameof(General);
 		const string ScreenQuestionnaire = nameof(ScreenQuestionnaire);
@@ -480,9 +500,23 @@ namespace OneBuilder.Mobile.ViewModels
 			public bool HasError { get; set; }
 			public string ErrorText { get; set; } = "\u231B";
 		}
-
-
 	}
+
+	public class RegisterViewModel_BorderColorConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		{
+			var field = (parameter == null ? "" : parameter.ToString());
+			var errors = value as ObservableCollection<string>;
+			var hasError = errors.Contains(field);
+			return hasError ? Color.FromHex("#A94442") : Color.FromHex("#4488F6");
+		}
+		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		{
+			throw new NotSupportedException();
+		}
+	}
+
 }
 
 

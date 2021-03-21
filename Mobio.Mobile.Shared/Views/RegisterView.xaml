@@ -20,6 +20,8 @@
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
+			<viewmodel:RegisterViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+
 			<telerikInput:BorderStyle
 				x:Key="EntryBorderStyle"
 				BorderThickness="0"
@@ -472,6 +474,9 @@
 													HorizontalTextAlignment="Start"
 													Style="{StaticResource MainCellLabelStyle}"
 													Text="{converters:T ResourceId=FirstName}" />
+
+												<!--BorderColor="#4488F6"-->
+												<!--BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"-->
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
