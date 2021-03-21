@@ -12,8 +12,8 @@ namespace OneBuilder.Mobile
 {
 	public static class NavFunc
 	{
-		public static bool UseAmimation = U.IsDebug ? false : true;
-		//public static bool UseAmimation = true;
+		//public static bool UseAmimation { get; set; } = U.IsDebug ? false : true;
+		public static bool UseAmimation = true;
 
 		public static async Task NavigateToAsync<TViewModel>(TViewModel viewModel)
 		{
@@ -29,8 +29,6 @@ namespace OneBuilder.Mobile
 
 		public static async Task<bool> NavigateBackAsync()
 		{
-			//var navigationService = DependencyService.Get<INavigationService>();
-			//await navigationService.NavigateBackAsync();
 			return await Pop();
 		}
 

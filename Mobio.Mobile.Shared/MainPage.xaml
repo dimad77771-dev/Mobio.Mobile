@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:OneBuilder.Mobile"
 			 xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
-             x:Class="OneBuilder.Mobile.MainPage">
+             x:Class="OneBuilder.Mobile.MainPage" BackgroundColor="Transparent">
 
 
 </ContentPage>

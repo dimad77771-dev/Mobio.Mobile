@@ -176,19 +176,16 @@ namespace OneBuilder.Mobile.ViewModels
 			if (fields.Contains(propertyName))
 			{
 				ValidateGeneral();
-				CommandEnabledRefresh();
 			}
 
 			if (propertyName.StartsWith("LabConsent."))
 			{
 				ValidateLabConsent();
-				CommandEnabledRefresh();
 			}
 
 			if (propertyName.StartsWith("ScreenQuiz."))
 			{
 				ValidateScreenQuestionnaire();
-				CommandEnabledRefresh();
 			}
 		}
 
@@ -219,9 +216,10 @@ namespace OneBuilder.Mobile.ViewModels
 			{
 				var selected = (poitem == SelectedPatientOrderItem);
 				var patient = poitem.Patient;
+				var haserror = poitem.IsHasError;
 				patient.BackgroundColor = selected ? Color.FromHex("#d12323") : Color.Transparent;
 				patient.TextColor = selected ? Color.FromHex("#fff") : Color.FromHex("#333");
-				patient.BorderColor = selected ? Color.FromHex("#8c8c8c") : Color.FromHex("#8c8c8c");
+				patient.BorderColor = selected ? Color.FromHex("#8c8c8c") : haserror ? Color.Red : Color.FromHex("#8c8c8c");
 			}
 		}
 
@@ -270,7 +268,6 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			SelectedPatientOrderItem.Appointment.ScheduleItemSlotRowId = scheduleItemSlotRowId;
 			ValidateAppointment();
-			CommandEnabledRefresh();
 		}
 
 
@@ -372,6 +369,7 @@ namespace OneBuilder.Mobile.ViewModels
 				//RowId = Guid.NewGuid(),
 				IsNew = true,
 				IsNewRow = true,
+				IsInitRow = true,
 				Patient = patient,
 				Appointment = appointment,
 				ScreenQuiz = screenQuiz,
@@ -397,12 +395,11 @@ namespace OneBuilder.Mobile.ViewModels
 			CalcAll();
 		}
 
-
-
 		public override async Task<bool> BeforePageClose()
 		{
-			UIFunc.ExitApp();
-			return false;
+			//UIFunc.ExitApp();
+			//return false;
+			return true;
 		}
 
 		public async Task Cancel()
@@ -412,14 +409,15 @@ namespace OneBuilder.Mobile.ViewModels
 
 		void ValidateAll()
 		{
-			ValidateGeneral();
-			ValidateScreenQuestionnaire();
-			ValidateLabConsent();
-			ValidateAppointment();
+			ValidateGeneral(totalCalc: false);
+			ValidateScreenQuestionnaire(totalCalc: false);
+			ValidateLabConsent(totalCalc: false);
+			ValidateAppointment(totalCalc: false);
+			ValidateTotalCalc();
 		}
 
 		public ObservableCollection<string> ErrorsGeneral { get; set; } = new ObservableCollection<string>();
-		void ValidateGeneral()
+		void ValidateGeneral(bool totalCalc = true)
 		{
 			var errors = new List<string>();
 			if (SelectedPatientOrderItem != null)
@@ -441,12 +439,17 @@ namespace OneBuilder.Mobile.ViewModels
 					errors.Add("BirthDate");
 				}
 			}
-			ErrorsGeneral = errors.ToObservableCollection();
+
+			//if (SelectedPatientOrderItem?.IsInitRow == false)
+			{
+				ErrorsGeneral = errors.ToObservableCollection();
+			}
 
 			PatientHeaderModels[General].HasError = errors.Any();
+			if (totalCalc) ValidateTotalCalc();
 		}
 
-		void ValidateScreenQuestionnaire()
+		void ValidateScreenQuestionnaire(bool totalCalc = true)
 		{
 			var valid = true;
 
@@ -459,9 +462,10 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			PatientHeaderModels[ScreenQuestionnaire].HasError = !valid;
+			if (totalCalc) ValidateTotalCalc();
 		}
 
-		void ValidateLabConsent()
+		void ValidateLabConsent(bool totalCalc = true)
 		{
 			var valid = true;
 			
@@ -473,9 +477,10 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			PatientHeaderModels[LabConsent].HasError = !valid;
+			if (totalCalc) ValidateTotalCalc();
 		}
 
-		void ValidateAppointment()
+		void ValidateAppointment(bool totalCalc = true)
 		{
 			var valid = true;
 			if (SelectedPatientOrderItem != null)
@@ -483,6 +488,17 @@ namespace OneBuilder.Mobile.ViewModels
 				valid = (GetCurrentScheduleItemSlotRowId() != null && GetCurrentScheduleItemSlotRowId() != default(Guid));
 			}
 			PatientHeaderModels[Appointment].HasError = !valid;
+			if (totalCalc) ValidateTotalCalc();
+		}
+
+		void ValidateTotalCalc()
+		{
+			var haserror = PatientHeaderModels.Any(q => q.Value.HasError);
+			if (SelectedPatientOrderItem != null)
+			{
+				SelectedPatientOrderItem.IsHasError = haserror;
+			}
+			CommandEnabledRefresh();
 		}
 
 		bool HasPatientOrderItemError()

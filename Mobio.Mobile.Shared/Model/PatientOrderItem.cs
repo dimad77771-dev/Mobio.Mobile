@@ -62,6 +62,8 @@ namespace OneBuilder.Model
 
 
 		public bool IsNewRow { get; set; } = false;
+		public bool IsInitRow { get; set; } = false;
+		public bool IsHasError { get; set; } = false;
 
 		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
 		//public UserProfile InstitutionProfile

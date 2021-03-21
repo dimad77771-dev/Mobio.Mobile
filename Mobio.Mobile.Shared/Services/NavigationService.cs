@@ -15,20 +15,20 @@ namespace OneBuilder.Mobile.Services
 			this.navigation = Application.Current.MainPage.Navigation;
 		}
 
-		public async Task NavigateToAsync<TViewModel>(TViewModel viewModel)
+		public async Task NavigateToAsync<TViewModel>(TViewModel viewModel, bool? animated = null)
 		{
 			var page = await this.CreatePage<TViewModel>(viewModel);
-			await this.navigation.PushAsync(page);
+			await this.navigation.PushAsync(page, animated ?? NavFunc.UseAmimation);
 		}
 
-		public Task NavigateToRootAsync()
+		public Task NavigateToRootAsync(bool? animated = null)
 		{
-			return this.navigation.PopToRootAsync();
+			return this.navigation.PopToRootAsync(animated ?? NavFunc.UseAmimation);
 		}
 
-		public Task NavigateBackAsync()
+		public Task NavigateBackAsync(bool? animated = null)
 		{
-			return this.navigation.PopAsync();
+			return this.navigation.PopAsync(animated ?? NavFunc.UseAmimation);
 		}
 
 

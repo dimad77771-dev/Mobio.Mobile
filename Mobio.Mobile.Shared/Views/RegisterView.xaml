@@ -10,6 +10,7 @@
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+	xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"
 	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
@@ -27,6 +28,13 @@
 				BorderThickness="0"
 				BorderColor="{Binding Model.BorderColor}"
 				CornerRadius="8" />
+
+			<Style x:Key="ErrorLabelStyle" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="TextColor" Value="#d12323" />
+				<Setter Property="HorizontalTextAlignment" Value="Center" />
+				<Setter Property="Margin" Value="2,0,2,4" />
+			</Style>
 
 			<Style x:Key="H4" TargetType="ex:LabelEx">
 				<Setter Property="FontSize" Value="14" />
@@ -210,10 +218,18 @@
 										HeightRequest="{StaticResource HHH}"
 										BorderColor="#4488F6"
 										CornerRadius="3">
-										<ex:RadEntryEx
-											Text="{Binding Model.FirstName}"
-											CompletedCommand="{Binding EntryCompletedCommand}"
-											BorderStyle="{StaticResource EntryBorderStyle}" />
+										<!--
+											ef:AddText.On="true"
+											ef:AddText.TextColor="Red"
+											ef:AddText.FontSize="10"
+											ef:AddText.Margin="4,8,4,8"
+											ef:AddText.Padding="2,4,2,4"
+											ef:AddText.BackgroundColor="Transparent"
+											ef:AddText.HorizontalAlign="End"
+											ef:AddText.VerticalAlign="Start"
+											ef:AddText.Text="requied"
+										-->
+										<ex:RadEntryEx Text="{Binding Model.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 									</telerikPrimitives:RadBorder>
 
 									<local:LabelEx
@@ -416,6 +432,10 @@
 															BackgroundColor="{Binding Patient.BackgroundColor}"
 															BorderColor="{Binding Patient.BorderColor}"
 															CornerRadius="2">
+															<!--
+																ef:SizeToFit.On="true"
+																ef:SizeToFit.CanExpand="False"
+															-->
 															<ex:LabelEx
 																FontSize="16"
 																Text="{Binding Patient.FullPatientName}"
@@ -456,7 +476,7 @@
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
-													BorderColor="#4488F6"
+													BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"
 													CornerRadius="3">
 													<ex:RadComboBoxEx
 														Padding="5,0"
@@ -475,12 +495,12 @@
 													Style="{StaticResource MainCellLabelStyle}"
 													Text="{converters:T ResourceId=FirstName}" />
 
-												<!--BorderColor="#4488F6"-->
-												<!--BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"-->
+												<!--  BorderColor="#4488F6"  -->
+												<!--  BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"  -->
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
-													BorderColor="#4488F6"
+													BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"
 													CornerRadius="3">
 													<ex:RadEntryEx Text="{Binding Patient.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 												</telerikPrimitives:RadBorder>
@@ -492,7 +512,7 @@
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
-													BorderColor="#4488F6"
+													BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=LastName, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"
 													CornerRadius="3">
 													<ex:RadEntryEx Text="{Binding Patient.LastName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 												</telerikPrimitives:RadBorder>
@@ -504,7 +524,7 @@
 												<telerikPrimitives:RadBorder
 													Margin="2,2,2,5"
 													HeightRequest="{StaticResource HHH}"
-													BorderColor="#4488F6"
+													BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=BirthDate, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}, Converter={StaticResource BorderColorConverter}}"
 													CornerRadius="3">
 													<ex:RadDatePickerEx
 														Date="{Binding Patient.BirthDate}"
@@ -554,271 +574,285 @@
 										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<ex:ScrollViewEx Padding="5">
-												<ex:GridEx
-													Margin="0"
-													RowSpacing="3"
-													ColumnSpacing="20">
-													<ex:GridEx.ColumnDefinitions>
-														<ColumnDefinition Width="Auto" />
-														<ColumnDefinition Width="*" />
-													</ex:GridEx.ColumnDefinitions>
-													<ex:GridEx.RowDefinitions>
+												<ex:GridEx>
+													<Grid.RowDefinitions>
 														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-														<RowDefinition Height="Auto" />
-													</ex:GridEx.RowDefinitions>
+														<RowDefinition Height="*" />
+													</Grid.RowDefinitions>
 
-													<ex:RadBorderEx
-														Grid.Row="0"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="0"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.FeverYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.FeverNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
 													<ex:LabelEx
 														Grid.Row="0"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=Fever,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														IsVisible="{Binding PatientHeaderModels[ScreenQuestionnaire].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+														Style="{StaticResource ErrorLabelStyle}"
+														Text="{converters:T ResourceId=FillAllScreenQuestionnaire}" />
 
-													<ex:RadBorderEx
+													<ex:GridEx
 														Grid.Row="1"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="1"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="1"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=RunnyNose,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														Margin="0"
+														RowSpacing="3"
+														ColumnSpacing="20">
+														<ex:GridEx.ColumnDefinitions>
+															<ColumnDefinition Width="Auto" />
+															<ColumnDefinition Width="*" />
+														</ex:GridEx.ColumnDefinitions>
+														<ex:GridEx.RowDefinitions>
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+															<RowDefinition Height="Auto" />
+														</ex:GridEx.RowDefinitions>
+
+														<ex:RadBorderEx
+															Grid.Row="0"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="0"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.FeverYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.FeverNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="0"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=Fever,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
+
+														<ex:RadBorderEx
+															Grid.Row="1"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="1"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.RunnyNoiseNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="1"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=RunnyNose,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
 
-													<ex:RadBorderEx
-														Grid.Row="2"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="2"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="2"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=DifficultyBreathing,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="2"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="2"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.DifficultyBreathingNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="2"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=DifficultyBreathing,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="3"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="3"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.CoughYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.CoughNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="3"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=Cough,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="3"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="3"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.CoughYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.CoughNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="3"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=Cough,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="4"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="4"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="4"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=LossOfTasteOrSmell,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="4"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="4"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.LossOfTasteNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="4"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=LossOfTasteOrSmell,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="5"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="5"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="5"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=NauseaVomitingDiarrhea,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="5"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="5"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.NauseaNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="5"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=NauseaVomitingDiarrhea,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="6"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="6"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="6"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=SoreThroatOrDifficultiesSwallowing,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="6"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="6"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.SoreThroatNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="6"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=SoreThroatOrDifficultiesSwallowing,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="7"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="7"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TiredYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TiredNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="7"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=FeelingTiredOrUnwell,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="7"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="7"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TiredYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TiredNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="7"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=FeelingTiredOrUnwell,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="8"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="8"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="8"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouBeenInClose,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="8"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="8"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.ContactWithCovidNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="8"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=HaveYouBeenInClose,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="9"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="9"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="9"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouReturnedFromTravel,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="9"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="9"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelReturnNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="9"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=HaveYouReturnedFromTravel,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
 
-													<ex:RadBorderEx
-														Grid.Row="10"
-														Grid.Column="0"
-														Grid.ColumnSpan="2"
-														Style="{StaticResource QuestionnaireBorder}">
-													</ex:RadBorderEx>
-													<StackLayout
-														Grid.Row="10"
-														Grid.Column="0"
-														Orientation="Horizontal">
-														<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredYes}" />
-														<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
-														<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredNo}" />
-														<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
-													</StackLayout>
-													<ex:LabelEx
-														Grid.Row="10"
-														Grid.Column="1"
-														Text="{converters:T ResourceId=HaveYouTraveledInA,
-														                    ToUpper=True}"
-														Style="{StaticResource QuestionnaireLabel}" />
+														<ex:RadBorderEx
+															Grid.Row="10"
+															Grid.Column="0"
+															Grid.ColumnSpan="2"
+															Style="{StaticResource QuestionnaireBorder}">
+														</ex:RadBorderEx>
+														<StackLayout
+															Grid.Row="10"
+															Grid.Column="0"
+															Orientation="Horizontal">
+															<ex:RadCheckBoxEx Style="{StaticResource YesCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredYes}" />
+															<ex:LabelEx Style="{StaticResource YesCheckLabel}" />
+															<ex:RadCheckBoxEx Style="{StaticResource NoCheckBox}" IsChecked="{Binding ScreenQuiz.TravelPressuredNo}" />
+															<ex:LabelEx Style="{StaticResource NoCheckLabel}" />
+														</StackLayout>
+														<ex:LabelEx
+															Grid.Row="10"
+															Grid.Column="1"
+															Text="{converters:T ResourceId=HaveYouTraveledInA,
+															                    ToUpper=True}"
+															Style="{StaticResource QuestionnaireLabel}" />
+													</ex:GridEx>
 
 
 
@@ -836,117 +870,130 @@
 										</ex:AccordionItemEx.Header>
 										<ex:AccordionItemEx.Content>
 											<ex:ScrollViewEx Padding="5">
-												<local:StackLayoutEx>
-													<local:LabelEx Style="{StaticResource H4}" Text="{converters:T ResourceId=Covid19TestingPcrTestOr}" />
-													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=Covid19IsAnInfectiousIllness}" />
+												<ex:GridEx>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="*" />
+													</Grid.RowDefinitions>
 
-													<local:LabelEx Style="{StaticResource Break}" />
-													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PrivacyNotice}" />
-													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=WeAreCollectingYourTest}" />
+													<ex:LabelEx
+														Grid.Row="0"
+														IsVisible="{Binding PatientHeaderModels[LabConsent].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+														Style="{StaticResource ErrorLabelStyle}"
+														Text="{converters:T ResourceId=FillAllLabConsent}" />
 
-													<local:LabelEx Style="{StaticResource Break}" />
-													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PleaseCarefullyReadAndSign}" />
-													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=ThroughYourSignatureBelowYou}" />
+													<local:StackLayoutEx Grid.Row="1">
+														<local:LabelEx Style="{StaticResource H4}" Text="{converters:T ResourceId=Covid19TestingPcrTestOr}" />
+														<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=Covid19IsAnInfectiousIllness}" />
 
-													<local:LabelEx Style="{StaticResource Break}" />
-													<ex:RadBorderEx Style="{StaticResource GreenBorder}">
-														<local:LabelEx Style="{StaticResource GreenStrong}" Text="{converters:T ResourceId=YouAlsoUnderstandThatGvt}" />
-													</ex:RadBorderEx>
+														<local:LabelEx Style="{StaticResource Break}" />
+														<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PrivacyNotice}" />
+														<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=WeAreCollectingYourTest}" />
 
-													<ex:GridEx
-														Margin="10,5,2,5"
-														ColumnSpacing="10"
-														RowSpacing="5">
-														<ex:GridEx.ColumnDefinitions>
-															<ColumnDefinition Width="Auto" />
-															<ColumnDefinition Width="*" />
-														</ex:GridEx.ColumnDefinitions>
-														<ex:GridEx.RowDefinitions>
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-															<RowDefinition Height="Auto" />
-														</ex:GridEx.RowDefinitions>
+														<local:LabelEx Style="{StaticResource Break}" />
+														<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=PleaseCarefullyReadAndSign}" />
+														<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=ThroughYourSignatureBelowYou}" />
 
-														<ex:RadCheckBoxEx
-															Grid.Row="0"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth1, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="0"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=IAuthorizeThisCovid19Testing}" />
+														<local:LabelEx Style="{StaticResource Break}" />
+														<ex:RadBorderEx Style="{StaticResource GreenBorder}">
+															<local:LabelEx Style="{StaticResource GreenStrong}" Text="{converters:T ResourceId=YouAlsoUnderstandThatGvt}" />
+														</ex:RadBorderEx>
 
-														<ex:RadCheckBoxEx
-															Grid.Row="1"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth2, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="1"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=IAuthorizeMyTestResults}" />
+														<ex:GridEx
+															Margin="10,5,2,5"
+															ColumnSpacing="10"
+															RowSpacing="5">
+															<ex:GridEx.ColumnDefinitions>
+																<ColumnDefinition Width="Auto" />
+																<ColumnDefinition Width="*" />
+															</ex:GridEx.ColumnDefinitions>
+															<ex:GridEx.RowDefinitions>
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+																<RowDefinition Height="Auto" />
+															</ex:GridEx.RowDefinitions>
 
-														<ex:RadCheckBoxEx
-															Grid.Row="2"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth3, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="2"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=IAcknowledgeThatAPositive}" />
+															<ex:RadCheckBoxEx
+																Grid.Row="0"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth1, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="0"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=IAuthorizeThisCovid19Testing}" />
 
-														<ex:RadCheckBoxEx
-															Grid.Row="3"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth4, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="3"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=IUnderstandTheTestingUnit}" />
+															<ex:RadCheckBoxEx
+																Grid.Row="1"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth2, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="1"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=IAuthorizeMyTestResults}" />
 
-														<ex:RadCheckBoxEx
-															Grid.Row="4"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth5, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="4"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=IUnderstandThatAsWith}" />
+															<ex:RadCheckBoxEx
+																Grid.Row="2"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth3, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="2"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=IAcknowledgeThatAPositive}" />
 
-														<ex:RadCheckBoxEx
-															Grid.Row="5"
-															Grid.Column="0"
-															Style="{StaticResource IAuthorizeCheckBox}"
-															IsChecked="{Binding LabConsent.Auth6, Converter={StaticResource TwoStateBoolConverter}}" />
-														<local:LabelEx
-															Grid.Row="5"
-															Grid.Column="1"
-															Style="{StaticResource IAuthorizeLabel}"
-															Text="{converters:T ResourceId=ITheUndersignedHaveBeen}" />
-													</ex:GridEx>
+															<ex:RadCheckBoxEx
+																Grid.Row="3"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth4, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="3"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=IUnderstandTheTestingUnit}" />
 
-													<local:LabelEx Style="{StaticResource Break}" />
-													<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=Acknowledgment}" />
-													<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=PleaseBeAwareThatTest}" />
+															<ex:RadCheckBoxEx
+																Grid.Row="4"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth5, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="4"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=IUnderstandThatAsWith}" />
 
-												</local:StackLayoutEx>
+															<ex:RadCheckBoxEx
+																Grid.Row="5"
+																Grid.Column="0"
+																Style="{StaticResource IAuthorizeCheckBox}"
+																IsChecked="{Binding LabConsent.Auth6, Converter={StaticResource TwoStateBoolConverter}}" />
+															<local:LabelEx
+																Grid.Row="5"
+																Grid.Column="1"
+																Style="{StaticResource IAuthorizeLabel}"
+																Text="{converters:T ResourceId=ITheUndersignedHaveBeen}" />
+														</ex:GridEx>
+
+														<local:LabelEx Style="{StaticResource Break}" />
+														<local:LabelEx Style="{StaticResource H5}" Text="{converters:T ResourceId=Acknowledgment}" />
+														<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=PleaseBeAwareThatTest}" />
+
+													</local:StackLayoutEx>
+												</ex:GridEx>
 											</ex:ScrollViewEx>
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
@@ -967,11 +1014,17 @@
 
 												<ex:LabelEx
 													Grid.Row="0"
-													IsVisible="{Binding !IsShowCalendar}"
+													IsVisible="{Binding PatientHeaderModels[Appointment].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
+													Style="{StaticResource ErrorLabelStyle}"
+													Text="{converters:T ResourceId=SelectAppointmentSlot}" />
+
+												<ex:LabelEx
+													Grid.Row="1"
+													IsVisible="{Binding IsShowCalendar, Converter={StaticResource InverseBoolConverter}}"
 													Text="{converters:T ResourceId=InstitutionNotYetSelected}" />
 
 												<ex:RadCalendarEx
-													Grid.Row="0"
+													Grid.Row="1"
 													IsVisible="{Binding IsShowCalendar}"
 													HeightRequest="200"
 													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
@@ -982,7 +1035,7 @@
 
 												<ex:RadListViewEx
 													x:Name="ScheduleItemSlotList"
-													Grid.Row="1"
+													Grid.Row="2"
 													Margin="0,5,0,0"
 													HeightRequest="200"
 													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"

@@ -31,6 +31,7 @@ namespace OneBuilder.Mobile.Droid
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
 			FFImageLoading.Forms.Platform.CachedImageRenderer.InitImageViewHandler();
 			var ignore = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
+			AiForms.Effects.Droid.Effects.Init();
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			LoadApplication(new App());
         }
