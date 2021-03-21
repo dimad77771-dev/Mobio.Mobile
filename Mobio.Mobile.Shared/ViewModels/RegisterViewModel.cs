@@ -330,11 +330,17 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public async Task Commit()
 		{
-			//if (!await (new AuthenticateTask()).Run(BusinessCode, UserName, Password))
-			//{
-			//	return;
-			//}
+			Order.Pois = PatientOrderItems.ToList();
 
+			UIFunc.ShowLoading(U.StandartUpdatingText);
+			var result = await WebServiceFunc.SubmitRegister(Order);
+			UIFunc.HideLoading();
+
+			if (!result)
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
+			}
+			
 			////var homeViewModel = new HomeViewModel();
 			//var homeViewModel = new SerialViewModel();
 			//await NavFunc.NavigateToAsync(homeViewModel);
@@ -344,26 +350,27 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			var patient = new Patient
 			{
-				RowId = Guid.NewGuid(),
-				FirstName = "",
-				LastName = "",
+				//RowId = Guid.NewGuid(),
+				//FirstName = "",
+				//LastName = "",
 			};
 			var appointment = new Appointment
 			{
-				RowId = Guid.NewGuid(),
+				//RowId = Guid.NewGuid(),
 			};
 			var screenQuiz = new ScreenQuiz
 			{
-				RowId = Guid.NewGuid(),
+				//RowId = Guid.NewGuid(),
 			};
 			var labConsent = new LabConsent
 			{
-				RowId = Guid.NewGuid(),
+				//RowId = Guid.NewGuid(),
 			};
 
 			var patientOrderItem = new PatientOrderItem
 			{
-				RowId = Guid.NewGuid(),
+				//RowId = Guid.NewGuid(),
+				IsNew = true,
 				IsNewRow = true,
 				Patient = patient,
 				Appointment = appointment,
@@ -480,7 +487,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 		bool HasPatientOrderItemError()
 		{
-			return PatientHeaderModels.Any(q => q.Value.HasError);
+			return false;
+			//return PatientHeaderModels.Any(q => q.Value.HasError);
 		}
 
 		bool IsEmptyFieldValue(string arg)

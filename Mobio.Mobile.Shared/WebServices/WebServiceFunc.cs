@@ -250,6 +250,56 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		async public static Task<bool> SubmitRegister(Order order)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/home/SubmitRegister";
+			var json = JsonConvert.SerializeObject(order);
+			var content = new StringContent(json);
+			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.PostAsync(url, content);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return false;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var rjson = await response.Content.ReadAsStringAsync();
+				var rinfo = JsonConvert.DeserializeObject< PostRetrunInfo>(rjson);
+				if (rinfo.Status == "Ok")
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return false;
+			}
+		}
+
+		public class PostRetrunInfo
+		{
+			public string Status { get; set; }
+			public string Error { get; set; }
+		}
+
 		#region old
 		async public static Task<FindStockItemsDTO[]> FindStockItemsBySerialNumber(Guid businessRowId, string serialNumber = "", Guid? stockItemRowId = null)
 		{
