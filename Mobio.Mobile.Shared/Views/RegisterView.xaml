@@ -980,7 +980,7 @@
 													Grid.Row="1"
 													Margin="0,5,0,0"
 													HeightRequest="200"
-													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"													
+													BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}"
 													IsVisible="{Binding IsShowCalendar}"
 													ItemsSource="{Binding CurrentScheduleItemSlots}"
 													SelectionMode="None">
@@ -1006,14 +1006,26 @@
 																			BackgroundColor="{Binding BackgroundColor}"
 																			BorderColor="{Binding BorderColor}"
 																			CornerRadius="2">
-																			<ex:LabelEx
-																				FontSize="16"
-																				HeightRequest="35"
-																				Text="{Binding FullSlotText}"
-																				TextColor="{Binding TextColor}"
-																				TextDecorations="{Binding TextDecoration}"
-																				HorizontalTextAlignment="Center"
-																				VerticalTextAlignment="Center" />
+																			<StackLayout>
+																				<ex:LabelEx
+																					IsVisible="{Binding IsFull, Converter={StaticResource InverseBoolConverter}}"
+																					FontSize="16"
+																					HeightRequest="35"
+																					Text="{Binding FullSlotText}"
+																					TextColor="{Binding TextColor}"
+																					TextDecorations="None"
+																					HorizontalTextAlignment="Center"
+																					VerticalTextAlignment="Center" />
+																				<ex:LabelEx
+																					IsVisible="{Binding IsFull}"
+																					FontSize="16"
+																					HeightRequest="35"
+																					Text="{Binding FullSlotText}"
+																					TextColor="{Binding TextColor}"
+																					TextDecorations="Strikethrough"
+																					HorizontalTextAlignment="Center"
+																					VerticalTextAlignment="Center" />
+																			</StackLayout>
 																		</telerikPrimitives:RadBorder>
 																	</ex:GridEx>
 																</telerikListView:ListViewTemplateCell.View>
@@ -1025,7 +1037,7 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" >
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />

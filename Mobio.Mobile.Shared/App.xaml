@@ -55,6 +55,7 @@
 			<converters:DebugConverter x:Key="DebugConverter" />
 			<converters:TranslateConverter x:Key="T" />
 			<converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+			<converters:BoolConverter x:Key="BoolConverter" />
 			<converters:ThreeStateBoolConverter x:Key="ThreeStateBoolConverter" />
 			<converters:TwoStateBoolConverter x:Key="TwoStateBoolConverter" />
 			

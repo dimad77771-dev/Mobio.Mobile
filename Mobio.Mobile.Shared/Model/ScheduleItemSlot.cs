@@ -25,12 +25,13 @@ namespace OneBuilder.Model
 		//public virtual ICollection<Appointment> Appointments { get; set; }
 		//public ScheduleItem ScheduleItem { get; set; }
 
-		public TextDecorations TextDecoration => (IsFull == true ? TextDecorations.Strikethrough : TextDecorations.None);
+		//public TextDecorations TextDecoration { get; set; } //=> (IsFull == true ? TextDecorations.Strikethrough : TextDecorations.None);
+		//не получилось. глюк при перерисовке. TextDecoration = TextDecorations.Strikethrough "залипает"
 
 		public Boolean IsSelectedSlot { get; set; }
-		public Color TextColor => IsSelectedSlot ? Color.White : Color.White;
-		public Color BackgroundColor => IsSelectedSlot ? Color.Red : Color.Blue;
-		public Color BorderColor => IsSelectedSlot ? Color.Red : Color.Blue;
+		public Color TextColor => IsSelectedSlot ? Color.White : Color.FromHex("#333");
+		public Color BackgroundColor => IsSelectedSlot ? Color.FromHex("#d9534f") : Color.Transparent;
+		public Color BorderColor => IsSelectedSlot ? Color.FromHex("#d9534f") : Color.FromHex("#ccc");
 
 		public string FullSlotText
 		{

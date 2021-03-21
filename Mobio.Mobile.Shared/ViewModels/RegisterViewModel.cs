@@ -68,15 +68,10 @@ namespace OneBuilder.Mobile.ViewModels
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
 			PatientItemTapCommand = new Command<ItemTapCommandContext>(PatientItemTap);
 			ScheduleItemSlotTapCommand = new Command<ItemTapCommandContext>(ScheduleItemSlotTap);
-
-
-
 			//this.PropertyChanged += PropertyChangedAction;
 
 			U.RequestMainThread(async () =>
 			{
-				//if (U.IsDebug) LoadDebug();
-
 				if (!await LoadData()) return;
 
 				CalendarManager.Control.SelectionChanged += (s, e) => CalcCurrentScheduleItemSlots();
@@ -140,7 +135,11 @@ namespace OneBuilder.Mobile.ViewModels
 		void ScheduleItemSlotTap(ItemTapCommandContext context)
 		{
 			var item = (ScheduleItemSlot)context.Item;
-			SetSelectedPatientOrderItem(item);
+			if (item.IsFull != true)
+			{
+				SetCurrentScheduleItemSlotRowId(item.RowId);
+			}
+			CalcScheduleItemSlots();
 		}
 
 
@@ -217,12 +216,33 @@ namespace OneBuilder.Mobile.ViewModels
 			var selectedDate = calendar.SelectedDate;
 			var allScheduleItemSlots = GetCurrentScheduleItemSlots();
 			CurrentScheduleItemSlots = allScheduleItemSlots.Where(q => q.Start.Date == selectedDate).ToObservableCollection();
+			CalcScheduleItemSlots();
 		}
+
+		void CalcScheduleItemSlots()
+		{
+			CurrentScheduleItemSlots.ForEach(q =>
+			{
+				q.IsSelectedSlot = (q.RowId == GetCurrentScheduleItemSlotRowId());
+			});
+		}
+
+		Guid? GetCurrentScheduleItemSlotRowId()
+		{
+			var scheduleItemSlotRowId = SelectedPatientOrderItem?.Appointment?.ScheduleItemSlotRowId;
+			return scheduleItemSlotRowId;
+		}
+		void SetCurrentScheduleItemSlotRowId(Guid scheduleItemSlotRowId)
+		{
+			SelectedPatientOrderItem.Appointment.ScheduleItemSlotRowId = scheduleItemSlotRowId;
+		}
+
+
 
 		ScheduleItemSlot GetCurrentScheduleItemSlot()
 		{
 			var scheduleItemSlots = GetCurrentScheduleItemSlots();
-			var scheduleItemSlotRowId = SelectedPatientOrderItem?.Appointment?.ScheduleItemSlotRowId;
+			var scheduleItemSlotRowId = GetCurrentScheduleItemSlotRowId();
 			var scheduleItemSlot = scheduleItemSlots.FirstOrDefault(q => q.RowId == scheduleItemSlotRowId);
 			return scheduleItemSlot;
 		}
@@ -235,14 +255,15 @@ namespace OneBuilder.Mobile.ViewModels
 				if (IsShowCalendar)
 				{
 					var dcell = (T.CalendarDayCell)cell;
-					var scheduleItemSlots = GetCurrentScheduleItemSlots();
-					var allDates = scheduleItemSlots.Select(q => q.Start.Date).Distinct().ToArray();
-					if (allDates.Contains(dcell.Date))
+					var scheduleItemSlots = GetCurrentScheduleItemSlots().Where(q => q.Start.Date == dcell.Date).ToArray();
+					if (scheduleItemSlots.Any())
 					{
+						var hasFree = scheduleItemSlots.Any(q => q.IsFull == false);
 						return new T.CalendarCellStyle
 						{
-							BackgroundColor = Color.FromHex("#00FF00"),
-							BorderColor = Color.Green,
+							BackgroundColor = (hasFree ? Color.FromHex("#5cb85c") : Color.FromHex("#ac2925")),
+							BorderColor = (hasFree ? Color.FromHex("#255625") : Color.FromHex("#761c19")),
+							TextColor = Color.White,
 						};
 					}
 				}
@@ -314,6 +335,7 @@ namespace OneBuilder.Mobile.ViewModels
 				LabConsent = labConsent,
 			};
 
+			SetupPatientOrderItems(new[] { patientOrderItem });
 			PatientOrderItems.Add(patientOrderItem);
 			SelectedPatientOrderItem = patientOrderItem;
 			CalcAll();
