@@ -380,6 +380,8 @@ namespace OneBuilder.Mobile.ViewModels
 			PatientOrderItems.Add(patientOrderItem);
 			SelectedPatientOrderItem = patientOrderItem;
 			CalcAll();
+
+			PatientHeaderModels[General].IsExpanded = true;
 		}
 
 		public async Task PatientDelete()
@@ -522,6 +524,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public class PatientHeaderModel : ViewModelBase
 		{
 			public bool HasError { get; set; }
+			public bool IsExpanded { get; set; }
 			public string ErrorText { get; set; } = "\u231B";
 		}
 	}

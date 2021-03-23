@@ -23,39 +23,6 @@
 		<ResourceDictionary>
 			<viewmodel:RegisterViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
-			<telerikInput:BorderStyle
-				x:Key="EntryBorderStyle"
-				BorderThickness="0"
-				BorderColor="{Binding Model.BorderColor}"
-				CornerRadius="8" />
-
-			<Style x:Key="ErrorLabelStyle" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="14" />
-				<Setter Property="TextColor" Value="#d12323" />
-				<Setter Property="HorizontalTextAlignment" Value="Center" />
-				<Setter Property="Margin" Value="2,0,2,4" />
-			</Style>
-
-			<Style x:Key="H4" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="14" />
-				<Setter Property="FontAttributes" Value="Bold" />
-				<Setter Property="TextColor" Value="#222222" />
-				<Setter Property="HorizontalTextAlignment" Value="Start" />
-			</Style>
-
-			<Style x:Key="H5" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="12" />
-				<Setter Property="FontAttributes" Value="Bold" />
-				<Setter Property="TextColor" Value="#222222" />
-				<Setter Property="HorizontalTextAlignment" Value="Start" />
-			</Style>
-
-			<Style x:Key="Main" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="10" />
-				<Setter Property="TextColor" Value="#666666" />
-				<Setter Property="HorizontalTextAlignment" Value="Start" />
-			</Style>
-
 			<Style x:Key="GreenStrong" TargetType="ex:LabelEx">
 				<Setter Property="FontSize" Value="10" />
 				<Setter Property="FontAttributes" Value="Bold" />
@@ -69,10 +36,6 @@
 				<Setter Property="BorderColor" Value="#d6e9c6" />
 				<Setter Property="BorderThickness" Value="1" />
 				<Setter Property="CornerRadius" Value="3" />
-			</Style>
-
-			<Style x:Key="Break" TargetType="ex:LabelEx">
-				<Setter Property="Margin" Value="0,0,0,5" />
 			</Style>
 
 			<Style x:Key="IAuthorizeCheckBox" TargetType="ex:RadCheckBoxEx">
@@ -169,14 +132,11 @@
 				<Setter Property="BorderRadius" Value="8" />
 				<Setter Property="BorderWidth" Value="1" />
 			</Style>
-
-			<x:Double x:Key="HHH">35</x:Double>
-
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
 	<local:AbsoluteLayoutForPage>
-		<local:GridEx WidthRequest="600" HorizontalOptions="Center">
+		<local:GridEx>
 			<local:GridEx.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
@@ -461,7 +421,7 @@
 									AnimationEasing="SpringOut"
 									Spacing="2">
 
-									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}" IsExpanded="{Binding PatientHeaderModels[General].IsExpanded, Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />
@@ -998,7 +958,7 @@
 										</ex:AccordionItemEx.Content>
 									</ex:AccordionItemEx>
 
-									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=Appointment}" IsExpanded="True">
+									<ex:AccordionItemEx HeaderText="{converters:T ResourceId=Appointment}">
 										<ex:AccordionItemEx.Header>
 											<telerikPrimitives:AccordionItemHeader>
 												<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:RegisterViewModel}}}" />

@@ -13,6 +13,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -97,6 +101,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfileViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>

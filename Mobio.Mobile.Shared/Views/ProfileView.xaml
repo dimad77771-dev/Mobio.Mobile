@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.ProfileView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+	xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"
+	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	x:Name="mainPage">
+
+	<local:ContentPageEx.Resources>
+		<ResourceDictionary>
+			<viewmodel:ProfileViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+		</ResourceDictionary>
+	</local:ContentPageEx.Resources>
+
+	<local:AbsoluteLayoutForPage>
+		<local:GridEx>
+			<local:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</local:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<local:ScrollViewEx Grid.Row="1">
+				<local:StackLayoutEx Padding="10">
+					<telerikPrimitives:RadBorder
+						Margin="0,0,0,2"
+						Padding="5"
+						BackgroundColor="#f5f5f5"
+						BorderColor="#dddddd"
+						CornerRadius="1">
+						<local:LabelEx
+							HorizontalTextAlignment="Start"
+							Style="{StaticResource HeaderCellLabelStyle}"
+							Text="{converters:T ResourceId=ProfileDetails}" />
+					</telerikPrimitives:RadBorder>
+
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=FirstName}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx Text="{Binding Model.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=LastName}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.LastName}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Address}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.AddressLine1}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=City}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.City}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Province}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadComboBoxEx
+							Padding="5,0"
+							ValueMember="RowId"
+							ItemsSource="{Binding DdlStates}"
+							DisplayMemberPath="Name"
+							Placeholder="Enter Province"
+							CornerRadius="8"
+							BorderThickness="0"
+							Value="{Binding Model.ProvinceOrStateRowId, Mode=TwoWay}" />
+					</telerikPrimitives:RadBorder>
+
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Postcode}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.Postcode}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Phone}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.Phone}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+
+
+
+					<telerikPrimitives:RadBorder
+						Margin="0,10,0,2"
+						Padding="5"
+						BackgroundColor="#f5f5f5"
+						BorderColor="#dddddd"
+						CornerRadius="1">
+						<local:LabelEx
+							HorizontalTextAlignment="Start"
+							Style="{StaticResource HeaderCellLabelStyle}"
+							Text="{converters:T ResourceId=LoginDetails}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Email}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.Email}"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Password}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.Password}"
+							IsPassword="True"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=RepeatPassword}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="#4488F6"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.PasswordRepeat}"
+							IsPassword="True"
+							CompletedCommand="{Binding EntryCompletedCommand}"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+				</local:StackLayoutEx>
+			</local:ScrollViewEx>
+		</local:GridEx>
+	</local:AbsoluteLayoutForPage>
+</local:ContentPageEx>

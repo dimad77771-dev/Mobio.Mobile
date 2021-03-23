@@ -257,6 +257,50 @@
 
 
 
+			<telerikInput:BorderStyle
+				x:Key="EntryBorderStyle"
+				BorderThickness="0"
+				BorderColor="{Binding Model.BorderColor}"
+				CornerRadius="8" />
+
+			<Style x:Key="ErrorLabelStyle" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="TextColor" Value="#d12323" />
+				<Setter Property="HorizontalTextAlignment" Value="Center" />
+				<Setter Property="Margin" Value="2,0,2,4" />
+			</Style>
+
+			<Style x:Key="H4" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="#222222" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="H5" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="12" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="TextColor" Value="#222222" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="Main" TargetType="ex:LabelEx">
+				<Setter Property="FontSize" Value="10" />
+				<Setter Property="TextColor" Value="#666666" />
+				<Setter Property="HorizontalTextAlignment" Value="Start" />
+			</Style>
+
+			<Style x:Key="Break" TargetType="ex:LabelEx">
+				<Setter Property="Margin" Value="0,0,0,5" />
+			</Style>
+
+			<OnPlatform x:Key="HHH" x:TypeArguments="x:Double">
+				<On Platform="iOS">35</On>
+				<On Platform="Android">45</On>
+				<On Platform="UWP">35</On>
+			</OnPlatform>
+
+
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -35,9 +35,13 @@ namespace OneBuilder.Mobile
 
 		async void InitializeRootPage()
 		{
-			var debugViewModel = new RegisterViewModel();
-			await NavFunc.NavigateToAsync(debugViewModel);
+			var viewModel = new ProfileViewModel();
+			await NavFunc.NavigateToAsync(viewModel);
 			return;
+
+			//var debugViewModel = new RegisterViewModel();
+			//await NavFunc.NavigateToAsync(debugViewModel);
+			//return;
 
 
 			if (UserOptions.Exists())
