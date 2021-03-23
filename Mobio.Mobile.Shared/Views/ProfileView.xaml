@@ -10,7 +10,6 @@
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-	xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"
 	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
@@ -18,10 +17,20 @@
 	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
 	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
 	x:Name="mainPage">
+	<!--  xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"  -->
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
 			<viewmodel:ProfileViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+
+			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
+				<Setter Property="Margin" Value="8,10,8,5" />
+				<Setter Property="ContentLayout" Value="left,10" />
+				<Setter Property="FontSize" Value="18" />
+				<Setter Property="BorderColor" Value="#333333" />
+				<Setter Property="BorderRadius" Value="8" />
+				<Setter Property="BorderWidth" Value="1" />
+			</Style>
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
@@ -30,6 +39,7 @@
 			<local:GridEx.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
 			</local:GridEx.RowDefinitions>
 
 			<views:NavigationBarView Grid.Row="0" />
@@ -48,7 +58,6 @@
 							Text="{converters:T ResourceId=ProfileDetails}" />
 					</telerikPrimitives:RadBorder>
 
-
 					<local:LabelEx
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
@@ -56,7 +65,7 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=FirstName, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
 						<ex:RadEntryEx Text="{Binding Model.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
@@ -68,12 +77,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=LastName, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.LastName}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.LastName}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
@@ -83,12 +89,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=AddressLine1, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.AddressLine1}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.AddressLine1}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
@@ -98,12 +101,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=City, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.City}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.City}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 
@@ -114,7 +114,7 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=ProvinceOrStateRowId, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
 						<ex:RadComboBoxEx
 							Padding="5,0"
@@ -135,12 +135,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=Postcode, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.Postcode}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.Postcode}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
@@ -150,12 +147,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=Phone, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.Phone}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.Phone}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 
@@ -180,12 +174,9 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=Email, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<ex:RadEntryEx
-							Text="{Binding Model.Email}"
-							CompletedCommand="{Binding EntryCompletedCommand}"
-							BorderStyle="{StaticResource EntryBorderStyle}" />
+						<ex:RadEntryEx Text="{Binding Model.Email}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
@@ -195,12 +186,12 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=Password, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
+						<!--<Entry Text="{Binding Model.Password}" IsPassword="True"/>-->
 						<ex:RadEntryEx
 							Text="{Binding Model.Password}"
 							IsPassword="True"
-							CompletedCommand="{Binding EntryCompletedCommand}"
 							BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
@@ -211,16 +202,33 @@
 					<telerikPrimitives:RadBorder
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
-						BorderColor="#4488F6"
+						BorderColor="{Binding ConverterParameter=PasswordRepeat, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
+						<!--<Entry Text="123" IsPassword="True"/>-->
 						<ex:RadEntryEx
 							Text="{Binding Model.PasswordRepeat}"
 							IsPassword="True"
-							CompletedCommand="{Binding EntryCompletedCommand}"
 							BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
+
 				</local:StackLayoutEx>
 			</local:ScrollViewEx>
+
+			<ex:GridEx Grid.Row="2" Margin="10,5,10,10">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+				<ex:RadButtonEx
+					Grid.Column="2"
+					Text="{converters:T ResourceId=Submit}"
+					Image="button_save.png"
+					Command="{Binding CommitCommand}"
+					Style="{StaticResource ThisButtonStyle}" />
+			</ex:GridEx>
+
+
 		</local:GridEx>
 	</local:AbsoluteLayoutForPage>
 </local:ContentPageEx>

@@ -509,11 +509,7 @@ namespace OneBuilder.Mobile.ViewModels
 			//return PatientHeaderModels.Any(q => q.Value.HasError);
 		}
 
-		bool IsEmptyFieldValue(string arg)
-		{
-			return string.IsNullOrEmpty((arg ?? "").Trim());
-		}
-		
+		bool IsEmptyFieldValue(object arg) => ValidatorFunc.IsEmptyFieldValue(arg);
 
 		const string General = nameof(General);
 		const string ScreenQuestionnaire = nameof(ScreenQuestionnaire);

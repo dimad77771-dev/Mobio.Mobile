@@ -20,11 +20,8 @@ namespace OneBuilder.Mobile.ViewModels
 {
 	public class ProfileViewModel : PageViewModel
 	{
-		public Guid OrderRowId { get; set; }
-		public Order Order { get; set; }
-
+		public Guid UserProfileRowId { get; set; }
 		public State[] DdlStates { get; set; }
-		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
 
 		public UserProfile Model { get; set; }
 
@@ -35,7 +32,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task Init()
 		{
-			OrderRowId = new Guid("4CB06476-B10C-406A-98A2-7A6693A4E590");
+			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
 
 			HeaderTitle = "Profile";
 			IsBackVisible = false;
@@ -56,7 +53,7 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			UIFunc.ShowLoading();
 
-			var task1 = WebServiceFunc.GetOrder(OrderRowId);
+			var task1 = WebServiceFunc.GetProfile(UserProfileRowId);
 			var task3 = WebServiceFunc.GetStates(1);
 			await Task.WhenAll(task1, task3);
 			if (task1.Result == null || task3.Result == null)
@@ -65,10 +62,12 @@ namespace OneBuilder.Mobile.ViewModels
 				return false;
 			}
 
-			Order = task1.Result;
 			DdlStates = task3.Result.OrderBy(q => q.Name).ToArray();
+			Model = task1.Result;
 
-			Model = Order.UserProfile;
+			//Model = new UserProfile();
+
+			SetupModel(Model);
 
 			UIFunc.HideLoading();
 			return true;
@@ -87,6 +86,16 @@ namespace OneBuilder.Mobile.ViewModels
 			this.ChangeAllCanExecute();
 		}
 
+		void SetupModel(UserProfile model)
+		{
+			model.PropertyChanged += (s, e) => OnModelChanged(model, e.PropertyName);
+		}
+
+		void OnModelChanged(UserProfile model, string propertyName)
+		{
+			ValidateGeneral();
+		}
+
 
 		public override async Task OnAppearingEx(ContentPageEx view)
 		{
@@ -97,7 +106,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public async Task Commit()
 		{
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var result = await WebServiceFunc.SubmitRegister(Order);
+			var result = await WebServiceFunc.CreateOrUpdateProfile(Model);
 			UIFunc.HideLoading();
 
 			if (!result)
@@ -166,12 +175,26 @@ namespace OneBuilder.Mobile.ViewModels
 			{
 				errors.Add(nameof(Model.Email));
 			}
-			if (IsEmptyFieldValue(Model.Password))
+			if (!IsValidEmail(Model.Email))
+			{
+				errors.Add(nameof(Model.Email));
+			}
+
+			if (Model.IsNewRow)
+			{
+				if (IsEmptyFieldValue(Model.Password))
+				{
+					errors.Add(nameof(Model.Password));
+				}
+				if (IsEmptyFieldValue(Model.PasswordRepeat))
+				{
+					errors.Add(nameof(Model.PasswordRepeat));
+				}
+			}
+
+			if (Model.Password != Model.PasswordRepeat)
 			{
 				errors.Add(nameof(Model.Password));
-			}
-			if (IsEmptyFieldValue(Model.PasswordRepeat))
-			{
 				errors.Add(nameof(Model.PasswordRepeat));
 			}
 
@@ -193,11 +216,8 @@ namespace OneBuilder.Mobile.ViewModels
 			return haserror;
 		}
 
-		bool IsEmptyFieldValue(object arg)
-		{
-			if (arg == null) return true;
-			return string.IsNullOrEmpty(arg.ToString().Trim());
-		}
+		bool IsEmptyFieldValue(object arg) => ValidatorFunc.IsEmptyFieldValue(arg);
+		bool IsValidEmail(string arg) => ValidatorFunc.IsValidEmail(arg);
 
 		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
 		const string General = nameof(General);

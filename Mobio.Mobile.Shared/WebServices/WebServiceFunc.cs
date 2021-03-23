@@ -135,6 +135,44 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		async public static Task<UserProfile> GetProfile(Guid id)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/account/getprofile?id=" + id;
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.GetAsync(url);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return null;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var json = await response.Content.ReadAsStringAsync();
+				var result = DeserializeObjectFromWebServer<UserProfile>(json);
+				if (result.IsError)
+				{
+					return null;
+				}
+				return result.data;
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return null;
+			}
+		}
+
 		async public static Task<ScheduleItemSlot[]> GetBookingSlots(Guid id)
 		{
 			var httpClient = new HttpClient();
@@ -274,6 +312,50 @@ namespace OneBuilder.WebServices
 			{
 				var rjson = await response.Content.ReadAsStringAsync();
 				var rinfo = JsonConvert.DeserializeObject< PostRetrunInfo>(rjson);
+				if (rinfo.Status == "Ok")
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return false;
+			}
+		}
+
+		async public static Task<bool> CreateOrUpdateProfile(UserProfile model)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/account/createorupdateprofile";
+			var json = JsonConvert.SerializeObject(model);
+			var content = new StringContent(json);
+			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.PostAsync(url, content);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return false;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var rjson = await response.Content.ReadAsStringAsync();
+				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
 				if (rinfo.Status == "Ok")
 				{
 					return true;

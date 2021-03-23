@@ -25,7 +25,7 @@
 					VerticalOptions="Center" />
 				<Image
 					Source="logo"
-					Margin="5,10,5,10"
+					Margin="10,10,5,10"
 					IsVisible="True"
 					VerticalOptions="Center"
 					HorizontalOptions="Start" />
