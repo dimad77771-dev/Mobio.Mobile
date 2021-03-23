@@ -30,6 +30,13 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public Boolean IsCommit { get; set; }
 
+		public Boolean IsLocaleChooseShow { get; set; } = true;
+		public Command LocaleChooseCommand { get; set; }
+		public String LocaleChooseText { get; set; } = Globalization.GetOtherLocaleName();
+
+
+
+
 		public override async Task Init()
 		{
 			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
@@ -40,6 +47,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
+			LocaleChooseCommand = CommandFunc.CreateAsync(async () => await Globalization.SwitchLocale());
+
 
 			U.RequestMainThread(async () =>
 			{

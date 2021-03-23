@@ -15,10 +15,10 @@ namespace OneBuilder.Mobile
 		//public static bool UseAmimation { get; set; } = U.IsDebug ? false : true;
 		public static bool UseAmimation = true;
 
-		public static async Task NavigateToAsync<TViewModel>(TViewModel viewModel)
+		public static async Task NavigateToAsync<TViewModel>(TViewModel viewModel, bool? animated = null)
 		{
 			var navigationService = DependencyService.Get<INavigationService>();
-			await navigationService.NavigateToAsync(viewModel);
+			await navigationService.NavigateToAsync(viewModel, animated);
 
 			var afterPageOpen = CurrentPage as IAfterPageOpen;
 			if (afterPageOpen != null)
@@ -125,6 +125,12 @@ namespace OneBuilder.Mobile
 
 			list.AddRange(MainPage.Navigation.NavigationStack);
 			return list;
+		}
+
+		public static async Task RestartApp()
+		{
+			await MainPage.Navigation.PopToRootAsync(false);
+			App.InitializeRootPage(animated: false);
 		}
 	}
 

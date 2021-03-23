@@ -27,9 +27,12 @@ namespace OneBuilder.Model
 		public String DeviceName { get; set; }
 		public Boolean ShowPrices { get; set; }
 		public bool IsOfflineMode { get; set; }
-		
 
-        public UserOptions()
+
+		public string CurrentLocaleId { get; set; }
+
+
+		public UserOptions()
 		{
 			RowId = Guid.NewGuid();
 		}
@@ -128,9 +131,19 @@ namespace OneBuilder.Model
 			return GetCurrent().BusinessRowId;
 		}
 
+		public static string GetLocaleId()
+		{
+			return GetCurrent().CurrentLocaleId;
+		}
+		public static void SetLocaleId(string localeId)
+		{
+			var row = GetCurrent();
+			row.CurrentLocaleId = localeId;
+			DB.Update(row);
+		}
 
 
-        public static Boolean GetShowPrices()
+		public static Boolean GetShowPrices()
         {
             return UserOptions.GetCurrent().ShowPrices;
         }

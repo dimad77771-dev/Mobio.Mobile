@@ -25,7 +25,7 @@ namespace OneBuilder.Mobile
 			MainPage = new NavigationPage(new MainPage());
 
 			InitializeDependencies();
-			InitializeRootPage();
+			InitializeRootPage(animated:true);
 		}
 
 		void InitializeDependencies()
@@ -33,7 +33,7 @@ namespace OneBuilder.Mobile
 			DependencyService.Register<INavigationService, NavigationService>();
 		}
 
-		async void InitializeRootPage()
+		static public async void InitializeRootPage(bool animated)
 		{
 			var viewModel = new ProfileViewModel();
 			await NavFunc.NavigateToAsync(viewModel);

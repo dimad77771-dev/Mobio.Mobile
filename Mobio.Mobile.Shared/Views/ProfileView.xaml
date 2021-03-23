@@ -216,12 +216,11 @@
 
 			<ex:GridEx Grid.Row="2" Margin="10,5,10,10">
 				<ex:GridEx.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</ex:GridEx.ColumnDefinitions>
 				<ex:RadButtonEx
-					Grid.Column="2"
+					Grid.Column="1"
 					Text="{converters:T ResourceId=Submit}"
 					Image="button_save.png"
 					Command="{Binding CommitCommand}"

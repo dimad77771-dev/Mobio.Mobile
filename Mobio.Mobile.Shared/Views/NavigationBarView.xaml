@@ -4,6 +4,7 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
 	<Grid BackgroundColor="{StaticResource PageBackgroundColor}" RowSpacing="0">
@@ -24,8 +25,8 @@
 					Text="{StaticResource BackIconText}"
 					VerticalOptions="Center" />
 				<Image
-					Source="logo"
 					Margin="10,10,5,10"
+					Source="logo"
 					IsVisible="True"
 					VerticalOptions="Center"
 					HorizontalOptions="Start" />
@@ -57,6 +58,25 @@
 				Style="{StaticResource HeaderButtonStyle}"
 				Text="{StaticResource InfoIconText}"
 				VerticalOptions="Center" />
+
+			<StackLayout
+				Margin="10,5,10,5"
+				IsVisible="{Binding IsLocaleChooseShow, FallbackValue=False}"
+				HorizontalOptions="End"
+				VerticalOptions="Center"
+				Orientation="Horizontal"
+				Spacing="1">
+				<svg:SvgCachedImage
+					Grid.Column="0"
+					Source="globe.svg"
+					VerticalOptions="Center"
+					WidthRequest="24"
+					HeightRequest="24" />
+				<ex:RadButtonEx
+					Text="{Binding LocaleChooseText}"
+					Command="{Binding LocaleChooseCommand}"
+					VerticalOptions="Center" />
+			</StackLayout>
 		</Grid>
 	</Grid>
 </local:GridEx>

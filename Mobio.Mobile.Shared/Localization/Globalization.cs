@@ -15,11 +15,16 @@ namespace OneBuilder.Mobile
 {
 	static public class Globalization
 	{
+		static public string LocaleId;
+		public const string LocaleUA = "";
+		public const string LocaleFR = "fr";
+
 		static private Localizations[] _rows;
 
 		static public string T(string resourceId)
 		{
-			var rrr = _rows.FirstOrDefault(q => q.LocaleId == "" && q.ResourceId == resourceId);
+			var localeId = (LocaleId ?? "");
+			var rrr = _rows.FirstOrDefault(q => q.LocaleId == localeId && q.ResourceId == resourceId);
 			if (rrr != null)
 			{
 				return rrr.Value ?? "";
@@ -30,8 +35,28 @@ namespace OneBuilder.Mobile
 			}
 		}
 
+		static public async Task SwitchLocale()
+		{
+			if (LocaleId == Globalization.LocaleFR)
+			{
+				LocaleId = Globalization.LocaleUA;
+			}
+			else
+			{
+				LocaleId = Globalization.LocaleFR;
+			}
+
+			UserOptions.SetLocaleId(LocaleId);
+			await NavFunc.RestartApp();
+		}
+
+		static public string GetLocaleName() => LocaleId == LocaleFR ? "FR" : "UA";
+		static public string GetOtherLocaleName() => LocaleId == LocaleFR ? "UA" : "FR";
+
 		static public void DbInit()
 		{
+			Globalization.LocaleId = UserOptions.GetLocaleId();
+
 			DB.CreateTable<Localizations>();
 			DB.DeleteAll<Localizations>();
 
@@ -66,6 +91,8 @@ namespace OneBuilder.Mobile
 			//var rrr = rows.SingleOrDefault(q => q.pk == 414);
 			//rows = rows;
 		}
+
+
 
 
 		

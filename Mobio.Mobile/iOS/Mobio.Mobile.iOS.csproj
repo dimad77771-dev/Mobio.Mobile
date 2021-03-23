@@ -423,12 +423,14 @@
     <BundleResource Include="Resources\success.svg" />
     <BundleResource Include="Resources\button_add.png" />
     <BundleResource Include="Resources\button_save.png" />
+    <BundleResource Include="Resources\globe.svg" />
+    <BundleResource Include="Resources\gvt_logo.png" />
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionMobioMobileiOSHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarMobioMobileiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarMobioMobileiOSHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionMobioMobileiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
