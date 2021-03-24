@@ -51,6 +51,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public bool NavigationBarButton1IsVisible { get; set; } = true;
 		public String NavigationBarButton1Text { get; set; } = Globalization.T("Profile");
+		public Command NavigationBarButton1Command { get; set; }
 
 		public Boolean IsCommit { get; set; }
 
@@ -58,10 +59,13 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			//await UnhandledExceptionProccesing.SendErrorServer();
 
-			OrderRowId = new Guid("4CB06476-B10C-406A-98A2-7A6693A4E590");
+			if (OrderRowId == default(Guid))
+			{
+				OrderRowId = new Guid("4CB06476-B10C-406A-98A2-7A6693A4E590");
+			}
 
 			HeaderTitle = Globalization.T("(!)OrderDetails");
-			IsBackVisible = true;
+			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			
@@ -69,6 +73,7 @@ namespace OneBuilder.Mobile.ViewModels
 			PatientDeleteCommand = CommandFunc.CreateAsync(PatientDelete, () => SelectedPatientOrderItem != null);
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasPatientOrderItemError());
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
+			NavigationBarButton1Command = CommandFunc.CreateAsync(ProfileViewModel.OpenPage);
 			PatientItemTapCommand = new Command<ItemTapCommandContext>(PatientItemTap);
 			ScheduleItemSlotTapCommand = new Command<ItemTapCommandContext>(ScheduleItemSlotTap);
 			//this.PropertyChanged += PropertyChangedAction;
@@ -409,8 +414,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task<bool> BeforePageClose()
 		{
-			//UIFunc.ExitApp();
-			//return false;
+			if (!IsBackVisible) return false;
 			return true;
 		}
 

@@ -36,10 +36,9 @@ namespace OneBuilder.Mobile
 		static public async void InitializeRootPage(bool animated)
 		{
 			//var viewModel = new ProfileViewModel();
-			//await NavFunc.NavigateToAsync(viewModel);
-			//return;
+			//var viewModel = new UserOrderViewModel();
+			var viewModel = new UserOrderListViewModel();
 
-			var viewModel = new UserOrderViewModel();
 			await NavFunc.NavigateToAsync(viewModel);
 			return;
 

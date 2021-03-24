@@ -22,9 +22,9 @@ namespace OneBuilder.Mobile.ViewModels
 	{
 		public Guid UserProfileRowId { get; set; }
 
-		public ObservableCollection<Order> PatientOrderItems { get; set; }
-		public Order SelectedPatientOrderItem { get; set; }
-		public Order SelectedPatientOrderItemScrollToRow { get; set; }
+		public ObservableCollection<Order> Items { get; set; }
+		public Order SelectedItem { get; set; }
+		public Order SelectedItemScrollToRow { get; set; }
 
 		public Command ItemTapCommand { get; set; }
 
@@ -33,7 +33,7 @@ namespace OneBuilder.Mobile.ViewModels
 			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
 
 			HeaderTitle = Globalization.T("Orders");
-			IsBackVisible = true;
+			IsBackVisible = U.IsBackVisible;
 
 			ItemTapCommand = new Command<ItemTapCommandContext>(ItemTap);
 
@@ -57,23 +57,37 @@ namespace OneBuilder.Mobile.ViewModels
 				return false;
 			}
 
-			PatientOrderItems = task1.Result.ToObservableCollection();
+			//var gg = task1.Result;
+			//Items = new ObservableCollection<Order>();
+			//for (int k = 0; k < 100; k++)
+			//{
+			//	Items.Add(gg[0]);
+			//}
+
+			Items = task1.Result.ToObservableCollection();
+
 
 			UIFunc.HideLoading();
 			return true;
 		}
 
 
-		void ItemTap(ItemTapCommandContext context)
+		async void ItemTap(ItemTapCommandContext context)
 		{
 			var item = (Order)context.Item;
 			SetSelectedPatientOrderItem(item);
+
+			var viewModel = new UserOrderViewModel
+			{
+				OrderRowId = item.RowId,
+			};
+			await NavFunc.NavigateToAsync(viewModel);
 		}
 
 
 		void SetSelectedPatientOrderItem(Order item)
 		{
-			SelectedPatientOrderItem = item;
+			SelectedItem = item;
 			CalcAll();
 		}
 
@@ -96,6 +110,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task<bool> BeforePageClose()
 		{
+			if (!IsBackVisible) return false;
 			return true;
 		}
 

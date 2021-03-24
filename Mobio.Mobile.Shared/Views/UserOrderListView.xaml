@@ -33,13 +33,18 @@
 
 			<views:NavigationBarView Grid.Row="0" />
 
-			<ex:GridEx Grid.Row="1">
-				<ex:RadListViewEx ItemsSource="{Binding PatientOrderItems}" SelectionMode="None">
+			<ex:GridEx Grid.Row="1" Margin="5">
+				<ex:RadListViewEx
+					ItemsSource="{Binding Items}"
+					SelectedItem="{Binding SelectedItem}"
+					SelectionMode="Single">
+
 					<ex:RadListViewEx.LayoutDefinition>
 						<telerikListView:ListViewGridLayout
 							SpanCount="2"
-							HorizontalItemSpacing="5"
-							VerticalItemSpacing="5" />
+							ItemLength="80"
+							HorizontalItemSpacing="10"
+							VerticalItemSpacing="10" />
 					</ex:RadListViewEx.LayoutDefinition>
 
 					<ex:RadListViewEx.Commands>
@@ -50,19 +55,56 @@
 						<DataTemplate>
 							<telerikListView:ListViewTemplateCell>
 								<telerikListView:ListViewTemplateCell.View>
-									<ex:GridEx>
+									<ex:GridEx Padding="5">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="*" />
+										</Grid.ColumnDefinitions>
+
+										<ex:LabelEx
+											Grid.Row="0"
+											Margin="5,5,5,5"
+											FontSize="16"
+											Text="#"
+											HorizontalTextAlignment="Start"
+											VerticalTextAlignment="Center" />
+
 										<telerikPrimitives:RadBorder
-											Margin="2"
+											Grid.Row="0"
+											Grid.Column="1"
+											Margin="5,5,10,5"
 											Padding="2"
-											HeightRequest="30"
-											BackgroundColor="{Binding Patient.BackgroundColor}"
-											BorderColor="{Binding Patient.BorderColor}"
+											BorderColor="#4488F6"
 											CornerRadius="2">
 											<ex:LabelEx
 												FontSize="16"
-												Text="{Binding Patient.FullPatientName}"
-												TextColor="{Binding Patient.TextColor}"
-												HorizontalTextAlignment="Center"
+												Text="{Binding Number}"
+												HorizontalTextAlignment="Start"
+												VerticalTextAlignment="Center" />
+										</telerikPrimitives:RadBorder>
+
+										<ex:LabelEx
+											Grid.Row="1"
+											Margin="5,5,5,5"
+											FontSize="16"
+											Text="Date"
+											HorizontalTextAlignment="Start"
+											VerticalTextAlignment="Center" />
+										<telerikPrimitives:RadBorder
+											Grid.Row="1"
+											Grid.Column="1"
+											Margin="5,5,10,5"
+											Padding="2"
+											BorderColor="#4488F6"
+											CornerRadius="2">
+											<ex:LabelEx
+												FontSize="16"
+												Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}"
+												HorizontalTextAlignment="Start"
 												VerticalTextAlignment="Center" />
 										</telerikPrimitives:RadBorder>
 									</ex:GridEx>
@@ -72,7 +114,7 @@
 					</ex:RadListViewEx.ItemTemplate>
 
 					<ex:RadListViewEx.Behaviors>
-						<behaviors:RadListViewScrollToBehavior ScrollTo="{Binding SelectedPatientOrderItemScrollToRow}" />
+						<behaviors:RadListViewScrollToBehavior ScrollTo="{Binding SelectedItemScrollToRow}" />
 					</ex:RadListViewEx.Behaviors>
 				</ex:RadListViewEx>
 			</ex:GridEx>

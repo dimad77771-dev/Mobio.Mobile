@@ -46,6 +46,7 @@
 			</StackLayout>
 			<telerikInput:RadButton
 				Command="{Binding NavigationBarButton1Command}"
+				Margin="2,2,5,2"
 				HorizontalOptions="End"
 				IsVisible="{Binding NavigationBarButton1IsVisible, FallbackValue=False}"
 				Style="{StaticResource NavigationBarButtonStyle}"
@@ -53,6 +54,7 @@
 				VerticalOptions="Center" />
 			<telerikInput:RadButton
 				Command="{Binding InfoCommand}"
+				Margin="2,2,5,2"
 				HorizontalOptions="End"
 				IsVisible="{Binding IsInfoAvailable, FallbackValue=False}"
 				Style="{StaticResource HeaderButtonStyle}"

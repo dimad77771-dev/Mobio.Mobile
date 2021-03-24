@@ -13,7 +13,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UserOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -107,8 +107,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderView.xaml.cs">
-      <DependentUpon>UserOrderView.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserOrderListView.xaml.cs">
+      <DependentUpon>UserOrderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>

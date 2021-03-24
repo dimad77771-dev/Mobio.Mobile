@@ -32,7 +32,6 @@ namespace OneBuilder.Mobile
 			return await Pop();
 		}
 
-
 		public static async Task Push(Page page)
 		{
 			await MainPage.Navigation.PushAsync(page, UseAmimation);
@@ -132,6 +131,8 @@ namespace OneBuilder.Mobile
 			await MainPage.Navigation.PopToRootAsync(false);
 			App.InitializeRootPage(animated: false);
 		}
+
+		public static bool IsFirstPage => (MainPage.Navigation.NavigationStack.Count <= 1);
 	}
 
 

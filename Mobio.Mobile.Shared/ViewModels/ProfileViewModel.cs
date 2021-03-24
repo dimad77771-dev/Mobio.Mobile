@@ -42,7 +42,7 @@ namespace OneBuilder.Mobile.ViewModels
 			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
 
 			HeaderTitle = "Profile";
-			IsBackVisible = false;
+			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
@@ -131,8 +131,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task<bool> BeforePageClose()
 		{
-			//UIFunc.ExitApp();
-			//return false;
+			if (!IsBackVisible) return false;
 			return true;
 		}
 
@@ -235,6 +234,13 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			public bool HasError { get; set; }
 			public string ErrorText { get; set; }
+		}
+
+
+		public async static Task OpenPage()
+		{
+			var viewModel = new ProfileViewModel();
+			await NavFunc.NavigateToAsync(viewModel);
 		}
 	}
 

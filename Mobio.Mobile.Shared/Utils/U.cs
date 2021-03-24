@@ -138,6 +138,8 @@ namespace OneBuilder.Mobile
 		public static String StandartLoadingText => Globalization.T("(!)Loading...");
 		public static String InternalError => Globalization.T("(!)Internal Error. Try later");
 
+		public static Boolean IsBackVisible => !NavFunc.IsFirstPage;
+
 
 		public static double DeviceVal(double tabletVal, double phoneVal)
 		{
