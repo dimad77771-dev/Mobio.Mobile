@@ -202,7 +202,6 @@
 						HeightRequest="{StaticResource HHH}"
 						BorderColor="{Binding ConverterParameter=Password, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<!--<Entry Text="{Binding Model.Password}" IsPassword="True"/>-->
 						<ex:RadEntryEx
 							Text="{Binding Model.Password}"
 							IsPassword="True"
@@ -220,7 +219,6 @@
 						HeightRequest="{StaticResource HHH}"
 						BorderColor="{Binding ConverterParameter=PasswordRepeat, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">
-						<!--<Entry Text="123" IsPassword="True"/>-->
 						<ex:RadEntryEx
 							Text="{Binding Model.PasswordRepeat}"
 							IsPassword="True"
@@ -260,7 +258,7 @@
 				<ex:RadButtonEx
 						Grid.Column="1"
 						Text="{converters:T ResourceId=ChangePassword}"
-						Command="{Binding PatientAddCommand}"
+						Command="{Binding ChangePasswordCommand}"
 						Style="{StaticResource PatientButtonStyle2}" />
 				<ex:RadButtonEx
 						Grid.Column="2"

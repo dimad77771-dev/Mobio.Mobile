@@ -55,25 +55,50 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			UIFunc.ShowLoading();
 
+			var items = await LoadOrders();
+			if (items == null) return false;
+
+			if (!items.Any())
+			{
+				if (!await InsertEmptyOrder()) return false;
+
+				items = await LoadOrders();
+				if (items == null) return false;
+			}
+
+			Items = items.ToObservableCollection();
+
+			UIFunc.HideLoading();
+			return true;
+		}
+
+		async Task<Order[]> LoadOrders()
+		{
 			var task1 = WebServiceFunc.GetUserOrders(UserProfileRowId);
 			await Task.WhenAll(task1);
 			if (task1.Result == null)
 			{
 				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return null;
+			}
+
+			var items = task1.Result;
+			return items;
+		}
+
+		async Task<bool> InsertEmptyOrder()
+		{
+			var order = new Order
+			{
+
+			};
+			var result = await WebServiceFunc.SubmitRegister(order);
+			if (!result)
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
 				return false;
 			}
 
-			//var gg = task1.Result;
-			//Items = new ObservableCollection<Order>();
-			//for (int k = 0; k < 100; k++)
-			//{
-			//	Items.Add(gg[0]);
-			//}
-
-			Items = task1.Result.ToObservableCollection();
-
-
-			UIFunc.HideLoading();
 			return true;
 		}
 

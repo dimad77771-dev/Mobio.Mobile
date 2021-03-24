@@ -122,7 +122,7 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			var userProfileRowId = result.Item2.Value;
-			UserOptions.SetUserProfileRowId(userProfileRowId);
+			UserOptions.SetUsernamePassword(Model.email, Model.password, userProfileRowId);
 
 			await NavFunc.RestartApp();
 		}

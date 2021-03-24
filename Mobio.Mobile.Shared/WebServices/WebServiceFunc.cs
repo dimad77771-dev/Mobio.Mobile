@@ -417,10 +417,69 @@ namespace OneBuilder.WebServices
 			}
 		}
 
-		async public static Task<(bool, Guid?, string)> SubmitLogin(LoginModel model)
+		async public static Task<(bool, Guid?, string, string)> SubmitLogin(LoginModel model)
+		{
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+
+			var httpClient = new HttpClient(handler);
+			var url = WebService.WEBBASEADR + @"/home/submitlogin";
+			var json = JsonConvert.SerializeObject(model);
+			var content = new StringContent(json);
+			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.PostAsync(url, content);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return (false, null, "", "");
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var rjson = await response.Content.ReadAsStringAsync();
+				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
+				if (rinfo?.Status == "Ok")
+				{
+					var responseCookies = cookies.GetCookies(new Uri(WebService.WEBBASEADR)).Cast<Cookie>();
+					var cookie = responseCookies.SingleOrDefault(q => q.Name == ".ASPXAUTH");
+					if (cookie == null || string.IsNullOrEmpty(cookie.Value))
+					{
+						return (false, null, ".ASPXAUTH not found", "");
+					}
+					var aspxauth = cookie.Value;
+
+					var jobject = JObject.Parse(rjson);
+					var resultRowId = (jobject["Data"]["RowId"] as JToken).ToObject<Guid>();
+					if (resultRowId == default(Guid)) throw new Exception();
+					return (true, resultRowId, "", aspxauth);
+				}
+				else
+				{
+					return (false, null, rinfo?.Error, "");
+				}
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return (false, null, "", "");
+			}
+		}
+
+		async public static Task<(bool, Guid?, string)> UpdatePassword(ChangePasswordModel model)
 		{
 			var httpClient = new HttpClient();
-			var url = WebService.WEBBASEADR + @"/home/submitlogin";
+			var url = WebService.WEBBASEADR + @"/account/updatePassword";
 			var json = JsonConvert.SerializeObject(model);
 			var content = new StringContent(json);
 			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

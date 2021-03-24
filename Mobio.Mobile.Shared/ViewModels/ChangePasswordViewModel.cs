@@ -20,13 +20,9 @@ namespace OneBuilder.Mobile.ViewModels
 {
 	public class ChangePasswordViewModel : PageViewModel
 	{
-		public Guid UserProfileRowId { get; set; }
-		public State[] DdlStates { get; set; }
-
-		public LoginModel Model { get; set; }
+		public ChangePasswordModel Model { get; set; }
 
 		public Command CommitCommand { get; set; }
-		public Command RegisterCommand { get; set; }
 		public Command CancelCommand { get; set; }
 
 		public Boolean IsCommit { get; set; }
@@ -35,17 +31,15 @@ namespace OneBuilder.Mobile.ViewModels
 		public Command LocaleChooseCommand { get; set; }
 		public String LocaleChooseText { get; set; } = Globalization.GetOtherLocaleName();
 
-		public Boolean IsNewRow { get; set; }
 
 
 		public override async Task Init()
 		{
-			HeaderTitle = Globalization.T("Login");
+			HeaderTitle = Globalization.T("ChangePassword");
 			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
-			RegisterCommand = CommandFunc.CreateAsync(Register);
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
 			LocaleChooseCommand = CommandFunc.CreateAsync(async () => await Globalization.SwitchLocale());
 
@@ -60,17 +54,14 @@ namespace OneBuilder.Mobile.ViewModels
 
 		async Task<bool> LoadData()
 		{
-			UserProfileRowId = UserOptions.GetUserProfileRowId();
-			IsNewRow = (UserProfileRowId == default(Guid));
-
-			Model = new LoginModel
+			Model = new ChangePasswordModel
 			{ 
 				IsNewRow = true,
 			};
 			if (U.IsDebug)
 			{
 				//Model.email = "test1@gmail.com"; Model.password = "123";
-				Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
+				//Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
 			}
 
 			SetupModel(Model);
@@ -91,12 +82,12 @@ namespace OneBuilder.Mobile.ViewModels
 			this.ChangeAllCanExecute();
 		}
 
-		void SetupModel(LoginModel model)
+		void SetupModel(ChangePasswordModel model)
 		{
 			model.PropertyChanged += (s, e) => OnModelChanged(model, e.PropertyName);
 		}
 
-		void OnModelChanged(LoginModel model, string propertyName)
+		void OnModelChanged(ChangePasswordModel model, string propertyName)
 		{
 			ValidateGeneral();
 		}
@@ -111,18 +102,15 @@ namespace OneBuilder.Mobile.ViewModels
 		public async Task Commit()
 		{
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var result = await WebServiceFunc.SubmitLogin(Model);
+			var result = await WebServiceFunc.UpdatePassword(Model);
 			UIFunc.HideLoading();
 
 			if (!result.Item1)
 			{
-				var errtext = (string.IsNullOrEmpty(result.Item3) ? Globalization.T("(!)LoginError") : result.Item3);
+				var errtext = (string.IsNullOrEmpty(result.Item3) ? U.StandartErrorUpdateText : result.Item3);
 				await UIFunc.AlertError(errtext);
 				return;
 			}
-
-			var userProfileRowId = result.Item2.Value;
-			UserOptions.SetUserProfileRowId(userProfileRowId);
 
 			await NavFunc.RestartApp();
 		}
@@ -156,19 +144,26 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			var errors = new List<string>();
 
-			if (IsEmptyFieldValue(Model.email))
+			if (IsEmptyFieldValue(Model.currentPassword))
 			{
-				errors.Add(nameof(Model.email));
+				errors.Add(nameof(Model.currentPassword));
 			}
-			if (!IsValidEmail(Model.email))
+			if (IsEmptyFieldValue(Model.newPassword))
 			{
-				errors.Add(nameof(Model.email));
+				errors.Add(nameof(Model.newPassword));
+			}
+			if (IsEmptyFieldValue(Model.passwordRepeat))
+			{
+				errors.Add(nameof(Model.passwordRepeat));
 			}
 
-			if (IsEmptyFieldValue(Model.password))
+
+			if (Model.newPassword != Model.passwordRepeat)
 			{
-				errors.Add(nameof(Model.password));
+				errors.Add(nameof(Model.newPassword));
+				errors.Add(nameof(Model.passwordRepeat));
 			}
+
 
 			ErrorsGeneral = errors.ToObservableCollection();
 

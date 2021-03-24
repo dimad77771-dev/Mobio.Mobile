@@ -520,7 +520,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 		bool HasPatientOrderItemError()
 		{
-			return false;
+			return PatientOrderItems?.Any(q => q.IsHasError) == true;
+			//return false;
 			//return PatientHeaderModels.Any(q => q.Value.HasError);
 		}
 

@@ -27,6 +27,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public Command CommitCommand { get; set; }
 		public Command LogoutCommand { get; set; }
+		public Command ChangePasswordCommand { get; set; }
 		public Command CancelCommand { get; set; }
 
 		public Boolean IsCommit { get; set; }
@@ -49,6 +50,7 @@ namespace OneBuilder.Mobile.ViewModels
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
 			LogoutCommand = CommandFunc.CreateAsync(Logout);
+			ChangePasswordCommand = CommandFunc.CreateAsync(ChangePassword);
 			LocaleChooseCommand = CommandFunc.CreateAsync(async () => await Globalization.SwitchLocale());
 
 
@@ -148,7 +150,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 			if (IsNewRow)
 			{
-				UserOptions.SetUserProfileRowId(userProfileRowId);
+				UserOptions.SetUsernamePassword(Model.Email, Model.Password, userProfileRowId);
 
 				NavFunc.RemovePages<Views.ProfileView>();
 
@@ -175,7 +177,13 @@ namespace OneBuilder.Mobile.ViewModels
 			await NavFunc.RestartApp();
 		}
 
+		public async Task ChangePassword()
+		{
+			await ChangePasswordViewModel.OpenPage();
+		}
+
 		
+
 
 		void ValidateAll()
 		{

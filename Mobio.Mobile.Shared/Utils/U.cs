@@ -126,7 +126,7 @@ namespace OneBuilder.Mobile
 
 		public static void Logout()
 		{
-			UserOptions.SetUserProfileRowId(default(Guid));
+			UserOptions.SetUsernamePassword("", "", default(Guid));
 		}
 
 

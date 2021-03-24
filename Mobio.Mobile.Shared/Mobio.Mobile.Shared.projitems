@@ -13,6 +13,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -96,6 +100,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization\Globalization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LabConsent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Localizations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ChangePasswordModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Order.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScreenQuiz.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Appointment.cs" />
@@ -112,6 +117,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -161,7 +169,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UnitMeasureDTO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderDTO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UserOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\UserOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sqlite\DB.cs" />

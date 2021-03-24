@@ -103,12 +103,12 @@ namespace OneBuilder.Model
 		}
 
 
-        public static void SetUsernamePassword(String username, String password, Guid userRowId)
+        public static void SetUsernamePassword(String username, String password, Guid userProfileRowId)
         {
             var row = GetCurrent();
             row.Username = username;
             row.Password = password;
-            row.UserRowId = userRowId;
+            row.UserProfileRowId = userProfileRowId;
             DB.Update(row);
         }
 
@@ -147,12 +147,6 @@ namespace OneBuilder.Model
 		public static Guid GetUserProfileRowId()
 		{
 			return GetCurrent().UserProfileRowId;
-		}
-		public static void SetUserProfileRowId(Guid arg)
-		{
-			var row = GetCurrent();
-			row.UserProfileRowId = arg;
-			DB.Update(row);
 		}
 
 		public static Guid GetOrderRowId()
