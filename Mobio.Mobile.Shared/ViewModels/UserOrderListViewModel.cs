@@ -34,7 +34,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task Init()
 		{
-			//UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
+			//UserProfileRowId = new Guid("881C381C-2EEF-420B-9398-39B5190E9CEC");
 			UserProfileRowId = UserOptions.GetUserProfileRowId();
 
 			HeaderTitle = Globalization.T("Orders");
@@ -88,9 +88,20 @@ namespace OneBuilder.Mobile.ViewModels
 
 		async Task<bool> InsertEmptyOrder()
 		{
+			var userProfile = await WebServiceFunc.GetProfile(UserProfileRowId);
+			if (userProfile == null)
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return false;
+			}
+			userProfile.Password = UserOptions.GetPassword();
+
 			var order = new Order
 			{
-
+				UserProfileRowId = UserProfileRowId,
+				IsNew = true,
+				UserProfile = userProfile,
+				Pois = new List<PatientOrderItem>(),
 			};
 			var result = await WebServiceFunc.SubmitRegister(order);
 			if (!result)

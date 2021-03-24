@@ -136,11 +136,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserOrderView.xaml.cs">
       <DependentUpon>UserOrderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\EmailOrderReportQuery.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UserInfoDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\ProjectDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\OrderReportEmailsDTO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\GridFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\StyleFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtControls\StackLayoutEx.cs" />
@@ -149,26 +144,6 @@
       <SubType>Code</SubType>
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GenerateFullOrdersReportParm.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GetAllTimesheetMaterialRecordsResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\GetAllTimesheetMaterialRecordsQuery.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetMaterialRecordHeaderDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetMaterialRecordDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\LabourDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\InspectionDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\ProposalNumberDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SubmitReceivedItemsParm.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\MaterialDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\NopOrderDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\FindStockItemsReturnDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SalesOrderItemDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\SalesOrderShippedItemDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockItemDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockLocationDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\StockPackageTypeDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UnitMeasureDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderDTO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)__old\Model\UpdateNopOrderResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
@@ -230,8 +205,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)__old\" />
   </ItemGroup>
 </Project>

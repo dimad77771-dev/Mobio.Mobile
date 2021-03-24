@@ -28,10 +28,8 @@ namespace OneBuilder.Model
 		public Boolean ShowPrices { get; set; }
 		public bool IsOfflineMode { get; set; }
 
-
 		public string CurrentLocaleId { get; set; }
 		public Guid UserProfileRowId { get; set; }
-		public Guid OrderRowId { get; set; }
 
 
 		public UserOptions()
@@ -77,7 +75,14 @@ namespace OneBuilder.Model
             }
         }
 
-        public static String GetUser()
+		public static void Reset()
+		{
+			DB.DeleteAll<UserOptions>();
+			Init();
+		}
+
+
+		public static String GetUser()
         {
             return (UserOptions.GetCurrent().Username ?? "");
         }
@@ -147,17 +152,6 @@ namespace OneBuilder.Model
 		public static Guid GetUserProfileRowId()
 		{
 			return GetCurrent().UserProfileRowId;
-		}
-
-		public static Guid GetOrderRowId()
-		{
-			return GetCurrent().OrderRowId;
-		}
-		public static void SetOrderRowId(Guid arg)
-		{
-			var row = GetCurrent();
-			row.OrderRowId = arg;
-			DB.Update(row);
 		}
 
 

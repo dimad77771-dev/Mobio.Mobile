@@ -42,11 +42,14 @@ namespace OneBuilder.Mobile
 			//await NavFunc.NavigateToAsync(vmodel);
 			//return;
 
+			if (U.IsDebug)
+			{
+				UserOptions.Reset();
+			}
 
 			if (UserOptions.GetUserProfileRowId() == default(Guid))
 			{
 				var viewModel = new LoginViewModel();
-				//var viewModel = new ProfileViewModel();
 				await NavFunc.NavigateToAsync(viewModel);
 			}
 			else
@@ -54,17 +57,6 @@ namespace OneBuilder.Mobile
 				var viewModel = new UserOrderListViewModel();
 				await NavFunc.NavigateToAsync(viewModel);
 			}
-			
-
-
-			//if (UserOptions.Exists())
-			//{
-			//}
-			//else
-			//{
-			//	var loginViewModel = new LoginViewModel();
-			//	await NavFunc.NavigateToAsync(loginViewModel);
-			//}
 		}
 
 		void StylesCustom()
