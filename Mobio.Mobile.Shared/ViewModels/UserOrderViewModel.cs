@@ -341,6 +341,7 @@ namespace OneBuilder.Mobile.ViewModels
 			if (!result)
 			{
 				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return;
 			}
 			
 			////var homeViewModel = new HomeViewModel();

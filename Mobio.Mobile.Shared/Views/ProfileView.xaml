@@ -180,10 +180,12 @@
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
+						IsVisible="{Binding IsNewRow}"
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
 						Text="{converters:T ResourceId=Password}" />
 					<telerikPrimitives:RadBorder
+						IsVisible="{Binding IsNewRow}"
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
 						BorderColor="{Binding ConverterParameter=Password, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"
@@ -196,10 +198,12 @@
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx
+						IsVisible="{Binding IsNewRow}"
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
 						Text="{converters:T ResourceId=RepeatPassword}" />
 					<telerikPrimitives:RadBorder
+						IsVisible="{Binding IsNewRow}"
 						Margin="2,2,2,5"
 						HeightRequest="{StaticResource HHH}"
 						BorderColor="{Binding ConverterParameter=PasswordRepeat, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}"

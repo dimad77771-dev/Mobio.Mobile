@@ -5,124 +5,117 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:ex="clr-namespace:OneBuilder.Mobile"
 	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
 	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
-	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input">
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	x:Name="mainPage">
+	<!--  xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"  -->
+
+	<local:ContentPageEx.Resources>
+		<ResourceDictionary>
+			<viewmodel:LoginViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+
+			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
+				<Setter Property="Margin" Value="8,10,8,5" />
+				<Setter Property="ContentLayout" Value="left,10" />
+				<Setter Property="FontSize" Value="18" />
+				<Setter Property="BorderRadius" Value="8" />
+				<Setter Property="BorderWidth" Value="1" />
+			</Style>
+		</ResourceDictionary>
+	</local:ContentPageEx.Resources>
+
 	<local:AbsoluteLayoutForPage>
-		<local:GridEx WidthRequest="600" HorizontalOptions="Center">
-			<!--  WidthRequest="600" HorizontalOptions="Center"  -->
+		<local:GridEx>
 			<local:GridEx.RowDefinitions>
 				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</local:GridEx.RowDefinitions>
 
 			<views:NavigationBarView Grid.Row="0" />
 
 			<local:ScrollViewEx Grid.Row="1">
-				<local:GridEx Padding="20">
-					<local:GridEx.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-					</local:GridEx.RowDefinitions>
+				<local:StackLayoutEx Padding="10">
 
-					<local:LabelEx
-						Grid.Row="0"
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="Business Code" />
 					<telerikPrimitives:RadBorder
-						Grid.Row="1"
-						BorderColor="#4488F6"
-						CornerRadius="3"
-						Margin="2">
-						<Entry
-							Text="{Binding BusinessCode}"
-							ReturnCommand="{Binding BusinessCodeReturnCommand}"
-							Keyboard="{Binding BusinessCodeKeyboard}">
-							<Entry.Behaviors>
-								<behaviors:FocusBehavior FocusTo="{Binding BusinessCodeFocusTo}" />
-							</Entry.Behaviors>
-						</Entry>
-					</telerikPrimitives:RadBorder>
-
-					<local:LabelEx
-						Grid.Row="2"
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="User Name" />
-					<telerikPrimitives:RadBorder
-						Grid.Row="3"
-						BorderColor="#4488F6"
-						CornerRadius="3"
-						Margin="2">
-						<Entry
-							Text="{Binding UserName}"
-							ReturnCommand="{Binding UserNameReturnCommand}"
-							Keyboard="{Binding UserNameKeyboard}">
-							<Entry.Behaviors>
-								<behaviors:FocusBehavior FocusTo="{Binding UserNameFocusTo}" />
-							</Entry.Behaviors>
-						</Entry>
-					</telerikPrimitives:RadBorder>
-
-					<local:LabelEx
-						Grid.Row="4"
-						HorizontalTextAlignment="Start"
-						Style="{StaticResource MainCellLabelStyle}"
-						Text="Password" />
-					<telerikPrimitives:RadBorder
-						Grid.Row="5"
-						BorderColor="#4488F6"
-						CornerRadius="3"
-						Margin="2">
-						<Entry
-							Text="{Binding Password}"
-							IsPassword="True"
-							ReturnCommand="{Binding PasswordReturnCommand}"
-							Keyboard="{Binding PasswordKeyboard}">
-							<Entry.Behaviors>
-								<behaviors:FocusBehavior FocusTo="{Binding PasswordFocusTo}" />
-							</Entry.Behaviors>
-						</Entry>
-					</telerikPrimitives:RadBorder>
-
-
-					<local:GridEx
-						Grid.Row="7"
+						Margin="0,10,5,2"
 						Padding="5"
-						RowSpacing="10">
-						<local:GridEx.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-						</local:GridEx.ColumnDefinitions>
+						BackgroundColor="#f5f5f5"
+						BorderColor="#dddddd"
+						CornerRadius="1">
+						<local:LabelEx
+							HorizontalTextAlignment="Start"
+							Style="{StaticResource HeaderCellLabelStyle}"
+							Text="{converters:T ResourceId=Login}" />
+					</telerikPrimitives:RadBorder>
 
-						<telerikInput:RadButton
-							Grid.Column="1"
-							Style="{StaticResource ButtonStyle1}"
-							Command="{Binding CancelCommand}"
-							Margin="6"
-							Text="Exit" />
-						<telerikInput:RadButton
-							Grid.Column="2"
-							Style="{StaticResource ButtonStyle1}"
-							Command="{Binding CommitCommand}"
-							Margin="6"
-							Text="Login" />
-					</local:GridEx>
+					<local:LabelEx
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Email}" />
+					<telerikPrimitives:RadBorder
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="{Binding ConverterParameter=email, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Converter={StaticResource BorderColorConverter}}"
+						CornerRadius="3">
+						<ex:RadEntryEx Text="{Binding Model.email}" BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
 
-				</local:GridEx>
+					<local:LabelEx
+						IsVisible="{Binding IsNewRow}"
+						HorizontalTextAlignment="Start"
+						Style="{StaticResource MainCellLabelStyle}"
+						Text="{converters:T ResourceId=Password}" />
+					<telerikPrimitives:RadBorder
+						IsVisible="{Binding IsNewRow}"
+						Margin="2,2,2,5"
+						HeightRequest="{StaticResource HHH}"
+						BorderColor="{Binding ConverterParameter=password, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Converter={StaticResource BorderColorConverter}}"
+						CornerRadius="3">
+						<ex:RadEntryEx
+							Text="{Binding Model.password}"
+							IsPassword="True"
+							BorderStyle="{StaticResource EntryBorderStyle}" />
+					</telerikPrimitives:RadBorder>
+
+
+				</local:StackLayoutEx>
 			</local:ScrollViewEx>
+
+			<ex:GridEx Grid.Row="2" Margin="10,5,10,10">
+				<ex:GridEx.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</ex:GridEx.ColumnDefinitions>
+
+				<ex:RadButtonEx
+					Grid.Column="0"
+					Text="{converters:T ResourceId=Register}"
+					TextColor="White"
+					Background="#3984D9"
+					BorderColor="#2556C5"
+					Command="{Binding RegisterCommand}"
+					Style="{StaticResource ThisButtonStyle}" />
+
+				<ex:RadButtonEx
+					Grid.Column="1"
+					Text="{converters:T ResourceId=Login}"
+					TextColor="White"
+					Background="#398439"
+					BorderColor="#255625"
+					Command="{Binding CommitCommand}"
+					Style="{StaticResource ThisButtonStyle}" />
+			</ex:GridEx>
+
 
 		</local:GridEx>
 	</local:AbsoluteLayoutForPage>

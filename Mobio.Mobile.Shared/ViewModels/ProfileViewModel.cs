@@ -34,14 +34,14 @@ namespace OneBuilder.Mobile.ViewModels
 		public Command LocaleChooseCommand { get; set; }
 		public String LocaleChooseText { get; set; } = Globalization.GetOtherLocaleName();
 
-
+		public Boolean IsNewRow { get; set; }
 
 
 		public override async Task Init()
 		{
-			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
+			//UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
 
-			HeaderTitle = "Profile";
+			HeaderTitle = Globalization.T("Profile");
 			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
@@ -60,9 +60,31 @@ namespace OneBuilder.Mobile.ViewModels
 
 		async Task<bool> LoadData()
 		{
+			UserProfileRowId = UserOptions.GetUserProfileRowId();
+			IsNewRow = (UserProfileRowId == default(Guid));
+
 			UIFunc.ShowLoading();
 
-			var task1 = WebServiceFunc.GetProfile(UserProfileRowId);
+			var newModel = new UserProfile 
+			{ 
+				IsNewRow = true,
+				Type = 1,
+			};
+			if (U.IsDebug)
+			{
+				newModel.FirstName = "Test1";
+				newModel.LastName = "Test1";
+				newModel.AddressLine1 = "AddressLine1";
+				newModel.City = "City1";
+				newModel.ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C");
+				newModel.Postcode = "Postcode1";
+				newModel.Phone = "123-45-67";
+				newModel.Email = "test1@gmail.com";
+				newModel.Password = "123";
+				newModel.PasswordRepeat = "123";
+			}
+
+			var task1 = !IsNewRow ? WebServiceFunc.GetProfile(UserProfileRowId) : Task.FromResult(newModel);
 			var task3 = WebServiceFunc.GetStates(1);
 			await Task.WhenAll(task1, task3);
 			if (task1.Result == null || task3.Result == null)
@@ -72,10 +94,8 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			DdlStates = task3.Result.OrderBy(q => q.Name).ToArray();
+
 			Model = task1.Result;
-
-			//Model = new UserProfile();
-
 			SetupModel(Model);
 
 			UIFunc.HideLoading();
@@ -115,17 +135,24 @@ namespace OneBuilder.Mobile.ViewModels
 		public async Task Commit()
 		{
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var result = await WebServiceFunc.CreateOrUpdateProfile(Model);
+			var userProfileRowId = await WebServiceFunc.CreateOrUpdateProfile(Model);
 			UIFunc.HideLoading();
 
-			if (!result)
+			if (userProfileRowId == default(Guid))
 			{
 				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return;
 			}
-			
-			////var homeViewModel = new HomeViewModel();
-			//var homeViewModel = new SerialViewModel();
-			//await NavFunc.NavigateToAsync(homeViewModel);
+
+			if (IsNewRow)
+			{
+				UserOptions.SetUserProfileRowId(userProfileRowId);
+
+				NavFunc.RemovePages<Views.ProfileView>();
+
+				var viewmodel = new UserOrderListViewModel();
+				await NavFunc.NavigateToAsync(viewmodel);
+			}
 		}
 
 

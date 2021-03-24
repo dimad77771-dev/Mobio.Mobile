@@ -27,7 +27,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public HomeViewModel()
 		{
-			HeaderTitle = "Menu";
+			HeaderTitle = Globalization.T("Menu");
 			IsBackVisible = false;
 			//this.PropertyChanged += DoPropertyChanged;
 		}

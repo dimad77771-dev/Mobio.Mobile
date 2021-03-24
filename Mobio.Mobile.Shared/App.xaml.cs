@@ -35,22 +35,36 @@ namespace OneBuilder.Mobile
 
 		static public async void InitializeRootPage(bool animated)
 		{
+			//var vmodel = new LoginViewModel();
 			//var viewModel = new ProfileViewModel();
 			//var viewModel = new UserOrderViewModel();
-			var viewModel = new UserOrderListViewModel();
+			//var viewModel = new UserOrderListViewModel();
+			//await NavFunc.NavigateToAsync(vmodel);
+			//return;
 
-			await NavFunc.NavigateToAsync(viewModel);
-			return;
 
-
-			if (UserOptions.Exists())
+			if (UserOptions.GetUserProfileRowId() == default(Guid))
 			{
+				var viewModel = new LoginViewModel();
+				//var viewModel = new ProfileViewModel();
+				await NavFunc.NavigateToAsync(viewModel);
 			}
 			else
 			{
-				var loginViewModel = new LoginViewModel();
-				await NavFunc.NavigateToAsync(loginViewModel);
+				var viewModel = new UserOrderListViewModel();
+				await NavFunc.NavigateToAsync(viewModel);
 			}
+			
+
+
+			//if (UserOptions.Exists())
+			//{
+			//}
+			//else
+			//{
+			//	var loginViewModel = new LoginViewModel();
+			//	await NavFunc.NavigateToAsync(loginViewModel);
+			//}
 		}
 
 		void StylesCustom()

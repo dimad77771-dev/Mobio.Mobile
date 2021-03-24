@@ -1,6 +1,5 @@
 ﻿using OneBuilder.Model;
 using OneBuilder.WebServices;
-using PropertyChanged;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -11,102 +10,219 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.Views;
+using System.Windows.Input;
+using Telerik.XamarinForms.DataControls.ListView.Commands;
+using T = Telerik.XamarinForms.Input;
+using OneBuilder.Mobile.Behaviors;
+using System.Diagnostics;
 
 namespace OneBuilder.Mobile.ViewModels
 {
 	public class LoginViewModel : PageViewModel
 	{
-		public String BusinessCode { get; set; }
-		public String UserName { get; set; }
-		public String Password { get; set; }
+		public Guid UserProfileRowId { get; set; }
+		public State[] DdlStates { get; set; }
 
-		public Command CommitCommand => CommandFunc.CreateAsync(Commit);
-		public Command CancelCommand => CommandFunc.CreateAsync(Cancel);
-		public Command BusinessCodeReturnCommand => CommandFunc.CreateAsync(BusinessCodeReturn);
-		public Command UserNameReturnCommand => CommandFunc.CreateAsync(UserNameReturn);
-		public Command PasswordReturnCommand => CommandFunc.CreateAsync(PasswordReturn);
-		public Keyboard BusinessCodeKeyboard => Keyboard.Create(KeyboardFlags.None);
-		public Keyboard UserNameKeyboard => Keyboard.Create(KeyboardFlags.None);
-		public Keyboard PasswordKeyboard => Keyboard.Create(KeyboardFlags.None);
+		public LoginModel Model { get; set; }
 
-		public Boolean BusinessCodeFocusTo { get; set; }
-		public Boolean UserNameFocusTo { get; set; }
-		public Boolean PasswordFocusTo { get; set; }
+		public Command CommitCommand { get; set; }
+		public Command RegisterCommand { get; set; }
+		public Command CancelCommand { get; set; }
 
 		public Boolean IsCommit { get; set; }
+
+		public Boolean IsLocaleChooseShow { get; set; } = true;
+		public Command LocaleChooseCommand { get; set; }
+		public String LocaleChooseText { get; set; } = Globalization.GetOtherLocaleName();
+
+		public Boolean IsNewRow { get; set; }
 
 
 		public override async Task Init()
 		{
-			//HeaderTitle = "Login";
-			IsBackVisible = false;
-			if (U.IsDebug)
+			HeaderTitle = Globalization.T("Login");
+			IsBackVisible = U.IsBackVisible;
+			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
+
+			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
+			RegisterCommand = CommandFunc.CreateAsync(Register);
+			CancelCommand = CommandFunc.CreateAsync(Cancel);
+			LocaleChooseCommand = CommandFunc.CreateAsync(async () => await Globalization.SwitchLocale());
+
+
+			U.RequestMainThread(async () =>
 			{
-				//BusinessCode = "Polyforce"; UserName = "Bogdan"; Password = "123456";
-				BusinessCode = "Polyforce"; UserName = "Boris"; Password = @"Slavuta~23!";
-				//UserName = "Guest"; Password = "123456";
-				if (WebService.WEBBASEADR == @"https://obo.imgroup.ca")
-				{
-					BusinessCode = "Polyforce"; UserName = "Bogdan"; Password = "$uper.user";
-					//Password = @"$uper.user";
-				}
-			}
+				if (!await LoadData()) return;
+				CalcAll();
+			});
 		}
 
-		public override async Task OnAppearing()
+
+		async Task<bool> LoadData()
 		{
-			BusinessCodeFocusTo = true;
+			UserProfileRowId = UserOptions.GetUserProfileRowId();
+			IsNewRow = (UserProfileRowId == default(Guid));
+
+			Model = new LoginModel
+			{ 
+				IsNewRow = true,
+			};
+			if (U.IsDebug)
+			{
+				//Model.email = "test1@gmail.com"; Model.password = "123";
+				Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
+			}
+
+			SetupModel(Model);
+
+			return true;
+		}
+
+
+	
+		void CalcAll()
+		{
+			ValidateAll();
+			CommandEnabledRefresh();
+		}
+
+		void CommandEnabledRefresh()
+		{
+			this.ChangeAllCanExecute();
+		}
+
+		void SetupModel(LoginModel model)
+		{
+			model.PropertyChanged += (s, e) => OnModelChanged(model, e.PropertyName);
+		}
+
+		void OnModelChanged(LoginModel model, string propertyName)
+		{
+			ValidateGeneral();
+		}
+
+
+		public override async Task OnAppearingEx(ContentPageEx view)
+		{
+			//view.
+			//BusinessCodeFocusTo = true;
 		}
 
 		public async Task Commit()
 		{
-			//if (string.IsNullOrEmpty(UserName))
-			//{
-			//	await UIFunc.AlertError("User Name is required");
-			//	UserNameFocusTo = true;
-			//	return;
-			//}
+			UIFunc.ShowLoading(U.StandartUpdatingText);
+			var result = await WebServiceFunc.SubmitLogin(Model);
+			UIFunc.HideLoading();
 
-			//IsCommit = true;
-			//await NavFunc.Pop();
-
-			if (!await (new AuthenticateTask()).Run(BusinessCode, UserName, Password))
+			if (!result.Item1)
 			{
+				var errtext = (string.IsNullOrEmpty(result.Item3) ? Globalization.T("(!)LoginError") : result.Item3);
+				await UIFunc.AlertError(errtext);
 				return;
 			}
 
-			//var homeViewModel = new HomeViewModel();
-			//var homeViewModel = new SerialViewModel();
-			//await NavFunc.NavigateToAsync(homeViewModel);
+			var userProfileRowId = result.Item2.Value;
+			UserOptions.SetUserProfileRowId(userProfileRowId);
+
+			await NavFunc.RestartApp();
 		}
+
+		public async Task Register()
+		{
+			var viewModel = new ProfileViewModel();
+			await NavFunc.NavigateToAsync(viewModel);
+		}
+
 
 		public override async Task<bool> BeforePageClose()
 		{
-			UIFunc.ExitApp();
-			return false;
+			if (!IsBackVisible) return false;
+			return true;
 		}
 
 		public async Task Cancel()
 		{
-			UIFunc.ExitApp();
+			
 		}
 
-		public async Task BusinessCodeReturn()
+		void ValidateAll()
 		{
-			UserNameFocusTo = true;
+			ValidateGeneral(totalCalc: false);
+			ValidateTotalCalc();
 		}
 
-
-		public async Task UserNameReturn()
+		public ObservableCollection<string> ErrorsGeneral { get; set; } = new ObservableCollection<string>();
+		void ValidateGeneral(bool totalCalc = true)
 		{
-			PasswordFocusTo = true;
+			var errors = new List<string>();
+
+			if (IsEmptyFieldValue(Model.email))
+			{
+				errors.Add(nameof(Model.email));
+			}
+			if (!IsValidEmail(Model.email))
+			{
+				errors.Add(nameof(Model.email));
+			}
+
+			if (IsEmptyFieldValue(Model.password))
+			{
+				errors.Add(nameof(Model.password));
+			}
+
+			ErrorsGeneral = errors.ToObservableCollection();
+
+			PatientHeaderModels[General].HasError = errors.Any();
+			if (totalCalc) ValidateTotalCalc();
 		}
 
-		public async Task PasswordReturn()
+
+		void ValidateTotalCalc()
 		{
+			CommandEnabledRefresh();
+		}
+
+		bool HasModelErrors()
+		{
+			var haserror = PatientHeaderModels.Any(q => q.Value.HasError);
+			return haserror;
+		}
+
+		bool IsEmptyFieldValue(object arg) => ValidatorFunc.IsEmptyFieldValue(arg);
+		bool IsValidEmail(string arg) => ValidatorFunc.IsValidEmail(arg);
+
+		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
+		const string General = nameof(General);
+		string[] AllPatientTabs = { General };
+		public class PatientHeaderModel : ViewModelBase
+		{
+			public bool HasError { get; set; }
+			public string ErrorText { get; set; }
 		}
 
 
+		public async static Task OpenPage()
+		{
+			var viewModel = new LoginViewModel();
+			await NavFunc.NavigateToAsync(viewModel);
+		}
 	}
+
+	public class LoginViewModel_BorderColorConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		{
+			var field = (parameter == null ? "" : parameter.ToString());
+			var errors = value as ObservableCollection<string>;
+			var hasError = errors.Contains(field);
+			return hasError ? Color.FromHex("#A94442") : Color.FromHex("#4488F6");
+		}
+		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		{
+			throw new NotSupportedException();
+		}
+	}
+
 }
+
 

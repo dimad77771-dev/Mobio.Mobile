@@ -29,6 +29,8 @@ namespace OneBuilder.Mobile
 
 		public static bool IsValidEmail(string emailAddress)
 		{
+			if (string.IsNullOrEmpty(emailAddress)) return true;
+
 			var isValid = ValidEmailRegex.IsMatch(emailAddress);
 			return isValid;
 		}

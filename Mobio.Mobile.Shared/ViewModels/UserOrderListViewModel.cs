@@ -28,14 +28,20 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public Command ItemTapCommand { get; set; }
 
+		public bool NavigationBarButton1IsVisible { get; set; } = true;
+		public String NavigationBarButton1Text { get; set; } = Globalization.T("Profile");
+		public Command NavigationBarButton1Command { get; set; }
+
 		public override async Task Init()
 		{
-			UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
+			//UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
+			UserProfileRowId = UserOptions.GetUserProfileRowId();
 
 			HeaderTitle = Globalization.T("Orders");
 			IsBackVisible = U.IsBackVisible;
 
 			ItemTapCommand = new Command<ItemTapCommandContext>(ItemTap);
+			NavigationBarButton1Command = CommandFunc.CreateAsync(ProfileViewModel.OpenPage);
 
 			U.RequestMainThread(async () =>
 			{

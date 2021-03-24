@@ -13,6 +13,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UserOrderListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -102,10 +106,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\ScheduleItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ProfileAdditionalData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Country.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LoginModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UserProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskFunc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\UserOrderListView.xaml.cs">
       <DependentUpon>UserOrderListView.xaml</DependentUpon>
@@ -184,14 +193,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\UIFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\UnhandledExceptionProccesing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\NavigationBarView.xaml.cs">
       <DependentUpon>NavigationBarView.xaml</DependentUpon>
@@ -207,12 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\NavigationBarView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

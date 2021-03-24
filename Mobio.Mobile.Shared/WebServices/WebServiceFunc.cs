@@ -370,7 +370,7 @@ namespace OneBuilder.WebServices
 			}
 		}
 
-		async public static Task<bool> CreateOrUpdateProfile(UserProfile model)
+		async public static Task<Guid> CreateOrUpdateProfile(UserProfile model)
 		{
 			var httpClient = new HttpClient();
 			var url = WebService.WEBBASEADR + @"/account/createorupdateprofile";
@@ -387,7 +387,7 @@ namespace OneBuilder.WebServices
 			catch (Exception ex)
 			{
 				var error = ex.ToString();
-				return false;
+				return default(Guid);
 			}
 
 			if (response.IsSuccessStatusCode)
@@ -396,11 +396,14 @@ namespace OneBuilder.WebServices
 				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
 				if (rinfo.Status == "Ok")
 				{
-					return true;
+					var jobject = JObject.Parse(rjson);
+					var resultRowId = (jobject["Data"]["RowId"] as JToken).ToObject<Guid>();
+					if (resultRowId == default(Guid)) throw new Exception();
+					return resultRowId;
 				}
 				else
 				{
-					return false;
+					return default(Guid);
 				}
 			}
 			else
@@ -410,7 +413,54 @@ namespace OneBuilder.WebServices
 				{
 					error = "Internal error";
 				}
-				return false;
+				return default(Guid);
+			}
+		}
+
+		async public static Task<(bool, Guid?, string)> SubmitLogin(LoginModel model)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/home/submitlogin";
+			var json = JsonConvert.SerializeObject(model);
+			var content = new StringContent(json);
+			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.PostAsync(url, content);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return (false, null, "");
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var rjson = await response.Content.ReadAsStringAsync();
+				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
+				if (rinfo?.Status == "Ok")
+				{
+					var jobject = JObject.Parse(rjson);
+					var resultRowId = (jobject["Data"]["RowId"] as JToken).ToObject<Guid>();
+					if (resultRowId == default(Guid)) throw new Exception();
+					return (true, resultRowId, "");
+				}
+				else
+				{
+					return (false, null, rinfo?.Error);
+				}
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return (false, null, "");
 			}
 		}
 

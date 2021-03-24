@@ -10,8 +10,16 @@ using Xamarin.Forms;
 
 namespace OneBuilder.Mobile
 {
-	public static class TaskExtensions
+	public static class TaskFunc
 	{
+		public static Task<T> FromResult<T>(T value)
+		{
+			var tsc = new TaskCompletionSource<T>();
+			tsc.SetResult(value);
+			return tsc.Task;
+		}
+			 
+
 		public static bool HasError(this IEnumerable<Task<object>> tasks)
 		{
 			return (tasks.Any(q => q.Result == null));
