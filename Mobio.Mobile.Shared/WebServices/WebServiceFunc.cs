@@ -173,6 +173,44 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		async public static Task<Order[]> GetUserOrders(Guid id)
+		{
+			var httpClient = new HttpClient();
+			var url = WebService.WEBBASEADR + @"/account/getUserOrders?id=" + id;
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.GetAsync(url);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return null;
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var json = await response.Content.ReadAsStringAsync();
+				var result = DeserializeObjectFromWebServer<Order[]>(json);
+				if (result.IsError)
+				{
+					return null;
+				}
+				return result.data == null ? new Order[0] : result.data;
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return null;
+			}
+		}
+
 		async public static Task<ScheduleItemSlot[]> GetBookingSlots(Guid id)
 		{
 			var httpClient = new HttpClient();

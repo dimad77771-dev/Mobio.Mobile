@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:ContentPageEx
+	x:Class="OneBuilder.Mobile.Views.UserOrderListView"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ex="clr-namespace:OneBuilder.Mobile"
+	xmlns:behaviors="clr-namespace:OneBuilder.Mobile.Behaviors"
+	xmlns:converters="clr-namespace:OneBuilder.Mobile.Converters"
+	xmlns:views="clr-namespace:OneBuilder.Mobile.Views"
+	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
+	xmlns:local="clr-namespace:OneBuilder.Mobile"
+	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
+	xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
+	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+	x:Name="mainPage">
+	<!--  xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"  -->
+
+	<local:ContentPageEx.Resources>
+		<ResourceDictionary>
+		</ResourceDictionary>
+	</local:ContentPageEx.Resources>
+
+	<local:AbsoluteLayoutForPage>
+		<local:GridEx>
+			<local:GridEx.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</local:GridEx.RowDefinitions>
+
+			<views:NavigationBarView Grid.Row="0" />
+
+			<ex:GridEx Grid.Row="1">
+				<ex:RadListViewEx ItemsSource="{Binding PatientOrderItems}" SelectionMode="None">
+					<ex:RadListViewEx.LayoutDefinition>
+						<telerikListView:ListViewGridLayout
+							SpanCount="2"
+							HorizontalItemSpacing="5"
+							VerticalItemSpacing="5" />
+					</ex:RadListViewEx.LayoutDefinition>
+
+					<ex:RadListViewEx.Commands>
+						<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
+					</ex:RadListViewEx.Commands>
+
+					<ex:RadListViewEx.ItemTemplate>
+						<DataTemplate>
+							<telerikListView:ListViewTemplateCell>
+								<telerikListView:ListViewTemplateCell.View>
+									<ex:GridEx>
+										<telerikPrimitives:RadBorder
+											Margin="2"
+											Padding="2"
+											HeightRequest="30"
+											BackgroundColor="{Binding Patient.BackgroundColor}"
+											BorderColor="{Binding Patient.BorderColor}"
+											CornerRadius="2">
+											<ex:LabelEx
+												FontSize="16"
+												Text="{Binding Patient.FullPatientName}"
+												TextColor="{Binding Patient.TextColor}"
+												HorizontalTextAlignment="Center"
+												VerticalTextAlignment="Center" />
+										</telerikPrimitives:RadBorder>
+									</ex:GridEx>
+								</telerikListView:ListViewTemplateCell.View>
+							</telerikListView:ListViewTemplateCell>
+						</DataTemplate>
+					</ex:RadListViewEx.ItemTemplate>
+
+					<ex:RadListViewEx.Behaviors>
+						<behaviors:RadListViewScrollToBehavior ScrollTo="{Binding SelectedPatientOrderItemScrollToRow}" />
+					</ex:RadListViewEx.Behaviors>
+				</ex:RadListViewEx>
+			</ex:GridEx>
+
+		</local:GridEx>
+	</local:AbsoluteLayoutForPage>
+</local:ContentPageEx>

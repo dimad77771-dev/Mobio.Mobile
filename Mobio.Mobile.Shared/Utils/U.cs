@@ -132,11 +132,11 @@ namespace OneBuilder.Mobile
 		//public static Guid LabourRowId =>  UserOptions.GetCurrent().CurrentLabourRowId;
 		//public static String LabourName => UserOptions.GetCurrent().CurrentLabourName;
 
-		public static String StandartErrorUpdateText => "Error during update. Try later";
-		public static String StandartErrorRetrieveText => "Error during retrieve data. Try later";
-		public static String StandartUpdatingText => "Submitting...";
-		public static String StandartLoadingText => "Loading...";
-		public static String InternalError => "Internal Error. Try later";
+		public static String StandartErrorUpdateText => Globalization.T("(!)Error during update. Try later");
+		public static String StandartErrorRetrieveText => Globalization.T("(!)Error during retrieve data. Try later");
+		public static String StandartUpdatingText => Globalization.T("(!)Submitting...");
+		public static String StandartLoadingText => Globalization.T("(!)Loading...");
+		public static String InternalError => Globalization.T("(!)Internal Error. Try later");
 
 
 		public static double DeviceVal(double tabletVal, double phoneVal)

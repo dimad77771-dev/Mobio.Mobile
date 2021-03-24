@@ -18,7 +18,7 @@ using System.Diagnostics;
 
 namespace OneBuilder.Mobile.ViewModels
 {
-	public class RegisterViewModel : PageViewModel
+	public class UserOrderViewModel : PageViewModel
 	{
 		public Guid OrderRowId { get; set; }
 		public Order Order { get; set; }
@@ -31,6 +31,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public UserProfile Model { get; set; }
 		public ObservableCollection<PatientOrderItem> PatientOrderItems { get; set; }
 		public PatientOrderItem SelectedPatientOrderItem { get; set; }
+		public PatientOrderItem SelectedPatientOrderItemScrollToRow { get; set; }
 
 		public RadCalendarOperationBehaviorManager CalendarManager { get; set; } = new RadCalendarOperationBehaviorManager();
 		public Boolean IsShowCalendar { get; set; }
@@ -57,10 +58,9 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			//await UnhandledExceptionProccesing.SendErrorServer();
 
-			//OrderRowId = new Guid("c1f3ef4a-cf61-4924-994a-6cc2cee8228e");
 			OrderRowId = new Guid("4CB06476-B10C-406A-98A2-7A6693A4E590");
 
-			HeaderTitle = "Register";
+			HeaderTitle = Globalization.T("(!)OrderDetails");
 			IsBackVisible = true;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
@@ -382,6 +382,16 @@ namespace OneBuilder.Mobile.ViewModels
 			CalcAll();
 
 			PatientHeaderModels[General].IsExpanded = true;
+
+			U.RequestMainThread(async () =>
+			{
+				await Task.Yield();
+				SelectedPatientOrderItemScrollToRow = patientOrderItem;
+				SelectedPatientOrderItemScrollToRow = null;
+				await Task.Delay(200);
+				await Task.Yield();
+				SelectedPatientOrderItemScrollToRow = patientOrderItem;
+			});
 		}
 
 		public async Task PatientDelete()
@@ -525,7 +535,7 @@ namespace OneBuilder.Mobile.ViewModels
 		}
 	}
 
-	public class RegisterViewModel_BorderColorConverter : IValueConverter
+	public class UserOrderViewModel_BorderColorConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{

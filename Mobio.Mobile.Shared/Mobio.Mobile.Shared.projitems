@@ -13,11 +13,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UserOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -102,13 +106,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ImageFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderView.xaml.cs">
+      <DependentUpon>UserOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ProfileViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RegisterView.xaml.cs">
-      <DependentUpon>RegisterView.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserOrderViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserOrderView.xaml.cs">
+      <DependentUpon>UserOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\EmailOrderReportQuery.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)__old\Model\TimesheetDTO.cs" />

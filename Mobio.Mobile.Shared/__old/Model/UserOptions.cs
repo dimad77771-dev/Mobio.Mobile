@@ -30,6 +30,8 @@ namespace OneBuilder.Model
 
 
 		public string CurrentLocaleId { get; set; }
+		public Guid UserProfileRowId { get; set; }
+		public Guid OrderRowId { get; set; }
 
 
 		public UserOptions()
@@ -141,6 +143,29 @@ namespace OneBuilder.Model
 			row.CurrentLocaleId = localeId;
 			DB.Update(row);
 		}
+
+		public static Guid GetUserProfileRowId()
+		{
+			return GetCurrent().UserProfileRowId;
+		}
+		public static void SetUserProfileRowId(Guid arg)
+		{
+			var row = GetCurrent();
+			row.UserProfileRowId = arg;
+			DB.Update(row);
+		}
+
+		public static Guid GetOrderRowId()
+		{
+			return GetCurrent().OrderRowId;
+		}
+		public static void SetOrderRowId(Guid arg)
+		{
+			var row = GetCurrent();
+			row.OrderRowId = arg;
+			DB.Update(row);
+		}
+
 
 
 		public static Boolean GetShowPrices()

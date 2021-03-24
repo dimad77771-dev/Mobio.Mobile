@@ -21,17 +21,27 @@ namespace OneBuilder.Mobile
 
 		static private Localizations[] _rows;
 
-		static public string T(string resourceId)
+		static public string T(string resourceId, params object[] args)
 		{
 			var localeId = (LocaleId ?? "");
 			var rrr = _rows.FirstOrDefault(q => q.LocaleId == localeId && q.ResourceId == resourceId);
+			var result = "";
 			if (rrr != null)
 			{
-				return rrr.Value ?? "";
+				result = rrr.Value ?? "";
 			}
 			else
 			{
-				return "[+]" + resourceId;
+				result = "[+]" + resourceId;
+			}
+
+			if (args == null && args.Length == 0)
+			{
+				return result;
+			}
+			else
+			{
+				return string.Format(result, args);
 			}
 		}
 
