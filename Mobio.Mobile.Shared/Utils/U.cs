@@ -124,6 +124,11 @@ namespace OneBuilder.Mobile
 			}
 		}
 
+		public static void Logout()
+		{
+			UserOptions.SetUserProfileRowId(default(Guid));
+		}
+
 
 		public static Boolean TabletMode => (Device.Idiom == TargetIdiom.Tablet);
 

@@ -18,15 +18,15 @@ using System.Diagnostics;
 
 namespace OneBuilder.Mobile.ViewModels
 {
-	public class ProfileViewModel : PageViewModel
+	public class ChangePasswordViewModel : PageViewModel
 	{
 		public Guid UserProfileRowId { get; set; }
 		public State[] DdlStates { get; set; }
 
-		public UserProfile Model { get; set; }
+		public LoginModel Model { get; set; }
 
 		public Command CommitCommand { get; set; }
-		public Command LogoutCommand { get; set; }
+		public Command RegisterCommand { get; set; }
 		public Command CancelCommand { get; set; }
 
 		public Boolean IsCommit { get; set; }
@@ -40,15 +40,13 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public override async Task Init()
 		{
-			//UserProfileRowId = new Guid("2fd3c1cb-be1a-4444-8131-c44447d3b6bc");
-
-			HeaderTitle = Globalization.T("Profile");
+			HeaderTitle = Globalization.T("Login");
 			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasModelErrors());
+			RegisterCommand = CommandFunc.CreateAsync(Register);
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
-			LogoutCommand = CommandFunc.CreateAsync(Logout);
 			LocaleChooseCommand = CommandFunc.CreateAsync(async () => await Globalization.SwitchLocale());
 
 
@@ -65,42 +63,18 @@ namespace OneBuilder.Mobile.ViewModels
 			UserProfileRowId = UserOptions.GetUserProfileRowId();
 			IsNewRow = (UserProfileRowId == default(Guid));
 
-			UIFunc.ShowLoading();
-
-			var newModel = new UserProfile 
+			Model = new LoginModel
 			{ 
 				IsNewRow = true,
-				Type = 1,
 			};
 			if (U.IsDebug)
 			{
-				newModel.FirstName = "Test1";
-				newModel.LastName = "Test1";
-				newModel.AddressLine1 = "AddressLine1";
-				newModel.City = "City1";
-				newModel.ProvinceOrStateRowId = new Guid("75D55A3F-FD2E-4EBA-A597-53E5A5BE532C");
-				newModel.Postcode = "Postcode1";
-				newModel.Phone = "123-45-67";
-				newModel.Email = "test1@gmail.com";
-				newModel.Password = "123";
-				newModel.PasswordRepeat = "123";
+				//Model.email = "test1@gmail.com"; Model.password = "123";
+				Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
 			}
 
-			var task1 = !IsNewRow ? WebServiceFunc.GetProfile(UserProfileRowId) : Task.FromResult(newModel);
-			var task3 = WebServiceFunc.GetStates(1);
-			await Task.WhenAll(task1, task3);
-			if (task1.Result == null || task3.Result == null)
-			{
-				await UIFunc.AlertError(U.StandartErrorUpdateText);
-				return false;
-			}
-
-			DdlStates = task3.Result.OrderBy(q => q.Name).ToArray();
-
-			Model = task1.Result;
 			SetupModel(Model);
 
-			UIFunc.HideLoading();
 			return true;
 		}
 
@@ -117,12 +91,12 @@ namespace OneBuilder.Mobile.ViewModels
 			this.ChangeAllCanExecute();
 		}
 
-		void SetupModel(UserProfile model)
+		void SetupModel(LoginModel model)
 		{
 			model.PropertyChanged += (s, e) => OnModelChanged(model, e.PropertyName);
 		}
 
-		void OnModelChanged(UserProfile model, string propertyName)
+		void OnModelChanged(LoginModel model, string propertyName)
 		{
 			ValidateGeneral();
 		}
@@ -137,24 +111,26 @@ namespace OneBuilder.Mobile.ViewModels
 		public async Task Commit()
 		{
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var userProfileRowId = await WebServiceFunc.CreateOrUpdateProfile(Model);
+			var result = await WebServiceFunc.SubmitLogin(Model);
 			UIFunc.HideLoading();
 
-			if (userProfileRowId == default(Guid))
+			if (!result.Item1)
 			{
-				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				var errtext = (string.IsNullOrEmpty(result.Item3) ? Globalization.T("(!)LoginError") : result.Item3);
+				await UIFunc.AlertError(errtext);
 				return;
 			}
 
-			if (IsNewRow)
-			{
-				UserOptions.SetUserProfileRowId(userProfileRowId);
+			var userProfileRowId = result.Item2.Value;
+			UserOptions.SetUserProfileRowId(userProfileRowId);
 
-				NavFunc.RemovePages<Views.ProfileView>();
+			await NavFunc.RestartApp();
+		}
 
-				var viewmodel = new UserOrderListViewModel();
-				await NavFunc.NavigateToAsync(viewmodel);
-			}
+		public async Task Register()
+		{
+			var viewModel = new ProfileViewModel();
+			await NavFunc.NavigateToAsync(viewModel);
 		}
 
 
@@ -169,14 +145,6 @@ namespace OneBuilder.Mobile.ViewModels
 			
 		}
 
-		public async Task Logout()
-		{
-			U.Logout();
-			await NavFunc.RestartApp();
-		}
-
-		
-
 		void ValidateAll()
 		{
 			ValidateGeneral(totalCalc: false);
@@ -188,59 +156,18 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			var errors = new List<string>();
 
-			if (IsEmptyFieldValue(Model.FirstName))
+			if (IsEmptyFieldValue(Model.email))
 			{
-				errors.Add(nameof(Model.FirstName));
+				errors.Add(nameof(Model.email));
 			}
-			if (IsEmptyFieldValue(Model.LastName))
+			if (!IsValidEmail(Model.email))
 			{
-				errors.Add(nameof(Model.LastName));
-			}
-			if (IsEmptyFieldValue(Model.AddressLine1))
-			{
-				errors.Add(nameof(Model.AddressLine1));
-			}
-			if (IsEmptyFieldValue(Model.City))
-			{
-				errors.Add(nameof(Model.City));
-			}
-			if (IsEmptyFieldValue(Model.ProvinceOrStateRowId))
-			{
-				errors.Add(nameof(Model.ProvinceOrStateRowId));
-			}
-			if (IsEmptyFieldValue(Model.Postcode))
-			{
-				errors.Add(nameof(Model.Postcode));
-			}
-			if (IsEmptyFieldValue(Model.Phone))
-			{
-				errors.Add(nameof(Model.Phone));
-			}
-			if (IsEmptyFieldValue(Model.Email))
-			{
-				errors.Add(nameof(Model.Email));
-			}
-			if (!IsValidEmail(Model.Email))
-			{
-				errors.Add(nameof(Model.Email));
+				errors.Add(nameof(Model.email));
 			}
 
-			if (Model.IsNewRow)
+			if (IsEmptyFieldValue(Model.password))
 			{
-				if (IsEmptyFieldValue(Model.Password))
-				{
-					errors.Add(nameof(Model.Password));
-				}
-				if (IsEmptyFieldValue(Model.PasswordRepeat))
-				{
-					errors.Add(nameof(Model.PasswordRepeat));
-				}
-			}
-
-			if (Model.Password != Model.PasswordRepeat)
-			{
-				errors.Add(nameof(Model.Password));
-				errors.Add(nameof(Model.PasswordRepeat));
+				errors.Add(nameof(Model.password));
 			}
 
 			ErrorsGeneral = errors.ToObservableCollection();
@@ -276,12 +203,12 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public async static Task OpenPage()
 		{
-			var viewModel = new ProfileViewModel();
+			var viewModel = new ChangePasswordViewModel();
 			await NavFunc.NavigateToAsync(viewModel);
 		}
 	}
 
-	public class ProfileViewModel_BorderColorConverter : IValueConverter
+	public class ChangePasswordViewModel_BorderColorConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
