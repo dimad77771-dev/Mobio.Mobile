@@ -42,10 +42,8 @@ namespace OneBuilder.Mobile
 			//await NavFunc.NavigateToAsync(vmodel);
 			//return;
 
-			if (U.IsDebug)
-			{
-				//UserOptions.Reset();
-			}
+			if (U.IsDebug) UserOptions.Reset();
+			
 
 			if (UserOptions.GetUserProfileRowId() == default(Guid))
 			{
