@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="146" android:versionName="1.46" package="com.companyname.Mobio.Mobile" android:largeHeap="true" android:icon="@drawable/MainIcon" android:label="Mobio.Mobile" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="101" android:versionName="1.01" package="com.companyname.Mobio.Mobile" android:largeHeap="true" android:icon="@drawable/MainIcon" android:label="Mobio.Mobile" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<uses-permission android:name="android.permission.CAMERA" />
@@ -8,5 +8,5 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:label="OneBuilder Timesheets" android:usesCleartextTraffic="true" android:icon="@drawable/MainIcon"></application>
+	<application android:label="Mobio Mobile" android:usesCleartextTraffic="true" android:icon="@drawable/MainIcon"></application>
 </manifest>

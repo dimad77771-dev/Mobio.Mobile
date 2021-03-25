@@ -42,9 +42,15 @@
 					<ex:RadListViewEx.LayoutDefinition>
 						<telerikListView:ListViewGridLayout
 							SpanCount="2"
-							ItemLength="80"
 							HorizontalItemSpacing="10"
-							VerticalItemSpacing="10" />
+							VerticalItemSpacing="10">
+							<telerikListView:ListViewGridLayout.ItemLength>
+								<OnPlatform
+									x:TypeArguments="x:Double"
+									iOS="80"
+									Android="100" />
+							</telerikListView:ListViewGridLayout.ItemLength>
+						</telerikListView:ListViewGridLayout>
 					</ex:RadListViewEx.LayoutDefinition>
 
 					<ex:RadListViewEx.Commands>

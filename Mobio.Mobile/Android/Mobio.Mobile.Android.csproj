@@ -376,11 +376,12 @@
     <AndroidResource Include="Resources\drawable-nodpi\logo.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-nodpi\button_add.png" />
-    <AndroidResource Include="Resources\drawable-nodpi\button_save.png" />
     <AndroidResource Include="Resources\drawable-nodpi\error.svg" />
     <AndroidResource Include="Resources\drawable-nodpi\gvt_logo.png" />
     <AndroidResource Include="Resources\drawable-nodpi\success.svg" />
+    <AndroidResource Include="Resources\drawable-nodpi\globe.svg">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

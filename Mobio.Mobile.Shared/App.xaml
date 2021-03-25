@@ -27,13 +27,13 @@
 			<Color x:Key="HeaderTextColor">Black</Color>
 			<Color x:Key="HeaderBackgroundColor">#ECF0F5</Color>
 			<Color x:Key="PageBackgroundColor">#F1F2F5</Color>
-			
+
 			<OnPlatform x:Key="ButtonTextColor" x:TypeArguments="forms:Color">
 				<On Platform="iOS">#007AFF</On>
 				<On Platform="Android">Black</On>
 				<On Platform="UWP">Black</On>
 			</OnPlatform>
-			
+
 			<Color x:Key="ButtonBackgroundColor">#1188FF</Color>
 			<Color x:Key="SearchBackgroundColor">White</Color>
 			<Color x:Key="WatermarkTextColor">#707070</Color>
@@ -58,10 +58,11 @@
 			<converters:BoolConverter x:Key="BoolConverter" />
 			<converters:ThreeStateBoolConverter x:Key="ThreeStateBoolConverter" />
 			<converters:TwoStateBoolConverter x:Key="TwoStateBoolConverter" />
-			
+
 
 			<OnPlatform x:Key="GlyphiconsFontFamily" x:TypeArguments="x:String">
-				<On Platform="iOS"></On>
+				<On Platform="iOS">
+				</On>
 				<On Platform="Android">Fonts/glyphicons-halflings-regular.ttf#telerikfontexamples</On>
 				<On Platform="UWP">/Assets/Fonts/glyphicons-halflings-regular.ttf#telerikfontexamples</On>
 			</OnPlatform>
@@ -159,6 +160,30 @@
 				<Setter Property="FontSize" Value="14" />
 				<Setter Property="Padding" Value="3" />
 				<Setter Property="Margin" Value="3,6" />
+				<Setter Property="BorderRadius">
+					<Setter.Value>
+						<OnPlatform
+							x:TypeArguments="x:Double"
+							iOS="0"
+							Android="8" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="BorderColor">
+					<Setter.Value>
+						<OnPlatform
+							x:TypeArguments="Color"
+							iOS="Transparent"
+							Android="#333333" />
+					</Setter.Value>
+				</Setter>
+				<Setter Property="BorderWidth">
+					<Setter.Value>
+						<OnPlatform
+							x:TypeArguments="x:Double"
+							iOS="0"
+							Android="1" />
+					</Setter.Value>
+				</Setter>
 			</Style>
 
 

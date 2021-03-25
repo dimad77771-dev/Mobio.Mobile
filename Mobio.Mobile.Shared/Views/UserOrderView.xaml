@@ -338,7 +338,7 @@
 										Grid.Row="0"
 										IsVisible="{Binding PatientHeaderModels[ScreenQuestionnaire].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
 										Style="{StaticResource ErrorLabelStyle}"
-										Text="{converters:T ResourceId=FillAllScreenQuestionnaire}" />
+										Text="{converters:T ResourceId='(!)FillAllScreenQuestionnaire'}" />
 
 									<ex:GridEx
 										Grid.Row="1"
@@ -634,7 +634,7 @@
 										Grid.Row="0"
 										IsVisible="{Binding PatientHeaderModels[LabConsent].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
 										Style="{StaticResource ErrorLabelStyle}"
-										Text="{converters:T ResourceId=FillAllLabConsent}" />
+										Text="{converters:T ResourceId='(!)FillAllLabConsent'}" />
 
 									<local:StackLayoutEx Grid.Row="1">
 										<local:LabelEx Style="{StaticResource H4}" Text="{converters:T ResourceId=Covid19TestingPcrTestOr}" />
@@ -770,12 +770,12 @@
 									Grid.Row="0"
 									IsVisible="{Binding PatientHeaderModels[Appointment].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
 									Style="{StaticResource ErrorLabelStyle}"
-									Text="{converters:T ResourceId=SelectAppointmentSlot}" />
+									Text="{converters:T ResourceId='(!)SelectAppointmentSlot'}" />
 
 								<ex:LabelEx
 									Grid.Row="1"
 									IsVisible="{Binding IsShowCalendar, Converter={StaticResource InverseBoolConverter}}"
-									Text="{converters:T ResourceId=InstitutionNotYetSelected}" />
+									Text="{converters:T ResourceId='(!)InstitutionNotYetSelected'}" />
 
 								<ex:RadCalendarEx
 									Grid.Row="1"
