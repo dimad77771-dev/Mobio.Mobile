@@ -88,27 +88,27 @@ namespace OneBuilder.Mobile.ViewModels
 
 		async Task<bool> InsertEmptyOrder()
 		{
-			var userProfile = await WebServiceFunc.GetProfile(UserProfileRowId);
-			if (userProfile == null)
-			{
-				await UIFunc.AlertError(U.StandartErrorUpdateText);
-				return false;
-			}
-			userProfile.Password = UserOptions.GetPassword();
+			//var userProfile = await WebServiceFunc.GetProfile(UserProfileRowId);
+			//if (userProfile == null)
+			//{
+			//	await UIFunc.AlertError(U.StandartErrorUpdateText);
+			//	return false;
+			//}
+			//userProfile.Password = UserOptions.GetPassword();
 
-			var order = new Order
-			{
-				UserProfileRowId = UserProfileRowId,
-				IsNew = true,
-				UserProfile = userProfile,
-				Pois = new List<PatientOrderItem>(),
-			};
-			var result = await WebServiceFunc.SubmitRegister(order);
-			if (!result)
-			{
-				await UIFunc.AlertError(U.StandartErrorUpdateText);
-				return false;
-			}
+			//var order = new Order
+			//{
+			//	UserProfileRowId = UserProfileRowId,
+			//	IsNew = true,
+			//	UserProfile = userProfile,
+			//	Pois = new List<PatientOrderItem>(),
+			//};
+			//var result = await WebServiceFunc.SaveOrder(order);
+			//if (!result)
+			//{
+			//	await UIFunc.AlertError(U.StandartErrorUpdateText);
+			//	return false;
+			//}
 
 			return true;
 		}

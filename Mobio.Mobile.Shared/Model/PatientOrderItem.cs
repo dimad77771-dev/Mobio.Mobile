@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using OneBuilder.Mobile;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
@@ -49,20 +50,29 @@ namespace OneBuilder.Model
 		public ScreenQuiz ScreenQuiz { get; set; }
 		public LabConsent LabConsent { get; set; }
 
+		[JsonIgnore]
 		public bool IsShowQRCode => !string.IsNullOrEmpty(QRCode);
+		[JsonIgnore]
 		public ImageSource QRCodeImageSource => ImageFunc.GetStreamFromBase64String(QRCode);
 
+		[JsonIgnore]
 		public bool IsShowTestKitPhoto => !string.IsNullOrEmpty(TestKitPhoto);
+		[JsonIgnore]
 		public ImageSource TestKitPhotoImageSource => ImageFunc.GetStreamFromBase64String(TestKitPhoto);
 
+		[JsonIgnore]
 		public bool IsShowResultPhoto => !string.IsNullOrEmpty(ResultPhoto);
+		[JsonIgnore]
 		public ImageSource ResultPhotoImageSource => ImageFunc.GetStreamFromBase64String(ResultPhoto);
 
+		[JsonIgnore]
 		public string _ResultInterpretation => string.IsNullOrEmpty(ResultInterpretation) ? " " : ResultInterpretation;
 
 
 		public bool IsNewRow { get; set; } = false;
 		public bool IsInitRow { get; set; } = false;
+
+		[JsonIgnore]
 		public bool IsHasError { get; set; } = false;
 
 		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();

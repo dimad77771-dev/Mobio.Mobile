@@ -107,8 +107,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 			if (!result.Item1)
 			{
-				var errtext = (string.IsNullOrEmpty(result.Item3) ? U.StandartErrorUpdateText : result.Item3);
-				await UIFunc.AlertError(errtext);
+				await UIFunc.AlertError(U.GetErrorUpdateText(result.Item3));
 				return;
 			}
 

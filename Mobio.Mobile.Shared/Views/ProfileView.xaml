@@ -195,7 +195,7 @@
 						IsVisible="{Binding IsNewRow}"
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
-						Text="{converters:T ResourceId=Password}" />
+						Text="{converters:T ResourceId='(!)PasswordsAtLeast6Characters'}" />
 					<telerikPrimitives:RadBorder
 						IsVisible="{Binding IsNewRow}"
 						Margin="2,2,2,5"
@@ -262,7 +262,7 @@
 						Style="{StaticResource PatientButtonStyle2}" />
 				<ex:RadButtonEx
 						Grid.Column="2"
-						Text="{converters:T ResourceId=Save}"
+						Text="{converters:T ResourceId=Submit}"
 						Image="button_save.png"
 						Command="{Binding CommitCommand}"
 						Style="{StaticResource PatientButtonStyle2}" />

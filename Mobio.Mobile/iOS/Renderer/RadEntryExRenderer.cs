@@ -26,6 +26,9 @@ namespace Mobio.Mobile.iOS
 					if (e.NewElement.IsPassword)
 					{
 						Control.TextContentType = UITextContentType.NewPassword;
+						//Control.TextContentType = new NSString("");
+						//Control.TextContentType = UITextContentType.OneTimeCode;
+
 						//Control.SecureTextEntry = false;
 						//var aa = Control.SecureTextEntry;
 					}

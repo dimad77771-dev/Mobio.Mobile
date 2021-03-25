@@ -326,10 +326,10 @@ namespace OneBuilder.WebServices
 			}
 		}
 
-		async public static Task<bool> SubmitRegister(Order order)
+		async public static Task<(bool,string,Order)> SaveOrder(Order order)
 		{
 			var httpClient = new HttpClient();
-			var url = WebService.WEBBASEADR + @"/home/SubmitRegister";
+			var url = WebService.WEBBASEADR + @"/account/saveOrder";
 			var json = JsonConvert.SerializeObject(order);
 			var content = new StringContent(json);
 			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -343,20 +343,24 @@ namespace OneBuilder.WebServices
 			catch (Exception ex)
 			{
 				var error = ex.ToString();
-				return false;
+				return (false,"",null);
 			}
 
 			if (response.IsSuccessStatusCode)
 			{
 				var rjson = await response.Content.ReadAsStringAsync();
-				var rinfo = JsonConvert.DeserializeObject< PostRetrunInfo>(rjson);
+				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
 				if (rinfo.Status == "Ok")
 				{
-					return true;
+					var jobject = JObject.Parse(rjson);
+					var ojson = jobject["Data"].ToString();
+					var order2 = JsonConvert.DeserializeObject<Order>(ojson);
+
+					return (true, "", order2);
 				}
 				else
 				{
-					return false;
+					return (false, rinfo.Error, null);
 				}
 			}
 			else
@@ -366,7 +370,7 @@ namespace OneBuilder.WebServices
 				{
 					error = "Internal error";
 				}
-				return false;
+				return (false, "", null);
 			}
 		}
 

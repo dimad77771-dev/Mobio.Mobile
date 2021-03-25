@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
 using System;
@@ -42,9 +43,13 @@ namespace OneBuilder.Model
 
 		public PatientOrderItem PatientOrderItem { get; set; }
 
+		[JsonIgnore]
 		public string FullPatientName => LastName + FirstName != "" ? LastName + ", " + FirstName : "New Record";
+		[JsonIgnore]
 		public Color TextColor { get; set; }
+		[JsonIgnore]
 		public Color BackgroundColor { get; set; }
+		[JsonIgnore]
 		public Color BorderColor { get; set; }
 
 		//public RegisterViewModel RegisterViewModel { get; set; }

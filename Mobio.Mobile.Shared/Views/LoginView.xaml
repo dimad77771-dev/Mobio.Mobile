@@ -23,6 +23,12 @@
 		<ResourceDictionary>
 			<viewmodel:LoginViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
+			<telerikInput:BorderStyle
+				x:Key="PasswordSkipBorderStyle"
+				BorderThickness="0"
+				BorderColor="Yellow"
+				CornerRadius="8" />
+
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
 				<Setter Property="Margin" Value="8,10,8,5" />
 				<Setter Property="ContentLayout" Value="left,10" />
@@ -34,6 +40,8 @@
 	</local:ContentPageEx.Resources>
 
 	<local:AbsoluteLayoutForPage>
+		
+		
 		<local:GridEx>
 			<local:GridEx.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -42,6 +50,7 @@
 			</local:GridEx.RowDefinitions>
 
 			<views:NavigationBarView Grid.Row="0" />
+			
 
 			<local:ScrollViewEx Grid.Row="1">
 				<local:StackLayoutEx Padding="10">
@@ -70,14 +79,16 @@
 						<ex:RadEntryEx Text="{Binding Model.email}" BorderStyle="{StaticResource EntryBorderStyle}" />
 					</telerikPrimitives:RadBorder>
 
+					<!--<ex:RadEntryEx IsPassword="True" IsEnabled="true" HeightRequest="1" BorderStyle="{StaticResource PasswordSkipBorderStyle}"  />-->
+
 					<local:LabelEx
 						IsVisible="{Binding IsNewRow}"
 						HorizontalTextAlignment="Start"
 						Style="{StaticResource MainCellLabelStyle}"
 						Text="{converters:T ResourceId=Password}" />
 					<telerikPrimitives:RadBorder
-						IsVisible="{Binding IsNewRow}"
 						Margin="2,2,2,5"
+						IsVisible="{Binding IsNewRow}"
 						HeightRequest="{StaticResource HHH}"
 						BorderColor="{Binding ConverterParameter=password, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Converter={StaticResource BorderColorConverter}}"
 						CornerRadius="3">

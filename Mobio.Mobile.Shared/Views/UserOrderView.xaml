@@ -123,12 +123,15 @@
 
 			</ControlTemplate>
 
+			<Color x:Key="PatientButtonBorderColor">#333333</Color>
+			<Color x:Key="PatientButtonBorderErrorColor">#A94442</Color>
+
 			<Style x:Key="PatientButtonStyle" TargetType="ex:RadButtonEx">
 				<Setter Property="Margin" Value="8,10,8,5" />
 				<Setter Property="ContentLayout" Value="left,10" />
 				<Setter Property="HeightRequest" Value="{StaticResource HHH}" />
 				<Setter Property="FontSize" Value="13" />
-				<Setter Property="BorderColor" Value="#333333" />
+				<Setter Property="BorderColor" Value="{StaticResource PatientButtonBorderColor}" />
 				<Setter Property="BorderRadius" Value="8" />
 				<Setter Property="BorderWidth" Value="1" />
 			</Style>
@@ -1108,10 +1111,16 @@
 						Style="{StaticResource PatientButtonStyle}" />
 					<ex:RadButtonEx
 						Grid.Column="2"
-						Text="{converters:T ResourceId=Save}"
+						Text="{converters:T ResourceId=Submit}"
 						Image="button_save.png"
 						Command="{Binding CommitCommand}"
-						Style="{StaticResource PatientButtonStyle}" />
+						Style="{StaticResource PatientButtonStyle}">
+						<ex:RadButtonEx.Triggers>
+							<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
+								<Setter Property="BorderColor" Value="{StaticResource PatientButtonBorderErrorColor}" />
+							</Trigger>
+						</ex:RadButtonEx.Triggers>
+					</ex:RadButtonEx>
 				</ex:GridEx>
 
 			</ex:GridEx>

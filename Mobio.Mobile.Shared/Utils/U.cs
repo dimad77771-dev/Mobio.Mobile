@@ -142,6 +142,9 @@ namespace OneBuilder.Mobile
 		public static String StandartUpdatingText => Globalization.T("(!)Submitting...");
 		public static String StandartLoadingText => Globalization.T("(!)Loading...");
 		public static String InternalError => Globalization.T("(!)Internal Error. Try later");
+		public static String CloseWithoutSaving => Globalization.T("(!)CloseWithoutSaving");
+
+		public static String GetErrorUpdateText(string errortext) => !string.IsNullOrEmpty(errortext) ? errortext : StandartErrorUpdateText;
 
 		public static Boolean IsBackVisible => !NavFunc.IsFirstPage;
 

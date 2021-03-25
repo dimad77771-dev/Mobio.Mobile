@@ -35,5 +35,16 @@ namespace OneBuilder.Mobile
 			return isValid;
 		}
 
+		public static bool IsValidPassword(string password)
+		{
+			if (string.IsNullOrEmpty(password)) return true;
+			if ((password ?? "").Length < 6)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 	}
 }

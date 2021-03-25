@@ -84,8 +84,8 @@ namespace OneBuilder.Mobile.ViewModels
 				newModel.Postcode = "Postcode1";
 				newModel.Phone = "123-45-67";
 				newModel.Email = "test1@gmail.com";
-				newModel.Password = "123";
-				newModel.PasswordRepeat = "123";
+				newModel.Password = "123456";
+				newModel.PasswordRepeat = "123456";
 			}
 
 			var task1 = !IsNewRow ? WebServiceFunc.GetProfile(UserProfileRowId) : Task.FromResult(newModel);
@@ -138,24 +138,45 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public async Task Commit()
 		{
-			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var userProfileRowId = await WebServiceFunc.CreateOrUpdateProfile(Model);
-			UIFunc.HideLoading();
-
-			if (userProfileRowId == default(Guid))
-			{
-				await UIFunc.AlertError(U.StandartErrorUpdateText);
-				return;
-			}
-
 			if (IsNewRow)
 			{
+				var order = new Order
+				{
+					IsNew = true,
+					UserProfile = Model,
+					Pois = new List<PatientOrderItem>(),
+				};
+
+				UIFunc.ShowLoading(U.StandartUpdatingText);
+				var result = await WebServiceFunc.SaveOrder(order);
+				UIFunc.HideLoading();
+
+				if (!result.Item1)
+				{
+					await UIFunc.AlertError(U.GetErrorUpdateText(result.Item2));
+					return;
+				}
+
+				var userProfileRowId = result.Item3.UserProfileRowId;
 				UserOptions.SetUsernamePassword(Model.Email, Model.Password, userProfileRowId);
 
-				NavFunc.RemovePages<Views.ProfileView>();
+				//NavFunc.RemovePages<Views.ProfileView>();
+				//var viewmodel = new UserOrderListViewModel();
+				//await NavFunc.NavigateToAsync(viewmodel);
+				await NavFunc.RestartApp();
+			}
+			else
+			{
+				var userProfileRowId = await WebServiceFunc.CreateOrUpdateProfile(Model);
+				UIFunc.HideLoading();
 
-				var viewmodel = new UserOrderListViewModel();
-				await NavFunc.NavigateToAsync(viewmodel);
+				if (userProfileRowId == default(Guid))
+				{
+					await UIFunc.AlertError(U.StandartErrorUpdateText);
+					return;
+				}
+
+				await NavFunc.Pop();
 			}
 		}
 
@@ -243,6 +264,15 @@ namespace OneBuilder.Mobile.ViewModels
 				{
 					errors.Add(nameof(Model.PasswordRepeat));
 				}
+
+				if (!IsValidPassword(Model.Password))
+				{
+					errors.Add(nameof(Model.Password));
+				}
+				if (!IsValidPassword(Model.PasswordRepeat))
+				{
+					errors.Add(nameof(Model.PasswordRepeat));
+				}
 			}
 
 			if (Model.Password != Model.PasswordRepeat)
@@ -271,6 +301,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		bool IsEmptyFieldValue(object arg) => ValidatorFunc.IsEmptyFieldValue(arg);
 		bool IsValidEmail(string arg) => ValidatorFunc.IsValidEmail(arg);
+		bool IsValidPassword(string arg) => ValidatorFunc.IsValidPassword(arg);
 
 		public Dictionary<string, PatientHeaderModel> PatientHeaderModels { get; set; } = new Dictionary<string, PatientHeaderModel>();
 		const string General = nameof(General);

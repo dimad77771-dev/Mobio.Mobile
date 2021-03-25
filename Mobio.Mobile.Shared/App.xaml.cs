@@ -44,7 +44,7 @@ namespace OneBuilder.Mobile
 
 			if (U.IsDebug)
 			{
-				UserOptions.Reset();
+				//UserOptions.Reset();
 			}
 
 			if (UserOptions.GetUserProfileRowId() == default(Guid))

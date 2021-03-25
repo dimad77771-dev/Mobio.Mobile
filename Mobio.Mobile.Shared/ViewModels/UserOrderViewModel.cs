@@ -15,6 +15,7 @@ using Telerik.XamarinForms.DataControls.ListView.Commands;
 using T = Telerik.XamarinForms.Input;
 using OneBuilder.Mobile.Behaviors;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace OneBuilder.Mobile.ViewModels
 {
@@ -54,6 +55,9 @@ namespace OneBuilder.Mobile.ViewModels
 		public Command NavigationBarButton1Command { get; set; }
 
 		public Boolean IsCommit { get; set; }
+		public Boolean HasModelError { get; set; }
+
+		public String PatientOrderItemsJson0 { get; set; }
 
 		public override async Task Init()
 		{
@@ -128,6 +132,8 @@ namespace OneBuilder.Mobile.ViewModels
 			Model = Order.UserProfile;
 			PatientOrderItems = Order.Pois.ToObservableCollection();
 			SetupPatientOrderItems(PatientOrderItems);
+
+			PatientOrderItemsJson0 = JsonConvert.SerializeObject(PatientOrderItems);
 
 			UIFunc.HideLoading();
 			return true;
@@ -330,20 +336,25 @@ namespace OneBuilder.Mobile.ViewModels
 			//BusinessCodeFocusTo = true;
 		}
 
+
 		public async Task Commit()
 		{
 			Order.Pois = PatientOrderItems.ToList();
 
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var result = await WebServiceFunc.SubmitRegister(Order);
+			var result = await WebServiceFunc.SaveOrder(Order);
 			UIFunc.HideLoading();
 
-			if (!result)
+			if (!result.Item1)
 			{
 				await UIFunc.AlertError(U.StandartErrorUpdateText);
 				return;
 			}
-			
+
+			var newOrder = result.Item2;
+
+			await NavFunc.Pop(forceClose:true);
+
 			////var homeViewModel = new HomeViewModel();
 			//var homeViewModel = new SerialViewModel();
 			//await NavFunc.NavigateToAsync(homeViewModel);
@@ -416,6 +427,16 @@ namespace OneBuilder.Mobile.ViewModels
 		public override async Task<bool> BeforePageClose()
 		{
 			if (!IsBackVisible) return false;
+
+			var patientOrderItemsJson = JsonConvert.SerializeObject(PatientOrderItems);
+			if (patientOrderItemsJson != PatientOrderItemsJson0)
+			{
+				if (!await UIFunc.ConfirmAsync(U.CloseWithoutSaving))
+				{
+					return false;
+				}
+			}
+
 			return true;
 		}
 
@@ -520,9 +541,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 		bool HasPatientOrderItemError()
 		{
-			return PatientOrderItems?.Any(q => q.IsHasError) == true;
-			//return false;
-			//return PatientHeaderModels.Any(q => q.Value.HasError);
+			HasModelError = (PatientOrderItems?.Any(q => q.IsHasError) == true);
+			return HasModelError;
 		}
 
 		bool IsEmptyFieldValue(object arg) => ValidatorFunc.IsEmptyFieldValue(arg);
