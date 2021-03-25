@@ -122,7 +122,9 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			var userProfileRowId = result.Item2.Value;
+			var aspxauth = result.Item4;
 			UserOptions.SetUsernamePassword(Model.email, Model.password, userProfileRowId);
+			UserOptions.SetAspxauth(aspxauth);
 
 			await NavFunc.RestartApp();
 		}

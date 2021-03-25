@@ -421,6 +421,7 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		const string ASPNET_APPLICATIONCOOKIE = ".AspNet.ApplicationCookie";
 		async public static Task<(bool, Guid?, string, string)> SubmitLogin(LoginModel model)
 		{
 			var cookies = new CookieContainer();
@@ -452,13 +453,13 @@ namespace OneBuilder.WebServices
 				if (rinfo?.Status == "Ok")
 				{
 					var responseCookies = cookies.GetCookies(new Uri(WebService.WEBBASEADR)).Cast<Cookie>();
-					//var cookie = responseCookies.SingleOrDefault(q => q.Name == ".ASPXAUTH");
-					//if (cookie == null || string.IsNullOrEmpty(cookie.Value))
-					//{
-					//	return (false, null, ".ASPXAUTH not found", "");
-					//}
-					//var aspxauth = cookie.Value;
-					var aspxauth = "";
+					var cookie = responseCookies.SingleOrDefault(q => q.Name == ASPNET_APPLICATIONCOOKIE);
+					if (cookie == null || string.IsNullOrEmpty(cookie.Value))
+					{
+						return (false, null, $"<{ASPNET_APPLICATIONCOOKIE}> not found", "");
+					}
+					var aspxauth = cookie.Value;
+					//var aspxauth = "";
 
 					var jobject = JObject.Parse(rjson);
 					var resultRowId = (jobject["Data"]["RowId"] as JToken).ToObject<Guid>();
@@ -481,9 +482,14 @@ namespace OneBuilder.WebServices
 			}
 		}
 
-		async public static Task<(bool, Guid?, string)> UpdatePassword(ChangePasswordModel model)
+		async public static Task<(bool, string)> UpdatePassword(ChangePasswordModel model)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			cookies.Add(new Uri(WebService.WEBBASEADR), new Cookie(ASPNET_APPLICATIONCOOKIE, UserOptions.GetAspxauth()));
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/updatePassword";
 			var json = JsonConvert.SerializeObject(model);
 			var content = new StringContent(json);
@@ -498,7 +504,7 @@ namespace OneBuilder.WebServices
 			catch (Exception ex)
 			{
 				var error = ex.ToString();
-				return (false, null, "");
+				return (false, "");
 			}
 
 			if (response.IsSuccessStatusCode)
@@ -507,14 +513,11 @@ namespace OneBuilder.WebServices
 				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
 				if (rinfo?.Status == "Ok")
 				{
-					var jobject = JObject.Parse(rjson);
-					var resultRowId = (jobject["Data"]["RowId"] as JToken).ToObject<Guid>();
-					if (resultRowId == default(Guid)) throw new Exception();
-					return (true, resultRowId, "");
+					return (true, "");
 				}
 				else
 				{
-					return (false, null, rinfo?.Error);
+					return (false, rinfo?.Error);
 				}
 			}
 			else
@@ -524,7 +527,7 @@ namespace OneBuilder.WebServices
 				{
 					error = "Internal error";
 				}
-				return (false, null, "");
+				return (false, "");
 			}
 		}
 

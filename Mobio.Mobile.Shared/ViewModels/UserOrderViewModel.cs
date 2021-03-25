@@ -136,6 +136,13 @@ namespace OneBuilder.Mobile.ViewModels
 			PatientOrderItemsJson0 = JsonConvert.SerializeObject(PatientOrderItems);
 
 			UIFunc.HideLoading();
+
+
+			if (!PatientOrderItems.Any())
+			{
+				await PatientAdd();
+			}
+
 			return true;
 		}
 

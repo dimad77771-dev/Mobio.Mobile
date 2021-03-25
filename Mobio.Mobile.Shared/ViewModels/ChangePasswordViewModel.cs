@@ -107,7 +107,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 			if (!result.Item1)
 			{
-				await UIFunc.AlertError(U.GetErrorUpdateText(result.Item3));
+				await UIFunc.AlertError(U.GetErrorUpdateText(result.Item2));
 				return;
 			}
 

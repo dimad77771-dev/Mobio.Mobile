@@ -17,7 +17,8 @@ namespace OneBuilder.Model
 		public String CurrentLabourName { get; set; }
 		public String Username { get; set; }
         public String Password { get; set; }
-        public Guid UserRowId { get; set; }
+		public String Aspxauth { get; set; }
+		public Guid UserRowId { get; set; }
         public Guid DeviceId { get; set; }
 		public Int32 UpgradeVersionNum { get; set; }
         public Guid BusinessRowId { get; set; }
@@ -30,6 +31,7 @@ namespace OneBuilder.Model
 
 		public string CurrentLocaleId { get; set; }
 		public Guid UserProfileRowId { get; set; }
+
 
 
 		public UserOptions()
@@ -116,6 +118,19 @@ namespace OneBuilder.Model
             row.UserProfileRowId = userProfileRowId;
             DB.Update(row);
         }
+
+		public static void SetAspxauth(String aspxauth)
+		{
+			var row = GetCurrent();
+			row.Aspxauth = aspxauth;
+			DB.Update(row);
+		}
+		public static string GetAspxauth()
+		{
+			var row = GetCurrent();
+			return (row.Aspxauth ?? "");
+		}
+
 
 		public static void SetBusinessInfo(Guid businessRowId, String businessCode)
 		{
