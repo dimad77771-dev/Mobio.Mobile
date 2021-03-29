@@ -22,11 +22,23 @@ namespace OneBuilder.Mobile.Droid.Renderers
 		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
 			base.OnElementChanged(e);
-			
+
+			if (ElementEx == null || Control == null)
+			{
+				return;
+			}
 
 			if (e.NewElement != null)
 			{
 				UpdateAdjustsFontSizeToFitWidth();
+			}
+
+
+			var letterSpacing = ElementEx.LetterSpacing;
+			if (letterSpacing > 0)
+			{
+				this.Control.LetterSpacing = letterSpacing;
+				this.UpdateLayout();
 			}
 		}
 

@@ -225,5 +225,18 @@ namespace OneBuilder.Mobile
 		{
 			return (Device.OS == TargetPlatform.iOS ? ios : android);
 		}
+
+		public static Color GetEntryBorderColor(bool hasError)
+		{
+			var color = hasError ? U.GetAppColor("RedErrorBorderColor") : U.GetAppColor("GreenBackColor");
+			return color;
+		}
+
+		public static App GetApp() => (App)OneBuilder.Mobile.App.Current;
+
+		public static Color GetAppColor(string resourceId)
+		{
+			return (Color)GetApp().Resources[resourceId];
+		}
 	}
 }

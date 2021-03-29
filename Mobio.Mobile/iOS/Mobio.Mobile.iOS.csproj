@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderer\LabelExRenderer.cs" />
     <Compile Include="Renderer\RadEntryExRenderer.cs" />
     <Compile Include="Renderer\EditorExRenderer.cs" />
     <Compile Include="Renderer\EntryExRenderer.cs" />
@@ -123,6 +124,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Resources\Fonts\glyphicons-halflings-regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\Fonts\SegoeUIBlack.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\Fonts\SegoeUI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\Fonts\SegoeUIBold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </BundleResource>
   </ItemGroup>
@@ -425,12 +435,14 @@
     <BundleResource Include="Resources\button_save.png" />
     <BundleResource Include="Resources\globe.svg" />
     <BundleResource Include="Resources\gvt_logo.png" />
+    <BundleResource Include="Resources\image_plus_1.png" />
+    <BundleResource Include="Resources\profile1.png" />
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarMobioMobileiOSHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionMobioMobileiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionMobioMobileiOSHideInfoBar="True" XamarinHotReloadWrongLinkerErrorInfoBarMobioMobileiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

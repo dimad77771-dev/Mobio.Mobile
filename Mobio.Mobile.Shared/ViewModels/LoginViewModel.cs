@@ -217,7 +217,7 @@ namespace OneBuilder.Mobile.ViewModels
 			var field = (parameter == null ? "" : parameter.ToString());
 			var errors = value as ObservableCollection<string>;
 			var hasError = errors.Contains(field);
-			return hasError ? Color.FromHex("#A94442") : Color.FromHex("#4488F6");
+			return U.GetEntryBorderColor(hasError);
 		}
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{

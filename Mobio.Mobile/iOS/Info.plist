@@ -58,6 +58,9 @@
 		<string>Fonts/SF-Pro-Text-MediumItalic.otf</string>
 		<string>Fonts/SF-Pro-Text-Regular.otf</string>
 		<string>Fonts/SF-Pro-Text-RegularItalic.otf</string>
+		<string>Fonts/SegoeUIBlack.ttf</string>
+		<string>Fonts/SegoeUI.ttf</string>
+		<string>Fonts/SegoeUIBold.ttf</string>
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>

@@ -336,6 +336,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Fonts\telerikfontexamples.ttf" />
+    <AndroidAsset Include="Assets\Fonts\SegoeUIBlack.ttf" />
+    <AndroidAsset Include="Assets\Fonts\SegoeUI.ttf" />
+    <AndroidAsset Include="Assets\Fonts\SegoeUIBold.ttf" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -383,6 +386,9 @@
     <AndroidResource Include="Resources\drawable-nodpi\gvt_logo.png" />
     <AndroidResource Include="Resources\drawable-nodpi\success.svg" />
     <AndroidResource Include="Resources\drawable-nodpi\globe.svg">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-nodpi\profile1.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>

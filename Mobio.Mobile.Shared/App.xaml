@@ -27,6 +27,12 @@
 			<Color x:Key="HeaderTextColor">Black</Color>
 			<Color x:Key="HeaderBackgroundColor">#ECF0F5</Color>
 			<Color x:Key="PageBackgroundColor">#F1F2F5</Color>
+			<Color x:Key="GreenTextColor">#64BDAB</Color>
+			<Color x:Key="GreenBackColor">#E2EEEC</Color>
+			<Color x:Key="BlackTextColor">#0B2246</Color>
+			<Color x:Key="WhiteTextColor">#FFFFFF</Color>
+			<Color x:Key="RedErrorBorderColor">#A94442</Color>
+			
 
 			<OnPlatform x:Key="ButtonTextColor" x:TypeArguments="forms:Color">
 				<On Platform="iOS">#007AFF</On>
@@ -58,6 +64,25 @@
 			<converters:BoolConverter x:Key="BoolConverter" />
 			<converters:ThreeStateBoolConverter x:Key="ThreeStateBoolConverter" />
 			<converters:TwoStateBoolConverter x:Key="TwoStateBoolConverter" />
+
+			<OnPlatform x:Key="SegoeUIBold" x:TypeArguments="x:String">
+				<On Platform="iOS">SegoeUIBold</On>
+				<On Platform="Android">Fonts/SegoeUIBold.ttf</On>
+				<On Platform="UWP">/Assets/Fonts/SegoeUIBold.ttf#Segoe UI</On>
+			</OnPlatform>
+
+			<OnPlatform x:Key="SegoeUIBlack" x:TypeArguments="x:String">
+				<On Platform="iOS">SegoeUIBlack</On>
+				<On Platform="Android">Fonts/SegoeUIBlack.ttf#Segoe UI</On>
+				<On Platform="UWP">/Assets/Fonts/SegoeUIBlack.ttf#Segoe UI</On>
+			</OnPlatform>
+
+
+			<OnPlatform x:Key="SegoeUI" x:TypeArguments="x:String">
+				<On Platform="iOS">SegoeUI</On>
+				<On Platform="Android">Fonts/SegoeUI.ttf#Segoe UI</On>
+				<On Platform="UWP">/Assets/Fonts/SegoeUI.ttf#Segoe UI</On>
+			</OnPlatform>
 
 
 			<OnPlatform x:Key="GlyphiconsFontFamily" x:TypeArguments="x:String">
@@ -320,9 +345,14 @@
 			</Style>
 
 			<OnPlatform x:Key="HHH" x:TypeArguments="x:Double">
-				<On Platform="iOS">35</On>
-				<On Platform="Android">45</On>
-				<On Platform="UWP">35</On>
+				<On Platform="iOS">45</On>
+				<On Platform="Android">55</On>
+				<On Platform="UWP">45</On>
+			</OnPlatform>
+			<OnPlatform x:Key="HHH2" x:TypeArguments="x:Double">
+				<On Platform="iOS">50</On>
+				<On Platform="Android">60</On>
+				<On Platform="UWP">50</On>
 			</OnPlatform>
 
 

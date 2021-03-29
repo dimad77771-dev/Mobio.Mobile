@@ -9,8 +9,21 @@ namespace OneBuilder.Mobile
 {
 	public class LabelEx : Label
 	{
+		public static readonly BindableProperty LetterSpacingProperty = BindableProperty.Create(nameof(LetterSpacing), typeof(float), typeof(LabelEx), -1.0f);
 		public static readonly BindableProperty AdjustsFontSizeToFitWidthProperty = BindableProperty.Create("AdjustsFontSizeToFitWidth", typeof(Boolean), typeof(LabelEx), false);
 		public static readonly BindableProperty Font2Property = BindableProperty.Create("Font2", typeof(FontEx), typeof(LabelEx), default(FontEx), propertyChanged:Font2PropertyChanged);
+
+		public float LetterSpacing
+		{
+			get
+			{
+				return (float)this.GetValue(LabelEx.LetterSpacingProperty);
+			}
+			set
+			{
+				this.SetValue(LabelEx.LetterSpacingProperty, (object)value);
+			}
+		}
 
 		public Boolean AdjustsFontSizeToFitWidth
 		{
