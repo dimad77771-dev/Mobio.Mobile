@@ -13,6 +13,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ViewModels\ButtonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -117,6 +121,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ButtonPage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ButtonPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml.cs">
       <DependentUpon>ChangePasswordView.xaml</DependentUpon>
     </Compile>

@@ -14,6 +14,7 @@ namespace OneBuilder.Mobile
 		public ContentPageEx() : base()
 		{
 			PageAnimation = new SlidePageAnimation { Duration = 200, Subtype = AnimationSubtype.FromLeft };
+			//this.Visual = VisualMarker.Material;
 		}
 
 

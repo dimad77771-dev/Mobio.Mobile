@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 
 namespace OneBuilder.Mobile.Views
 {
-	[Xamarin.Forms.Xaml.XamlCompilation(XamlCompilationOptions.Compile)]
+	//[Xamarin.Forms.Xaml.XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NavigationBarView
 	{
 		public NavigationBarView ()

@@ -45,6 +45,7 @@
 					VerticalOptions="Center" />
 			</StackLayout>
 			<telerikInput:RadButton
+				Visual="Material"
 				Command="{Binding NavigationBarButton1Command}"
 				Margin="10,10,10,10"
 				HorizontalOptions="End"
@@ -53,6 +54,7 @@
 				Text="{Binding NavigationBarButton1Text}"
 				VerticalOptions="Center" />
 			<telerikInput:RadButton
+				Visual="Material"
 				Command="{Binding InfoCommand}"
 				Margin="2,2,5,2"
 				HorizontalOptions="End"
@@ -75,6 +77,7 @@
 					WidthRequest="24"
 					HeightRequest="24" />
 				<ex:RadButtonEx
+					Visual="Material"
 					Text="{Binding LocaleChooseText}"
 					Command="{Binding LocaleChooseCommand}"
 					Style="{StaticResource NavigationBarButtonStyle}"

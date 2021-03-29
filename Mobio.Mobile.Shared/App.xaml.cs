@@ -35,6 +35,8 @@ namespace OneBuilder.Mobile
 
 		static public async void InitializeRootPage(bool animated)
 		{
+			//var pg = new Views.ButtonPage(); await NavFunc.Push(pg); return;
+
 			//var vmodel = new LoginViewModel();
 			//var viewModel = new ProfileViewModel();
 			//var viewModel = new UserOrderViewModel();
@@ -43,7 +45,7 @@ namespace OneBuilder.Mobile
 			//return;
 
 			//if (U.IsDebug) UserOptions.Reset();
-			
+
 
 			if (UserOptions.GetUserProfileRowId() == default(Guid))
 			{

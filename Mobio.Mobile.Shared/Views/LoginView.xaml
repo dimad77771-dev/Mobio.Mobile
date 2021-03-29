@@ -40,8 +40,8 @@
 	</local:ContentPageEx.Resources>
 
 	<local:AbsoluteLayoutForPage>
-		
-		
+
+
 		<local:GridEx>
 			<local:GridEx.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -50,7 +50,7 @@
 			</local:GridEx.RowDefinitions>
 
 			<views:NavigationBarView Grid.Row="0" />
-			
+
 
 			<local:ScrollViewEx Grid.Row="1">
 				<local:StackLayoutEx Padding="10">
@@ -120,11 +120,15 @@
 				<ex:RadButtonEx
 					Grid.Column="1"
 					Text="{converters:T ResourceId=Login}"
+					Command="{Binding CommitCommand}"
+					Style="{StaticResource ThisButtonStyle}" />
+				<!--
 					TextColor="White"
 					Background="#398439"
 					BorderColor="#255625"
-					Command="{Binding CommitCommand}"
-					Style="{StaticResource ThisButtonStyle}" />
+				-->
+
+
 			</ex:GridEx>
 
 
