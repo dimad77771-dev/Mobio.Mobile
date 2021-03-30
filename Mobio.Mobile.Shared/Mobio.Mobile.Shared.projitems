@@ -47,6 +47,27 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddDatePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddNumberPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddTimePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AddTouch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AiRoutingEffectBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AlterColor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\AlterLineHeight.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\Border.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\EffectConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\Feedback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\Floating.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\FloatingLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\FloatingView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\Gradient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\IAiEffect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\Placeholder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\SizeToFit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\ToFlatButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AiForms.Effects\TouchRecognizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>

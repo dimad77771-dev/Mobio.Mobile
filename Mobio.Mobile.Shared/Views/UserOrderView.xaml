@@ -10,7 +10,6 @@
 	xmlns:viewmodel="clr-namespace:OneBuilder.Mobile.ViewModels"
 	xmlns:local="clr-namespace:OneBuilder.Mobile"
 	xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-	xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"
 	xmlns:expander="clr-namespace:Telerik.XamarinForms.Primitives.Expander;assembly=Telerik.XamarinForms.Primitives"
 	xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
 	xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives"
@@ -18,11 +17,56 @@
 	xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.XamarinForms.DataControls"
 	xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
 	x:Name="mainPage">
-
+	<!--xmlns:ef="clr-namespace:AiForms.Effects"-->
+	<!--  xmlns:ef="clr-namespace:AiForms.Effects;assembly=AiForms.Effects"  -->
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
 			<viewmodel:UserOrderViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+
+			<Style x:Key="ThisLabelStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="Margin" Value="2,0,2,5" />
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="LetterSpacing" Value="0.07" />
+				<Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+			</Style>
+
+			<Style x:Key="ThisComboBoxStyle" TargetType="{x:Type ex:RadComboBoxEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="18" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenBackColor}" />
+				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Padding" Value="14,0" />
+			</Style>
+
+			<Style x:Key="ThisDatePickerLabelStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="18" />
+			</Style>
+
+
+			<Style x:Key="ThisDatePickerStyle" TargetType="{x:Type ex:RadDatePickerEx}">
+				<Setter Property="DisplayLabelStyle" Value="{StaticResource ThisDatePickerLabelStyle}" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenBackColor}" />
+				<Setter Property="BorderThickness" Value="0" />
+				<Setter Property="Padding" Value="10,0" />
+			</Style>
+
+
+			<Style x:Key="ThisEntryStyle" TargetType="{x:Type ex:RadEntryEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="18" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenBackColor}" />
+				<Setter Property="BorderStyle" Value="{StaticResource EntryBorderStyle}" />
+				<Setter Property="Padding" Value="15,0" />
+			</Style>
+
+			<Style x:Key="ThisEntryBorderStyle" TargetType="{x:Type telerikPrimitives:RadBorder}">
+				<Setter Property="Margin" Value="2,2,2,25" />
+				<Setter Property="HeightRequest" Value="{StaticResource HHH}" />
+				<Setter Property="CornerRadius" Value="9" />
+			</Style>
 
 
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
@@ -213,8 +257,11 @@
 												TextColor="{Binding Patient.TextColor}"
 												HorizontalTextAlignment="Center"
 												VerticalTextAlignment="Center"
+												/>
+											<!--
 												ef:SizeToFit.On="true"
-												ef:SizeToFit.CanExpand="False" />
+												ef:SizeToFit.CanExpand="False"
+											-->
 										</telerikPrimitives:RadBorder>
 									</ex:GridEx>
 								</telerikListView:ListViewTemplateCell.View>
@@ -244,101 +291,65 @@
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>
 						<ex:AccordionItemEx.Content>
-							<local:StackLayoutEx Padding="5">
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=InstututionName}" />
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}"
-									CornerRadius="3">
-									<ex:RadComboBoxEx
-										Padding="5,0"
-										ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
-										ValueMember="RowId"
-										DisplayMemberPath="CompanyName"
-										Placeholder="Enter Institution"
-										CornerRadius="8"
-										BorderThickness="0"
-										Value="{Binding InstitutionProfileRowId, Mode=TwoWay}" />
-								</telerikPrimitives:RadBorder>
+							<ex:ScrollViewEx>
+								<ex:StackLayoutEx Padding="5">
 
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=InstututionName, ToUpper=True}" />
+									<telerikPrimitives:RadBorder
+										BackgroundColor="{StaticResource GreenBackColor}"
+										Style="{StaticResource ThisEntryBorderStyle}"
+										BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<ex:RadComboBoxEx
+											Style="{StaticResource ThisComboBoxStyle}"
+											BackgroundColor="{StaticResource GreenBackColor}"
+											ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+											ValueMember="RowId"
+											DisplayMemberPath="CompanyName"
+											Placeholder="Enter Institution"
+											Value="{Binding InstitutionProfileRowId, Mode=TwoWay}" />
+									</telerikPrimitives:RadBorder>
 
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=FirstName}" />
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=FirstName, ToUpper=True}" />
+									<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<ex:RadEntryEx Text="{Binding Patient.FirstName}" Style="{StaticResource ThisEntryStyle}" />
+									</telerikPrimitives:RadBorder>
 
-								<!--  BorderColor="#4488F6"  -->
-								<!--  BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}"  -->
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}"
-									CornerRadius="3">
-									<ex:RadEntryEx Text="{Binding Patient.FirstName}" BorderStyle="{StaticResource EntryBorderStyle}" />
-								</telerikPrimitives:RadBorder>
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=LastName, ToUpper=True}" />
+									<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=LastName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<ex:RadEntryEx Text="{Binding Patient.LastName}" Style="{StaticResource ThisEntryStyle}" />
+									</telerikPrimitives:RadBorder>
 
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=LastName}" />
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=LastName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}"
-									CornerRadius="3">
-									<ex:RadEntryEx Text="{Binding Patient.LastName}" BorderStyle="{StaticResource EntryBorderStyle}" />
-								</telerikPrimitives:RadBorder>
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=BirthDate, ToUpper=True}" />
+									<telerikPrimitives:RadBorder
+										Style="{StaticResource ThisEntryBorderStyle}"
+										BackgroundColor="{StaticResource GreenBackColor}"
+										BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=BirthDate, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<ex:RadDatePickerEx
+											Style="{StaticResource ThisDatePickerStyle}"
+											BackgroundColor="{StaticResource GreenBackColor}"
+											Date="{Binding Patient.BirthDate}"
+											MinimumDate="1901,01,01"
+											DefaultHighlightedDate="2000,01,01"
+											SpinnerFormat="MM/dd/yyyy" />
+									</telerikPrimitives:RadBorder>
 
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=BirthDate}" />
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=BirthDate, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}"
-									CornerRadius="3">
-									<ex:RadDatePickerEx
-										Date="{Binding Patient.BirthDate}"
-										MinimumDate="1901,01,01"
-										DefaultHighlightedDate="2000,01,01"
-										SpinnerFormat="MM/dd/yyyy" />
-								</telerikPrimitives:RadBorder>
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=Gender, ToUpper=True}" />
+									<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BackgroundColor="{StaticResource GreenBackColor}">
+										<ex:RadComboBoxEx
+											Style="{StaticResource ThisComboBoxStyle}"
+											BackgroundColor="{StaticResource GreenBackColor}"
+											SelectedItem="{Binding Patient.Gender, Mode=TwoWay}"
+											ItemsSource="{Binding DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+											Placeholder="Enter Gender" />
+									</telerikPrimitives:RadBorder>
 
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=Gender}" />
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="#4488F6"
-									CornerRadius="3">
-									<ex:RadComboBoxEx
-										Padding="5,0"
-										SelectedItem="{Binding Patient.Gender, Mode=TwoWay}"
-										ItemsSource="{Binding DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
-										Placeholder="Enter Gender"
-										CornerRadius="8"
-										BorderThickness="0" />
-								</telerikPrimitives:RadBorder>
+									<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=HealthcareCard, ToUpper=True}" />
+									<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}">
+										<ex:RadEntryEx Text="{Binding Patient.HealthCareCardNumber}" Style="{StaticResource ThisEntryStyle}" />
+									</telerikPrimitives:RadBorder>
 
-								<local:LabelEx
-									HorizontalTextAlignment="Start"
-									Style="{StaticResource MainCellLabelStyle}"
-									Text="{converters:T ResourceId=HealthcareCard}" />
-								<telerikPrimitives:RadBorder
-									Margin="2,2,2,5"
-									HeightRequest="{StaticResource HHH}"
-									BorderColor="#4488F6"
-									CornerRadius="3">
-									<ex:RadEntryEx Text="{Binding Patient.HealthCareCardNumber}" BorderStyle="{StaticResource EntryBorderStyle}" />
-								</telerikPrimitives:RadBorder>
-							</local:StackLayoutEx>
+								</ex:StackLayoutEx>
+							</ex:ScrollViewEx>
 						</ex:AccordionItemEx.Content>
 					</ex:AccordionItemEx>
 

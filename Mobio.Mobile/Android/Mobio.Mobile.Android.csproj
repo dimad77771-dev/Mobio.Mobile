@@ -133,9 +133,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AiForms.Effects">
-      <Version>1.6.10</Version>
-    </PackageReference>
     <PackageReference Include="AndHUD">
       <Version>1.4.2</Version>
     </PackageReference>
@@ -198,7 +195,34 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AiForms.Effects.Droid\AddCommandPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AddDatePickerPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AddNumberPickerPlatform.cs" />
+    <Compile Include="AiForms.Effects.Droid\AddTextPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AddTimePickerPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AddTouchPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AiEffectBase.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterColorPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterColorSlider.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterColorStatusbar.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterColorSwitch.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterColorTextView.cs" />
+    <Compile Include="AiForms.Effects.Droid\AlterLineHeightPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\BorderPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\FeedbackPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\FloatingLayoutRenderer.cs" />
+    <Compile Include="AiForms.Effects.Droid\FloatingPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\GradientPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\IAiEffectDroid.cs" />
+    <Compile Include="AiForms.Effects.Droid\Initialize.cs" />
+    <Compile Include="AiForms.Effects.Droid\LineHeightForEditText.cs" />
+    <Compile Include="AiForms.Effects.Droid\LineHeightForTextView.cs" />
+    <Compile Include="AiForms.Effects.Droid\PlaceholderPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\PlatformUtility.cs" />
+    <Compile Include="AiForms.Effects.Droid\SizeToFitPlatformEffect.cs" />
+    <Compile Include="AiForms.Effects.Droid\ToFlatButtonPlatformEffect.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\RadButtonExRenderer.cs" />
     <Compile Include="Renderers\ButtonExRenderer.cs" />
     <Compile Include="Renderers\EntryExRenderer.cs" />
     <Compile Include="Renderers\ImageExRenderer.cs" />
@@ -378,6 +402,8 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AiForms.Effects.Droid\Resources\AboutResources.txt" />
+    <Content Include="AiForms.Effects.Droid\Resources\values\Strings.xml" />
     <Content Include="FodyWeavers.xml" />
     <AndroidResource Include="Resources\drawable-nodpi\logo.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
@@ -391,9 +417,20 @@
     <AndroidResource Include="Resources\drawable-nodpi\profile1.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable-nodpi\image_plus_1.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-nodpi\password_change.svg">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionMobioMobileAndroidHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

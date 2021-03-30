@@ -35,6 +35,11 @@ namespace Mobio.Mobile.iOS
 				attributedString.AddAttribute(nsKern, spacing, range);
 				Control.AttributedText = attributedString;
 			}
+
+			if (ElementEx.AdjustsFontSizeToFitWidth)
+			{
+
+			}
 		}
 
 

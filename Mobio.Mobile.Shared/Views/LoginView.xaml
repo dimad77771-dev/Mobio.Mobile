@@ -147,7 +147,10 @@
 
 				</ex:StackLayoutEx>
 
-				<ex:StackLayoutEx Grid.Row="2" Padding="5" HorizontalOptions="Center">
+				<ex:StackLayoutEx
+					Grid.Row="2"
+					Padding="5"
+					HorizontalOptions="Center">
 					<ex:LabelEx
 						HorizontalTextAlignment="Center"
 						Margin="0"
@@ -157,44 +160,10 @@
 						Margin="0"
 						Text="{converters:T ResourceId=Register}"
 						Command="{Binding RegisterCommand}" />
+					<!--BackgroundColor="Transparent"-->
 				</ex:StackLayoutEx>
 			</ex:GridEx>
 
-
-
-
-
-
-			<!--<ex:GridEx Grid.Row="2" Margin="10,5,10,10">
-				<ex:GridEx.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="*" />
-				</ex:GridEx.ColumnDefinitions>
-
-				<ex:RadButtonEx
-					Grid.Column="0"
-					Text="{converters:T ResourceId=Register}"
-					TextColor="White"
-					Background="#3984D9"
-					BorderColor="#2556C5"
-					Command="{Binding RegisterCommand}"
-					Style="{StaticResource ThisButtonStyle}" />
-
-				<ex:RadButtonEx
-					Grid.Column="1"
-					Text="{converters:T ResourceId=Login}"
-					Command="{Binding CommitCommand}"
-					Style="{StaticResource ThisButtonStyle}" />
-				-->
-			<!--
-				TextColor="White"
-				Background="#398439"
-				BorderColor="#255625"
-			-->
-			<!--
-
-
-			</ex:GridEx>-->
 
 
 		</local:GridEx>
