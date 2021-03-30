@@ -24,13 +24,15 @@
 			<viewmodel:ProfileViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
-				<Setter Property="Margin" Value="8,10,8,5" />
-				<Setter Property="ContentLayout" Value="left,10" />
-				<Setter Property="FontSize" Value="18" />
-				<Setter Property="BorderColor" Value="#333333" />
-				<Setter Property="BorderRadius" Value="8" />
-				<Setter Property="BorderWidth" Value="1" />
+				<Setter Property="Margin" Value="8,25,8,5" />
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUIBlack}" />
+				<Setter Property="FontSize" Value="14" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
+				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
+				<Setter Property="BorderRadius" Value="9" />
+				<Setter Property="BorderWidth" Value="0" />
 			</Style>
+
 
 			<Style x:Key="ThisLabelStyle" TargetType="{x:Type ex:LabelEx}">
 				<Setter Property="Margin" Value="2,0,2,5" />
@@ -226,12 +228,15 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</ex:GridEx.ColumnDefinitions>
+
 				<ex:RadButtonEx
 					Grid.Column="1"
-					Text="{converters:T ResourceId=Submit}"
-					Image="button_save.png"
-					Command="{Binding CommitCommand}"
-					Style="{StaticResource ThisButtonStyle}" />
+					Text="{converters:T ResourceId=Submit,
+					                    ToUpper=True}"
+					Style="{StaticResource ThisButtonStyle}"
+					HeightRequest="{StaticResource HHH2}"
+					FontAttributes="Bold"
+					Command="{Binding CommitCommand}" />
 			</ex:GridEx>
 
 			<ex:GridEx
