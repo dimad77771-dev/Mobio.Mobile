@@ -248,25 +248,33 @@
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="*" />
 				</ex:GridEx.ColumnDefinitions>
+
 				<ex:RadButtonEx
 					Grid.Column="0"
-					Text="{converters:T ResourceId=Logout}"
-					BackgroundColor="#d9534f"
-					BorderColor="#d43f3a"
-					TextColor="Wheat"
-					Command="{Binding LogoutCommand}"
-					Style="{StaticResource PatientButtonStyle2}" />
+					Text="{converters:T ResourceId=Logout,
+					                    ToUpper=True}"
+					Style="{StaticResource ThisButtonStyle}"
+					HeightRequest="{StaticResource HHH2}"
+					BackgroundColor="{StaticResource PurpleColor}"
+					Command="{Binding LogoutCommand}" />
+
 				<ex:RadButtonEx
 					Grid.Column="1"
-					Text="{converters:T ResourceId=ChangePassword}"
-					Command="{Binding ChangePasswordCommand}"
-					Style="{StaticResource PatientButtonStyle2}" />
+					Text="{converters:T ResourceId=ChangePassword,
+					                    ToUpper=True,
+					                    SpaceToNewLine=true}"
+					Style="{StaticResource ThisButtonStyle}"
+					HeightRequest="{StaticResource HHH2}"
+					BackgroundColor="{StaticResource BlueBackColor}"
+					Command="{Binding ChangePasswordCommand}" />
+
 				<ex:RadButtonEx
 					Grid.Column="2"
-					Text="{converters:T ResourceId=Submit}"
-					Image="button_save.png"
-					Command="{Binding CommitCommand}"
-					Style="{StaticResource PatientButtonStyle2}" />
+					Text="{converters:T ResourceId=Submit,
+					                    ToUpper=True}"
+					Style="{StaticResource ThisButtonStyle}"
+					HeightRequest="{StaticResource HHH2}"
+					Command="{Binding CommitCommand}" />
 			</ex:GridEx>
 
 

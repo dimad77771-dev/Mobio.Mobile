@@ -437,6 +437,7 @@
     <BundleResource Include="Resources\gvt_logo.png" />
     <BundleResource Include="Resources\image_plus_1.png" />
     <BundleResource Include="Resources\profile1.png" />
+    <BundleResource Include="Resources\password_change.svg" />
   </ItemGroup>
   <Import Project="..\..\Mobio.Mobile.Shared\Mobio.Mobile.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

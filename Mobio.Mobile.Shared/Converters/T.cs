@@ -9,6 +9,7 @@ namespace OneBuilder.Mobile.Converters
 	{
 		public string ResourceId { get; set; }
 		public bool ToUpper { get; set; }
+		public bool SpaceToNewLine { get; set; }
 
 		public object ProvideValue(IServiceProvider serviceProvider)
 		{
@@ -16,6 +17,10 @@ namespace OneBuilder.Mobile.Converters
 			if (ToUpper)
 			{
 				value = value.ToUpper();
+			}
+			if (SpaceToNewLine)
+			{
+				value = value.Replace(" ", "\n");
 			}
 			return value;
 		}

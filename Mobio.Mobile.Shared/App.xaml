@@ -29,9 +29,13 @@
 			<Color x:Key="PageBackgroundColor">#F1F2F5</Color>
 			<Color x:Key="GreenTextColor">#64BDAB</Color>
 			<Color x:Key="GreenBackColor">#E2EEEC</Color>
+			<Color x:Key="BlueBackColor">#71A5D7</Color>
+			<Color x:Key="YellowPinkColor">#FDC4A6</Color>
+			<Color x:Key="PurpleColor">#C1A7F2</Color>
 			<Color x:Key="BlackTextColor">#0B2246</Color>
 			<Color x:Key="WhiteTextColor">#FFFFFF</Color>
 			<Color x:Key="RedErrorBorderColor">#A94442</Color>
+			
 			
 
 			<OnPlatform x:Key="ButtonTextColor" x:TypeArguments="forms:Color">

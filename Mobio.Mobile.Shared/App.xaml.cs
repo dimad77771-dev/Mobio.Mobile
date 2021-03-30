@@ -37,6 +37,7 @@ namespace OneBuilder.Mobile
 		{
 			//var pg = new Views.ButtonPage(); await NavFunc.Push(pg); return;
 
+			var vmodel = new ChangePasswordViewModel(); await NavFunc.NavigateToAsync(vmodel); return;
 			//var vmodel = new LoginViewModel();
 			//var viewModel = new ProfileViewModel();
 			//var viewModel = new UserOrderViewModel();
