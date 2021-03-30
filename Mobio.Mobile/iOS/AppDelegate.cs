@@ -33,7 +33,7 @@ namespace Mobio.Mobile.iOS
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 			FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 			var ignore = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
-			//AiForms.Effects.iOS.Effects.Init();
+			AiForms.Effects.iOS.Effects.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 			FormsControls.Touch.Renderers.Init();
 			LoadApplication(new App());
