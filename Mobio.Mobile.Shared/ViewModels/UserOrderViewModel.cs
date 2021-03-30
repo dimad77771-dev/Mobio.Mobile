@@ -312,9 +312,9 @@ namespace OneBuilder.Mobile.ViewModels
 						var hasFree = scheduleItemSlots.Any(q => q.IsFull == false);
 						return new T.CalendarCellStyle
 						{
-							BackgroundColor = (hasFree ? Color.FromHex("#5cb85c") : Color.FromHex("#ac2925")),
-							BorderColor = (hasFree ? Color.FromHex("#255625") : Color.FromHex("#761c19")),
-							TextColor = Color.White,
+							BackgroundColor = (hasFree ? U.GetAppColor("GreenTextColor") : U.GetAppColor("RedErrorBorderColor")),
+							BorderColor = (hasFree ? Color.Transparent : Color.Transparent),
+							TextColor = U.GetAppColor("WhiteTextColor"),
 						};
 					}
 				}

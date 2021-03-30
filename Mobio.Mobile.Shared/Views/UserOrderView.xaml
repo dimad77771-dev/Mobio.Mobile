@@ -24,6 +24,7 @@
 		<ResourceDictionary>
 			<viewmodel:UserOrderViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
+
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
 				<Setter Property="Margin" Value="8,25,8,5" />
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
@@ -32,6 +33,10 @@
 				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
 				<Setter Property="BorderRadius" Value="22" />
 				<Setter Property="BorderWidth" Value="0" />
+			</Style>
+
+			<Style x:Key="ThisAccordionItemHeader" TargetType="telerikPrimitives:AccordionItemHeader">
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenBackColor}" />
 			</Style>
 
 
@@ -230,11 +235,11 @@
 					CanCollapseAllItems="True"
 					AnimationDuration="500"
 					AnimationEasing="SpringOut"
-					Spacing="2">
+					Spacing="8">
 
 					<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}" IsExpanded="{Binding PatientHeaderModels[General].IsExpanded, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
 						<ex:AccordionItemEx.Header>
-							<telerikPrimitives:AccordionItemHeader>
+							<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
 								<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>
@@ -339,7 +344,7 @@
 
 					<ex:AccordionItemEx HeaderText="{converters:T ResourceId=ScreenQuestionnaire}">
 						<ex:AccordionItemEx.Header>
-							<telerikPrimitives:AccordionItemHeader>
+							<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
 								<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[ScreenQuestionnaire], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>
@@ -635,7 +640,7 @@
 
 					<ex:AccordionItemEx HeaderText="{converters:T ResourceId=LabConsent}">
 						<ex:AccordionItemEx.Header>
-							<telerikPrimitives:AccordionItemHeader>
+							<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
 								<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[LabConsent], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>
@@ -771,7 +776,7 @@
 
 					<ex:AccordionItemEx HeaderText="{converters:T ResourceId=Appointment}">
 						<ex:AccordionItemEx.Header>
-							<telerikPrimitives:AccordionItemHeader>
+							<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
 								<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>
@@ -868,7 +873,7 @@
 
 					<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
 						<ex:AccordionItemEx.Header>
-							<telerikPrimitives:AccordionItemHeader>
+							<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
 								<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
 							</telerikPrimitives:AccordionItemHeader>
 						</ex:AccordionItemEx.Header>

@@ -1,3 +1,4 @@
+using OneBuilder.Mobile;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
 using System;
@@ -29,9 +30,9 @@ namespace OneBuilder.Model
 		//не получилось. глюк при перерисовке. TextDecoration = TextDecorations.Strikethrough "залипает"
 
 		public Boolean IsSelectedSlot { get; set; }
-		public Color TextColor => IsSelectedSlot ? Color.White : Color.FromHex("#333");
-		public Color BackgroundColor => IsSelectedSlot ? Color.FromHex("#d9534f") : Color.Transparent;
-		public Color BorderColor => IsSelectedSlot ? Color.FromHex("#d9534f") : Color.FromHex("#ccc");
+		public Color TextColor => IsSelectedSlot ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
+		public Color BackgroundColor => IsSelectedSlot ? U.GetAppColor("GreenTextColor") : Color.Transparent;
+		public Color BorderColor => IsSelectedSlot ? Color.Transparent : Color.Transparent;
 
 		public string FullSlotText
 		{
