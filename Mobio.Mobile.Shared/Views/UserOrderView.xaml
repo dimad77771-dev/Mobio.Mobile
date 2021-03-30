@@ -23,6 +23,17 @@
 		<ResourceDictionary>
 			<viewmodel:UserOrderViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
+			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
+				<Setter Property="Margin" Value="8,25,8,5" />
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="18" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
+				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
+				<Setter Property="BorderRadius" Value="22" />
+				<Setter Property="BorderWidth" Value="0" />
+			</Style>
+
+
 			<Style x:Key="GreenStrong" TargetType="ex:LabelEx">
 				<Setter Property="FontSize" Value="10" />
 				<Setter Property="FontAttributes" Value="Bold" />
@@ -135,6 +146,8 @@
 				<Setter Property="BorderRadius" Value="8" />
 				<Setter Property="BorderWidth" Value="1" />
 			</Style>
+
+
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
@@ -167,6 +180,10 @@
 							VerticalItemSpacing="5" />
 					</ex:RadListViewEx.LayoutDefinition>
 
+					<ex:RadListViewEx.ItemStyle>
+						<telerikListView:ListViewItemStyle BorderColor="Transparent" BorderWidth="0" />
+					</ex:RadListViewEx.ItemStyle>
+
 					<ex:RadListViewEx.Commands>
 						<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding PatientItemTapCommand}" />
 					</ex:RadListViewEx.Commands>
@@ -182,7 +199,7 @@
 											HeightRequest="30"
 											BackgroundColor="{Binding Patient.BackgroundColor}"
 											BorderColor="{Binding Patient.BorderColor}"
-											CornerRadius="2">
+											CornerRadius="7">
 											<!--
 												ef:SizeToFit.On="true"
 												ef:SizeToFit.CanExpand="False"
@@ -1095,32 +1112,40 @@
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="*" />
 					</ex:GridEx.ColumnDefinitions>
+
 					<ex:RadButtonEx
 						Grid.Column="0"
-						Text="{converters:T ResourceId=Delete}"
-						BackgroundColor="#d9534f"
-						BorderColor="#d43f3a"
-						TextColor="Wheat"
-						Command="{Binding PatientDeleteCommand}"
-						Style="{StaticResource PatientButtonStyle}" />
+						Text="{converters:T ResourceId=Delete,
+						                    ToUpper=False}"
+						Style="{StaticResource ThisButtonStyle}"
+						HeightRequest="{StaticResource HHH2}"
+						BackgroundColor="{StaticResource PurpleColor}"
+						Command="{Binding PatientDeleteCommand}" />
 					<ex:RadButtonEx
 						Grid.Column="1"
-						Text="{converters:T ResourceId=AddPatient}"
-						Image="button_add.png"
-						Command="{Binding PatientAddCommand}"
-						Style="{StaticResource PatientButtonStyle}" />
+						Text="{converters:T ResourceId=AddPatient,
+						                    ToUpper=False}"
+						Style="{StaticResource ThisButtonStyle}"
+						HeightRequest="{StaticResource HHH2}"
+						BackgroundColor="{StaticResource BlueBackColor}"
+						Command="{Binding PatientAddCommand}" />
+
 					<ex:RadButtonEx
 						Grid.Column="2"
-						Text="{converters:T ResourceId=Submit}"
-						Image="button_save.png"
-						Command="{Binding CommitCommand}"
-						Style="{StaticResource PatientButtonStyle}">
+						Text="{converters:T ResourceId=Submit,
+						                    ToUpper=False}"
+						Style="{StaticResource ThisButtonStyle}"
+						HeightRequest="{StaticResource HHH2}"
+						Command="{Binding CommitCommand}">
 						<ex:RadButtonEx.Triggers>
 							<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
-								<Setter Property="BorderColor" Value="{StaticResource PatientButtonBorderErrorColor}" />
+								<Setter Property="BorderColor" Value="{StaticResource RedErrorBorderColor}" />
+								<Setter Property="BorderWidth" Value="1" />
 							</Trigger>
 						</ex:RadButtonEx.Triggers>
 					</ex:RadButtonEx>
+
+
 				</ex:GridEx>
 
 			</ex:GridEx>
