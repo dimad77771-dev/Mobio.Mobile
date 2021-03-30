@@ -21,6 +21,12 @@
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
+			<Style x:Key="ThisItemLabelStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="TextColor" Value="{Binding TextColor}" />
+			</Style>
+
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
@@ -47,7 +53,7 @@
 							<telerikListView:ListViewGridLayout.ItemLength>
 								<OnPlatform
 									x:TypeArguments="x:Double"
-									iOS="80"
+									iOS="85"
 									Android="100" />
 							</telerikListView:ListViewGridLayout.ItemLength>
 						</telerikListView:ListViewGridLayout>
@@ -57,63 +63,76 @@
 						<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
 					</ex:RadListViewEx.Commands>
 
+					<ex:RadListViewEx.ItemStyle>
+						<telerikListView:ListViewItemStyle BorderColor="Transparent" BorderWidth="0" />
+					</ex:RadListViewEx.ItemStyle>
+
+
 					<ex:RadListViewEx.ItemTemplate>
 						<DataTemplate>
 							<telerikListView:ListViewTemplateCell>
 								<telerikListView:ListViewTemplateCell.View>
-									<ex:GridEx Padding="5">
-										<Grid.RowDefinitions>
-											<RowDefinition Height="Auto" />
-											<RowDefinition Height="Auto" />
-										</Grid.RowDefinitions>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition Width="*" />
-										</Grid.ColumnDefinitions>
+									<telerikPrimitives:RadBorder
+										Grid.Row="0"
+										Grid.Column="1"
+										Padding="0"
+										BackgroundColor="{Binding BackgroundColor}"
+										CornerRadius="7">
 
-										<ex:LabelEx
-											Grid.Row="0"
-											Margin="5,5,5,5"
-											FontSize="16"
-											Text="#"
-											HorizontalTextAlignment="Start"
-											VerticalTextAlignment="Center" />
+										<ex:GridEx Padding="5">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+											</Grid.ColumnDefinitions>
 
-										<telerikPrimitives:RadBorder
-											Grid.Row="0"
-											Grid.Column="1"
-											Margin="5,5,10,5"
-											Padding="2"
-											BorderColor="#4488F6"
-											CornerRadius="2">
 											<ex:LabelEx
-												FontSize="16"
-												Text="{Binding Number}"
+												Grid.Row="0"
+												Style="{StaticResource ThisItemLabelStyle}"
+												Margin="5,5,5,5"
+												Text="#"
 												HorizontalTextAlignment="Start"
 												VerticalTextAlignment="Center" />
-										</telerikPrimitives:RadBorder>
 
-										<ex:LabelEx
-											Grid.Row="1"
-											Margin="5,5,5,5"
-											FontSize="16"
-											Text="Date"
-											HorizontalTextAlignment="Start"
-											VerticalTextAlignment="Center" />
-										<telerikPrimitives:RadBorder
-											Grid.Row="1"
-											Grid.Column="1"
-											Margin="5,5,10,5"
-											Padding="2"
-											BorderColor="#4488F6"
-											CornerRadius="2">
+											<telerikPrimitives:RadBorder
+												Grid.Row="0"
+												Grid.Column="1"
+												Margin="5,5,10,5"
+												Padding="2"
+												BorderColor="#4488F6"
+												CornerRadius="2">
+												<ex:LabelEx
+													Style="{StaticResource ThisItemLabelStyle}"
+													Text="{Binding Number}"
+													HorizontalTextAlignment="Start"
+													VerticalTextAlignment="Center" />
+											</telerikPrimitives:RadBorder>
+
 											<ex:LabelEx
-												FontSize="16"
-												Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}"
+												Grid.Row="1"
+												Style="{StaticResource ThisItemLabelStyle}"
+												Margin="5,5,5,5"
+												Text="Date"
 												HorizontalTextAlignment="Start"
 												VerticalTextAlignment="Center" />
-										</telerikPrimitives:RadBorder>
-									</ex:GridEx>
+											<telerikPrimitives:RadBorder
+												Grid.Row="1"
+												Grid.Column="1"
+												Margin="5,5,10,5"
+												Padding="2"
+												BorderColor="#4488F6"
+												CornerRadius="2">
+												<ex:LabelEx
+													Style="{StaticResource ThisItemLabelStyle}"
+													Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}"
+													HorizontalTextAlignment="Start"
+													VerticalTextAlignment="Center" />
+											</telerikPrimitives:RadBorder>
+										</ex:GridEx>
+									</telerikPrimitives:RadBorder>
 								</telerikListView:ListViewTemplateCell.View>
 							</telerikListView:ListViewTemplateCell>
 						</DataTemplate>

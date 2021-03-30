@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using OneBuilder.Mobile.Constants;
 using OneBuilder.Mobile.ViewModels;
 using System;
@@ -29,5 +30,12 @@ namespace OneBuilder.Model
 		public string Ip_Modified { get; set; }
 		public UserProfile UserProfile { get; set; }
 		public List<PatientOrderItem> Pois { get; set; }
+
+		[JsonIgnore]
+		public Color TextColor { get; set; }
+		[JsonIgnore]
+		public Color BackgroundColor { get; set; }
+		[JsonIgnore]
+		public Color BorderColor { get; set; }
 	}
 }

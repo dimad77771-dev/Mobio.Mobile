@@ -137,7 +137,21 @@ namespace OneBuilder.Mobile.ViewModels
 		void CalcAll()
 		{
 			CommandEnabledRefresh();
+			CalcItems();
 		}
+
+		void CalcItems()
+		{
+			foreach (var item in Items)
+			{
+				var selected = (item == SelectedItem);
+				var haserror = false;
+				item.BackgroundColor = selected ? U.GetAppColor("GreenTextColor") : U.GetAppColor("GreenBackColor");
+				item.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
+				item.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
+			}
+		}
+
 
 		void CommandEnabledRefresh()
 		{

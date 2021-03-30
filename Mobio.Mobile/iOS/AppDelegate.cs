@@ -36,6 +36,8 @@ namespace Mobio.Mobile.iOS
 			AiForms.Effects.iOS.Effects.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 			FormsControls.Touch.Renderers.Init();
+			//Plugin.GoogleClient.GoogleClientManager.Initialize();
+
 			LoadApplication(new App());
 
 			return base.FinishedLaunching(app, options);
@@ -52,5 +54,10 @@ namespace Mobio.Mobile.iOS
 				return UIInterfaceOrientationMask.Portrait;
 			}
 		}
+
+		//public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+		//{
+		//	return Plugin.GoogleClient.GoogleClientManager.OnOpenUrl(app, url, options);
+		//}
 	}
 }

@@ -98,7 +98,7 @@
 						HeightRequest="91"
 						WidthRequest="91" />
 					<ex:LabelEx
-						Text="GVT"
+						Text="MobioLab&#x00AE;"
 						TextColor="{StaticResource GreenTextColor}"
 						HorizontalTextAlignment="Center"
 						FontFamily="{StaticResource SegoeUIBlack}"
