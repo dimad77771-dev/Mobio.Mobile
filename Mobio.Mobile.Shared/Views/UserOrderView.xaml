@@ -1014,7 +1014,7 @@
 											IsVisible="{Binding IsShowQRCode}"
 											HorizontalTextAlignment="Center"
 											Style="{StaticResource MainCellLabelStyle}"
-											Text="{converters:T ResourceId=PleaseUploadImagesOfQRCode}" />
+											Text="{converters:T ResourceId='(!)QR Code'}" />
 										<Image
 											IsVisible="{Binding IsShowQRCode}"
 											Source="{Binding QRCodeImageSource}"
@@ -1053,14 +1053,10 @@
 											<Grid.RowDefinitions>
 												<RowDefinition Height="Auto" />
 												<RowDefinition Height="Auto" />
+												<RowDefinition Height="20" />
 												<RowDefinition Height="Auto" />
 												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
-												<RowDefinition Height="Auto" />
+												<RowDefinition Height="20" />
 												<RowDefinition Height="Auto" />
 												<RowDefinition Height="Auto" />
 											</Grid.RowDefinitions>
@@ -1074,6 +1070,7 @@
 											<ex:RadCheckBoxEx
 												Grid.Row="1"
 												Grid.Column="0"
+												Margin="2,2,5,5"
 												Style="{StaticResource IAuthorizeCheckBox}"
 												VerticalOptions="Start"
 												IsEnabled="False"
@@ -1098,13 +1095,13 @@
 
 
 											<local:LabelEx
-												Grid.Row="2"
+												Grid.Row="3"
 												Grid.Column="0"
 												HorizontalTextAlignment="Start"
 												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Negative}" />
 											<ex:RadCheckBoxEx
-												Grid.Row="3"
+												Grid.Row="4"
 												Grid.Column="0"
 												Margin="2,2,5,5"
 												Style="{StaticResource IAuthorizeCheckBox}"
@@ -1113,13 +1110,13 @@
 												IsChecked="{Binding IsResult2Positive, Converter={StaticResource TwoStateBoolConverter}}" />
 
 											<local:LabelEx
-												Grid.Row="2"
+												Grid.Row="3"
 												Grid.Column="1"
 												HorizontalTextAlignment="Start"
 												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Result}" />
 											<telerikPrimitives:RadBorder
-												Grid.Row="3"
+												Grid.Row="4"
 												Grid.Column="1"
 												Margin="2,2,5,5"
 												BorderColor="#CCC"
@@ -1130,28 +1127,28 @@
 
 
 											<local:LabelEx
-												Grid.Row="4"
+												Grid.Row="6"
 												Grid.Column="0"
 												HorizontalTextAlignment="Start"
 												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Invalid}" />
 											<ex:RadCheckBoxEx
-												Grid.Row="5"
+												Grid.Row="7"
 												Grid.Column="0"
-												Margin="2,2,0,0"
+												Margin="2,2,5,5"
 												Style="{StaticResource IAuthorizeCheckBox}"
 												VerticalOptions="Start"
 												IsEnabled="False"
 												IsChecked="{Binding IsResult3Positive, Converter={StaticResource TwoStateBoolConverter}}" />
 
 											<local:LabelEx
-												Grid.Row="4"
+												Grid.Row="6"
 												Grid.Column="1"
 												HorizontalTextAlignment="Start"
 												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Result}" />
 											<telerikPrimitives:RadBorder
-												Grid.Row="5"
+												Grid.Row="7"
 												Grid.Column="1"
 												Margin="2,2,5,5"
 												HeightRequest="{StaticResource HHH}"
@@ -1169,8 +1166,9 @@
 											Margin="0,2,5,5"
 											Padding="5,2"
 											BorderColor="#CCC"
-											CornerRadius="3">
-											<ex:LabelEx Text="{Binding _ResultInterpretation}" LineBreakMode="WordWrap" />
+											CornerRadius="3"
+											BorderThickness="0">
+											<ex:LabelEx Text="{Binding _ResultInterpretation}" Style="{StaticResource ThisTestRelatedEnterStyle}" LineBreakMode="WordWrap" />
 										</telerikPrimitives:RadBorder>
 
 
