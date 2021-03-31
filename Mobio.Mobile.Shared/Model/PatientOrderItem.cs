@@ -43,7 +43,6 @@ namespace OneBuilder.Model
 		public string Ip_Created { get; set; }
 		public string Ip_Modified { get; set; }
 		public Patient Patient { get; set; }
-		//public Order Order { get; set; }
 		public UserProfile InstrititionProfile { get; set; }
 		public UserProfile PatientProfile { get; set; }
 		public Appointment Appointment { get; set; }
@@ -75,17 +74,17 @@ namespace OneBuilder.Model
 		[JsonIgnore]
 		public bool IsHasError { get; set; } = false;
 
-		//public ObservableCollection<UserProfile> DdlInstitutions { get; set; } = new ObservableCollection<UserProfile>();
-		//public UserProfile InstitutionProfile
-		//{
-		//	get
-		//	{
-		//		return DdlInstitutions.SingleOrDefault(q => q.RowId == InstitutionProfileRowId);
-		//	}
-		//	set
-		//	{
-		//		InstitutionProfileRowId = value?.RowId;
-		//	}
-		//}
+		[JsonIgnore]
+		public UserOrderViewModel ParentModel { get; set; }
+
+		[JsonIgnore]
+		public string InstitutionName
+		{
+			get
+			{
+				var institutionName = ParentModel?.DdlInstitutions?.FirstOrDefault(q => q.RowId == InstitutionProfileRowId)?.CompanyName;
+				return institutionName;
+			}
+		}
 	}
 }

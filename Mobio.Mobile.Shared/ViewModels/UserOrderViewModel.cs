@@ -38,6 +38,9 @@ namespace OneBuilder.Mobile.ViewModels
 		public Boolean IsShowCalendar { get; set; }
 		public ObservableCollection<ScheduleItemSlot> CurrentScheduleItemSlots { get; set; }
 
+		public Boolean IsShowListMode { get; set; } = true;
+		public Boolean IsShowFromMode => !IsShowListMode;
+
 		public String PatientTabText { get; set; }
 		public Boolean IsShowTestRelatedTab { get; set; }
 
