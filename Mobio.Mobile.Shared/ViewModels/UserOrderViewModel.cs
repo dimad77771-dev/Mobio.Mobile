@@ -22,6 +22,7 @@ namespace OneBuilder.Mobile.ViewModels
 	public class UserOrderViewModel : PageViewModel
 	{
 		public Guid OrderRowId { get; set; }
+		public Guid? InitSelectedPatientOrderItemRowId { get; set; }
 		public Order Order { get; set; }
 		public override bool IsBackVisible => IsShowFromMode || U.IsBackVisible;
 
@@ -34,6 +35,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public ObservableCollection<PatientOrderItem> PatientOrderItems { get; set; }
 		public PatientOrderItem SelectedPatientOrderItem { get; set; }
 		public PatientOrderItem SelectedPatientOrderItemScrollToRow { get; set; }
+
 
 		public RadCalendarOperationBehaviorManager CalendarManager { get; set; } = new RadCalendarOperationBehaviorManager();
 		public Boolean IsShowCalendar { get; set; }
@@ -58,6 +60,7 @@ namespace OneBuilder.Mobile.ViewModels
 		public String NavigationBarButton1Text { get; set; } = Globalization.T("Profile");
 		public Command NavigationBarButton1Command { get; set; }
 
+		public Boolean IsNewRow { get; set; } = false;
 		public Boolean IsCommit { get; set; }
 		public Boolean HasModelError { get; set; }
 
@@ -81,7 +84,7 @@ namespace OneBuilder.Mobile.ViewModels
 			CommitCommand = CommandFunc.CreateAsync(Commit, () => !HasPatientOrderItemError());
 			CancelCommand = CommandFunc.CreateAsync(Cancel);
 			NavigationBarButton1Command = CommandFunc.CreateAsync(ProfileViewModel.OpenPage);
-			PatientItemTapCommand = new Command<ItemTapCommandContext>(PatientItemTap);
+			PatientItemTapCommand = new Command<ItemTapCommandContext>(async (q) => await PatientItemTap(q));
 			ScheduleItemSlotTapCommand = new Command<ItemTapCommandContext>(ScheduleItemSlotTap);
 			//this.PropertyChanged += PropertyChangedAction;
 
@@ -138,28 +141,43 @@ namespace OneBuilder.Mobile.ViewModels
 
 			PatientOrderItemsJson0 = JsonConvert.SerializeObject(PatientOrderItems);
 
-			UIFunc.HideLoading();
-
-
-			if (!PatientOrderItems.Any())
+			if (IsShowFromMode)
 			{
-				await PatientAdd();
+				SelectedPatientOrderItem = PatientOrderItems.SingleOrDefault(q => q.RowId == InitSelectedPatientOrderItemRowId);
+				if (SelectedPatientOrderItem == null)
+				{
+					IsNewRow = true;
+					await InitNewPatient();
+				}
+				PatientHeaderModels[General].IsExpanded = true;
 			}
+
+			UIFunc.HideLoading();
 
 			return true;
 		}
 
 
-		void PatientItemTap(ItemTapCommandContext context)
+		async Task PatientItemTap(ItemTapCommandContext context)
 		{
 			var item = (PatientOrderItem)context.Item;
-			OpenPatientOrderItem(item);
+			await OpenPatientOrderItem(item);
 		}
 
-		void OpenPatientOrderItem(PatientOrderItem item)
+		async Task OpenPatientOrderItem(PatientOrderItem item)
 		{
-			SetSelectedPatientOrderItem(item);
-			IsShowListMode = false;
+			if (item != null)
+			{
+				SetSelectedPatientOrderItem(item);
+			}
+
+			var vmodel = new UserOrderViewModel 
+			{ 
+				OrderRowId = this.OrderRowId,
+				IsShowListMode = false,
+				InitSelectedPatientOrderItemRowId = item?.RowId,
+			}; 
+			await NavFunc.NavigateToAsync(vmodel);
 		}
 
 		void ScheduleItemSlotTap(ItemTapCommandContext context)
@@ -382,30 +400,23 @@ namespace OneBuilder.Mobile.ViewModels
 			//await NavFunc.NavigateToAsync(homeViewModel);
 		}
 
-		public async Task PatientAdd()
+		public async Task InitNewPatient()
 		{
 			var patient = new Patient
 			{
-				//RowId = Guid.NewGuid(),
-				//FirstName = "",
-				//LastName = "",
 			};
 			var appointment = new Appointment
 			{
-				//RowId = Guid.NewGuid(),
 			};
 			var screenQuiz = new ScreenQuiz
 			{
-				//RowId = Guid.NewGuid(),
 			};
 			var labConsent = new LabConsent
 			{
-				//RowId = Guid.NewGuid(),
 			};
 
 			var patientOrderItem = new PatientOrderItem
 			{
-				//RowId = Guid.NewGuid(),
 				IsNew = true,
 				IsNewRow = true,
 				IsInitRow = true,
@@ -419,21 +430,11 @@ namespace OneBuilder.Mobile.ViewModels
 			PatientOrderItems.Add(patientOrderItem);
 			SelectedPatientOrderItem = patientOrderItem;
 			CalcAll();
+		}
 
-			PatientHeaderModels[General].IsExpanded = true;
-
-			U.RequestMainThread(async () =>
-			{
-				await Task.Yield();
-				SelectedPatientOrderItemScrollToRow = patientOrderItem;
-				SelectedPatientOrderItemScrollToRow = null;
-				await Task.Delay(200);
-				await Task.Yield();
-				SelectedPatientOrderItemScrollToRow = patientOrderItem;
-				await Task.Delay(200);
-				await Task.Yield();
-				OpenPatientOrderItem(patientOrderItem);
-			});
+		public async Task PatientAdd()
+		{
+			await OpenPatientOrderItem(null);
 		}
 
 		public async Task PatientDelete()
@@ -447,11 +448,6 @@ namespace OneBuilder.Mobile.ViewModels
 			PatientOrderItems.Remove(SelectedPatientOrderItem);
 			SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
 			CalcAll();
-		}
-
-		void ReturnToListMode()
-		{
-			IsShowListMode = true;
 		}
 
 		public override async Task<bool> BeforePageClose()
@@ -473,9 +469,7 @@ namespace OneBuilder.Mobile.ViewModels
 					}
 				}
 
-
-				ReturnToListMode();
-				return false;
+				return true;
 			}
 		}
 

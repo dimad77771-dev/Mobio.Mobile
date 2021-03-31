@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:ContentPageEx
-	x:Class="OneBuilder.Mobile.Views.UserOrderView"
+	x:Class="OneBuilder.Mobile.Views.OrderPatientListView"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:ex="clr-namespace:OneBuilder.Mobile"
@@ -21,7 +21,7 @@
 
 	<local:ContentPageEx.Resources>
 		<ResourceDictionary>
-			<viewmodel:UserOrderViewModel_BorderColorConverter x:Key="BorderColorConverter" />
+			<viewmodel:OrderPatientListViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
 			<Style x:Key="ThisTestRelatedLabelStyle" TargetType="{x:Type ex:LabelEx}">
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
@@ -369,10 +369,10 @@
 						AnimationEasing="SpringOut"
 						Spacing="8">
 
-						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}" IsExpanded="{Binding PatientHeaderModels[General].IsExpanded, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
+						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=General}" IsExpanded="{Binding PatientHeaderModels[General].IsExpanded, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}">
 							<ex:AccordionItemEx.Header>
 								<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
-									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
+									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[General], Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}" />
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
@@ -387,11 +387,11 @@
 										<telerikPrimitives:RadBorder
 											BackgroundColor="{StaticResource GreenBackColor}"
 											Style="{StaticResource ThisEntryBorderStyle}"
-											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}, Converter={StaticResource BorderColorConverter}}">
 											<ex:RadComboBoxEx
 												Style="{StaticResource ThisComboBoxStyle}"
 												BackgroundColor="{StaticResource GreenBackColor}"
-												ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+												ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 												ValueMember="RowId"
 												DisplayMemberPath="CompanyName"
 												Placeholder="Enter Institution"
@@ -399,12 +399,12 @@
 										</telerikPrimitives:RadBorder>
 
 										<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=FirstName, ToUpper=True}" />
-										<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}, Converter={StaticResource BorderColorConverter}}">
 											<ex:RadEntryEx Text="{Binding Patient.FirstName}" Style="{StaticResource ThisEntryStyle}" />
 										</telerikPrimitives:RadBorder>
 
 										<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=LastName, ToUpper=True}" />
-										<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=LastName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+										<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=LastName, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}, Converter={StaticResource BorderColorConverter}}">
 											<ex:RadEntryEx Text="{Binding Patient.LastName}" Style="{StaticResource ThisEntryStyle}" />
 										</telerikPrimitives:RadBorder>
 
@@ -412,7 +412,7 @@
 										<telerikPrimitives:RadBorder
 											Style="{StaticResource ThisEntryBorderStyle}"
 											BackgroundColor="{StaticResource GreenBackColor}"
-											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=BirthDate, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=BirthDate, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}, Converter={StaticResource BorderColorConverter}}">
 											<ex:RadDatePickerEx
 												Style="{StaticResource ThisDatePickerStyle}"
 												BackgroundColor="{StaticResource GreenBackColor}"
@@ -428,7 +428,7 @@
 												Style="{StaticResource ThisComboBoxStyle}"
 												BackgroundColor="{StaticResource GreenBackColor}"
 												SelectedItem="{Binding Patient.Gender, Mode=TwoWay}"
-												ItemsSource="{Binding DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+												ItemsSource="{Binding DdlGenders, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 												Placeholder="Enter Gender" />
 										</telerikPrimitives:RadBorder>
 
@@ -445,7 +445,7 @@
 						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=ScreenQuestionnaire}">
 							<ex:AccordionItemEx.Header>
 								<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
-									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[ScreenQuestionnaire], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
+									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[ScreenQuestionnaire], Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}" />
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
@@ -458,7 +458,7 @@
 
 										<ex:LabelEx
 											Grid.Row="0"
-											IsVisible="{Binding PatientHeaderModels[ScreenQuestionnaire].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+											IsVisible="{Binding PatientHeaderModels[ScreenQuestionnaire].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 											Style="{StaticResource ErrorLabelStyle}"
 											Text="{converters:T ResourceId='(!)FillAllScreenQuestionnaire'}" />
 
@@ -741,7 +741,7 @@
 						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=LabConsent}">
 							<ex:AccordionItemEx.Header>
 								<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
-									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[LabConsent], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
+									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[LabConsent], Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}" />
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
@@ -754,7 +754,7 @@
 
 										<ex:LabelEx
 											Grid.Row="0"
-											IsVisible="{Binding PatientHeaderModels[LabConsent].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+											IsVisible="{Binding PatientHeaderModels[LabConsent].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 											Style="{StaticResource ErrorLabelStyle}"
 											Text="{converters:T ResourceId='(!)FillAllLabConsent'}" />
 
@@ -877,7 +877,7 @@
 						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=Appointment}">
 							<ex:AccordionItemEx.Header>
 								<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
-									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
+									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[Appointment], Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}" />
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
@@ -890,7 +890,7 @@
 
 									<ex:LabelEx
 										Grid.Row="0"
-										IsVisible="{Binding PatientHeaderModels[Appointment].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+										IsVisible="{Binding PatientHeaderModels[Appointment].HasError, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 										Style="{StaticResource ErrorLabelStyle}"
 										Text="{converters:T ResourceId='(!)SelectAppointmentSlot'}" />
 
@@ -903,7 +903,7 @@
 										Grid.Row="1"
 										IsVisible="{Binding IsShowCalendar}"
 										HeightRequest="300"
-										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
+										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}">
 										<ex:RadCalendarEx.Behaviors>
 											<behaviors:RadCalendarOperationBehavior Manager="{Binding CalendarManager, Mode=TwoWay}" />
 										</ex:RadCalendarEx.Behaviors>
@@ -914,7 +914,7 @@
 										Grid.Row="2"
 										Margin="0,5,0,0"
 										HeightRequest="200"
-										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}"
 										IsVisible="{Binding IsShowCalendar}"
 										ItemsSource="{Binding CurrentScheduleItemSlots}"
 										SelectionMode="None">
@@ -971,10 +971,10 @@
 							</ex:AccordionItemEx.Content>
 						</ex:AccordionItemEx>
 
-						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
+						<ex:AccordionItemEx HeaderText="{converters:T ResourceId=TestRelated}" IsVisible="{Binding IsShowTestRelatedTab, Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}">
 							<ex:AccordionItemEx.Header>
 								<telerikPrimitives:AccordionItemHeader Style="{StaticResource ThisAccordionItemHeader}">
-									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}" />
+									<ContentView ControlTemplate="{StaticResource PatientHeaderControlTemplate}" BindingContext="{Binding PatientHeaderModels[TestRelated], Source={RelativeSource AncestorType={x:Type viewmodel:OrderPatientListViewModel}}}" />
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
@@ -1212,7 +1212,6 @@
 						Grid.Column="0"
 						Text="{converters:T ResourceId=Delete,
 						                    ToUpper=true}"
-						IsVisible="{Binding IsNewRow, Converter={StaticResource InverseBoolConverter}}"
 						Style="{StaticResource ThisButtonStyle}"
 						HeightRequest="{StaticResource HHH2}"
 						BackgroundColor="{StaticResource RedLightColor}"
