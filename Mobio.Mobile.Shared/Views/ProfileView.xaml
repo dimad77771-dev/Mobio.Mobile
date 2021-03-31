@@ -120,7 +120,6 @@
 
 			<views:NavigationBarView Grid.Row="0" />
 
-
 			<local:ScrollViewEx Grid.Row="2">
 				<local:StackLayoutEx Padding="10">
 					<ex:StackLayoutEx Margin="0,0,0,0" Padding="10">
@@ -136,6 +135,36 @@
 					FontFamily="{StaticResource SegoeUIBlack}"
 					FontSize="31" />-->
 					</ex:StackLayoutEx>
+
+					<ex:GridEx
+						BackgroundColor="Transparent"
+						Padding="5,5,5,15"
+						IsVisible="{Binding IsNewRow, Converter={StaticResource InvertedBooleanConverter}}">
+						<ex:GridEx.ColumnDefinitions>
+							<ColumnDefinition Width="60*" />
+							<ColumnDefinition Width="40*" />
+						</ex:GridEx.ColumnDefinitions>
+
+
+						<ex:RadButtonEx
+							Grid.Column="0"
+							Text="{converters:T ResourceId=ChangePassword,
+							                    ToUpper=True}"
+							Style="{StaticResource ThisButtonStyle}"
+							HeightRequest="{StaticResource HHH2}"
+							BackgroundColor="{StaticResource BlueBackColor}"
+							Command="{Binding ChangePasswordCommand}" />
+
+						<ex:RadButtonEx
+							Grid.Column="1"
+							Text="{converters:T ResourceId=Logout,
+							                    ToUpper=True}"
+							Style="{StaticResource ThisButtonStyle}"
+							HeightRequest="{StaticResource HHH2}"
+							BackgroundColor="{StaticResource PurpleColor}"
+							Command="{Binding LogoutCommand}" />
+
+					</ex:GridEx>
 
 					<telerikPrimitives:RadBorder Style="{StaticResource ThisHeaderBorder}">
 						<local:LabelEx Style="{StaticResource ThisHeaderLabel}" Text="{converters:T ResourceId=ProfileDetails, ToUpper=True}" />
@@ -231,16 +260,15 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				BackgroundColor="{StaticResource GreenButtonBackColor}"
+				BackgroundColor="Transparent"
 				Padding="10,5,10,10"
 				IsVisible="{Binding IsNewRow}">
 				<ex:GridEx.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</ex:GridEx.ColumnDefinitions>
 
 				<ex:RadButtonEx
-					Grid.Column="1"
+					Grid.Column="0"
 					Text="{converters:T ResourceId=Submit,
 					                    ToUpper=True}"
 					Style="{StaticResource ThisButtonStyle}"
@@ -251,36 +279,15 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				BackgroundColor="{StaticResource GreenButtonBackColor}"
+				BackgroundColor="Transparent"
 				Padding="5,5,5,15"
 				IsVisible="{Binding IsNewRow, Converter={StaticResource InvertedBooleanConverter}}">
 				<ex:GridEx.ColumnDefinitions>
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="*" />
 				</ex:GridEx.ColumnDefinitions>
 
 				<ex:RadButtonEx
 					Grid.Column="0"
-					Text="{converters:T ResourceId=Logout,
-					                    ToUpper=True}"
-					Style="{StaticResource ThisButtonStyle}"
-					HeightRequest="{StaticResource HHH2}"
-					BackgroundColor="{StaticResource PurpleColor}"
-					Command="{Binding LogoutCommand}" />
-
-				<ex:RadButtonEx
-					Grid.Column="1"
-					Text="{converters:T ResourceId=ChangePassword,
-					                    ToUpper=True,
-					                    SpaceToNewLine=true}"
-					Style="{StaticResource ThisButtonStyle}"
-					HeightRequest="{StaticResource HHH2}"
-					BackgroundColor="{StaticResource BlueBackColor}"
-					Command="{Binding ChangePasswordCommand}" />
-
-				<ex:RadButtonEx
-					Grid.Column="2"
 					Text="{converters:T ResourceId=Submit,
 					                    ToUpper=True}"
 					Style="{StaticResource ThisButtonStyle}"

@@ -37,5 +37,8 @@ namespace OneBuilder.Model
 		public Color BackgroundColor { get; set; }
 		[JsonIgnore]
 		public Color BorderColor { get; set; }
+
+		[JsonIgnore]
+		public Command ItemTapCommand { get; set; }
 	}
 }

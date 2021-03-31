@@ -23,9 +23,34 @@
 		<ResourceDictionary>
 			<Style x:Key="ThisItemLabelStyle" TargetType="{x:Type ex:LabelEx}">
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
-				<Setter Property="FontSize" Value="16" />
-				<Setter Property="TextColor" Value="{Binding TextColor}" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="FontSize" Value="21" />
+				<Setter Property="TextColor" Value="{StaticResource BlackLightTextColor}" />
 			</Style>
+
+			<Style x:Key="ThisItemEnterStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="FontSize" Value="21" />
+				<Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+			</Style>
+
+			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
+				<Setter Property="Margin" Value="7,15,7,5" />
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUIBlack}" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
+				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
+				<Setter Property="BorderRadius" Value="22" />
+				<Setter Property="BorderWidth" Value="0" />
+				<Style.Triggers>
+					<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
+						<Setter Property="BackgroundColor" Value="{StaticResource GreenLightTextColor}" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+
+
 
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
@@ -43,25 +68,25 @@
 				<ex:RadListViewEx
 					ItemsSource="{Binding Items}"
 					SelectedItem="{Binding SelectedItem}"
-					SelectionMode="Single">
+					SelectionMode="None">
 
 					<ex:RadListViewEx.LayoutDefinition>
 						<telerikListView:ListViewGridLayout
-							SpanCount="2"
+							SpanCount="1"
 							HorizontalItemSpacing="10"
 							VerticalItemSpacing="10">
 							<telerikListView:ListViewGridLayout.ItemLength>
 								<OnPlatform
 									x:TypeArguments="x:Double"
-									iOS="85"
-									Android="100" />
+									iOS="385"
+									Android="400" />
 							</telerikListView:ListViewGridLayout.ItemLength>
 						</telerikListView:ListViewGridLayout>
 					</ex:RadListViewEx.LayoutDefinition>
 
-					<ex:RadListViewEx.Commands>
+					<!--<ex:RadListViewEx.Commands>
 						<telerikListViewCommands:ListViewUserCommand Id="ItemTap" Command="{Binding ItemTapCommand}" />
-					</ex:RadListViewEx.Commands>
+					</ex:RadListViewEx.Commands>-->
 
 					<ex:RadListViewEx.ItemStyle>
 						<telerikListView:ListViewItemStyle BorderColor="Transparent" BorderWidth="0" />
@@ -83,54 +108,77 @@
 											<Grid.RowDefinitions>
 												<RowDefinition Height="Auto" />
 												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
 											</Grid.RowDefinitions>
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="Auto" />
 												<ColumnDefinition Width="*" />
 											</Grid.ColumnDefinitions>
 
 											<ex:LabelEx
 												Grid.Row="0"
+												Grid.Column="0"
 												Style="{StaticResource ThisItemLabelStyle}"
-												Margin="5,5,5,5"
-												Text="#"
+												Margin="7,5,5,0"
+												Text="{converters:T ResourceId='(!)Order Number'}"
 												HorizontalTextAlignment="Start"
 												VerticalTextAlignment="Center" />
-
 											<telerikPrimitives:RadBorder
-												Grid.Row="0"
-												Grid.Column="1"
-												Margin="5,5,10,5"
+												Grid.Row="1"
+												Grid.Column="0"
+												Margin="5,0,5,25"
 												Padding="2"
-												BorderColor="#4488F6"
+												BorderColor="Transparent"
 												CornerRadius="2">
 												<ex:LabelEx
-													Style="{StaticResource ThisItemLabelStyle}"
+													Style="{StaticResource ThisItemEnterStyle}"
 													Text="{Binding Number}"
 													HorizontalTextAlignment="Start"
 													VerticalTextAlignment="Center" />
 											</telerikPrimitives:RadBorder>
 
 											<ex:LabelEx
-												Grid.Row="1"
+												Grid.Row="2"
+												Grid.Column="0"
 												Style="{StaticResource ThisItemLabelStyle}"
-												Margin="5,5,5,5"
-												Text="Date"
+												Margin="7,5,5,0"
+												Text="{converters:T ResourceId='(!)Order Date'}"
 												HorizontalTextAlignment="Start"
 												VerticalTextAlignment="Center" />
 											<telerikPrimitives:RadBorder
-												Grid.Row="1"
-												Grid.Column="1"
-												Margin="5,5,10,5"
+												Grid.Row="3"
+												Grid.Column="0"
+												Margin="5,0,5,25"
 												Padding="2"
-												BorderColor="#4488F6"
+												BorderColor="Transparent"
 												CornerRadius="2">
 												<ex:LabelEx
-													Style="{StaticResource ThisItemLabelStyle}"
+													Style="{StaticResource ThisItemEnterStyle}"
 													Text="{Binding Date, StringFormat='{0:MM/dd/yyyy}'}"
 													HorizontalTextAlignment="Start"
 													VerticalTextAlignment="Center" />
 											</telerikPrimitives:RadBorder>
+
+											<ex:GridEx
+												Grid.Row="4"
+												BackgroundColor="Transparent"
+												Padding="0,5,0,5">
+												<ex:GridEx.ColumnDefinitions>
+													<ColumnDefinition Width="*" />
+												</ex:GridEx.ColumnDefinitions>
+
+												<ex:RadButtonEx
+													Grid.Column="0"
+													Text="{converters:T ResourceId='(!)Open',
+													                    ToUpper=True}"
+													Style="{StaticResource ThisButtonStyle}"
+													HeightRequest="{StaticResource HHH2}"
+													Command="{Binding ItemTapCommand}" />
+											</ex:GridEx>
+
+
+
 										</ex:GridEx>
 									</telerikPrimitives:RadBorder>
 								</telerikListView:ListViewTemplateCell.View>

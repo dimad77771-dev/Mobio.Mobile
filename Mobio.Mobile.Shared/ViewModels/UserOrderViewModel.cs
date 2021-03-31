@@ -235,7 +235,7 @@ namespace OneBuilder.Mobile.ViewModels
 				var selected = (poitem == SelectedPatientOrderItem);
 				var patient = poitem.Patient;
 				var haserror = poitem.IsHasError;
-				patient.BackgroundColor = selected ? U.GetAppColor("GreenTextColor") : U.GetAppColor("GreenBackColor");
+				patient.BackgroundColor = selected ? U.GetAppColor("BlueBackColor") : U.GetAppColor("GreenBackColor");
 				patient.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
 				patient.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
 			}

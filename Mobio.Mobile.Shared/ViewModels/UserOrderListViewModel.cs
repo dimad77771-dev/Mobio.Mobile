@@ -83,7 +83,17 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			var items = task1.Result;
+			SetupItems(items);
+
 			return items;
+		}
+
+		void SetupItems(IEnumerable<Order> items)
+		{
+			foreach(var item in items)
+			{
+				item.ItemTapCommand = new Command(async () => await ItemOpen(item));
+			}
 		}
 
 		async Task<bool> InsertEmptyOrder()
@@ -113,10 +123,8 @@ namespace OneBuilder.Mobile.ViewModels
 			return true;
 		}
 
-
-		async void ItemTap(ItemTapCommandContext context)
+		async Task ItemOpen(Order item)
 		{
-			var item = (Order)context.Item;
 			SetSelectedPatientOrderItem(item);
 
 			var viewModel = new UserOrderViewModel
@@ -124,6 +132,12 @@ namespace OneBuilder.Mobile.ViewModels
 				OrderRowId = item.RowId,
 			};
 			await NavFunc.NavigateToAsync(viewModel);
+		}
+
+		async void ItemTap(ItemTapCommandContext context)
+		{
+			var item = (Order)context.Item;
+			await ItemOpen(item);
 		}
 
 
@@ -145,10 +159,15 @@ namespace OneBuilder.Mobile.ViewModels
 			foreach (var item in Items)
 			{
 				var selected = (item == SelectedItem);
-				var haserror = false;
-				item.BackgroundColor = selected ? U.GetAppColor("GreenTextColor") : U.GetAppColor("GreenBackColor");
-				item.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
-				item.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
+
+				//var haserror = false;
+				//item.BackgroundColor = selected ? U.GetAppColor("GreenTextColor") : U.GetAppColor("GreenBackColor");
+				//item.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
+				//item.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
+
+				item.BackgroundColor = Color.Transparent;
+				item.TextColor = U.GetAppColor("BlackLightTextColor");
+				item.BorderColor = Color.Transparent;
 			}
 		}
 
