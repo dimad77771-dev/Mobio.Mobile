@@ -24,13 +24,18 @@
 			<viewmodel:ProfileViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
-				<Setter Property="Margin" Value="8,25,8,5" />
+				<Setter Property="Margin" Value="8,15,8,5" />
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUIBlack}" />
-				<Setter Property="FontSize" Value="14" />
+				<Setter Property="FontSize" Value="16" />
 				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
 				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
-				<Setter Property="BorderRadius" Value="9" />
+				<Setter Property="BorderRadius" Value="22" />
 				<Setter Property="BorderWidth" Value="0" />
+				<Style.Triggers>
+					<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
+						<Setter Property="BackgroundColor" Value="{StaticResource GreenLightTextColor}" />
+					</Trigger>
+				</Style.Triggers>
 			</Style>
 
 
@@ -74,23 +79,29 @@
 				<Setter Property="BorderColor" Value="#333333" />
 				<Setter Property="BorderRadius" Value="8" />
 				<Setter Property="BorderWidth" Value="1" />
+				<Style.Triggers>
+					<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
+						<Setter Property="BackgroundColor" Value="{StaticResource GreenLightTextColor}" />
+					</Trigger>
+				</Style.Triggers>
 			</Style>
 
 			<Style x:Key="ThisHeaderBorder" TargetType="telerikPrimitives:RadBorder">
 				<Setter Property="Margin" Value="20,0,20,4" />
 				<Setter Property="Padding" Value="1" />
 				<Setter Property="HeightRequest" Value="{StaticResource HHH}" />
-				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
+				<Setter Property="BackgroundColor" Value="Transparent" />
 				<Setter Property="CornerRadius" Value="18" />
+				<Setter Property="BorderThickness" Value="0" />
 			</Style>
 			<Style x:Key="ThisHeaderLabel" TargetType="ex:LabelEx">
 				<Setter Property="Margin" Value="5" />
 				<Setter Property="HorizontalTextAlignment" Value="Center" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
-				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
+				<Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
 				<Setter Property="FontAttributes" Value="Bold" />
-				<Setter Property="FontSize" Value="20" />
+				<Setter Property="FontSize" Value="21" />
 				<Setter Property="LetterSpacing" Value="0.12" />
 			</Style>
 
@@ -109,27 +120,25 @@
 
 			<views:NavigationBarView Grid.Row="0" />
 
-			<ex:StackLayoutEx
-				Grid.Row="1"
-				Margin="0,0,0,0"
-				Padding="10">
-				<Image
-					Margin="5"
-					Source="profile1"
-					HeightRequest="100"
-					WidthRequest="100" />
-				<!--<ex:LabelEx
+
+			<local:ScrollViewEx Grid.Row="2">
+				<local:StackLayoutEx Padding="10">
+					<ex:StackLayoutEx Margin="0,0,0,0" Padding="10">
+						<Image
+							Margin="5"
+							Source="profile1"
+							HeightRequest="100"
+							WidthRequest="100" />
+						<!--<ex:LabelEx
 					Text="{converters:T ResourceId=Submit}"
 					TextColor="{StaticResource GreenTextColor}"
 					HorizontalTextAlignment="Center"
 					FontFamily="{StaticResource SegoeUIBlack}"
 					FontSize="31" />-->
-			</ex:StackLayoutEx>
+					</ex:StackLayoutEx>
 
-			<local:ScrollViewEx Grid.Row="2">
-				<local:StackLayoutEx Padding="10">
 					<telerikPrimitives:RadBorder Style="{StaticResource ThisHeaderBorder}">
-						<local:LabelEx Style="{StaticResource ThisHeaderLabel}" Text="{converters:T ResourceId=ProfileDetails}" />
+						<local:LabelEx Style="{StaticResource ThisHeaderLabel}" Text="{converters:T ResourceId=ProfileDetails, ToUpper=True}" />
 					</telerikPrimitives:RadBorder>
 
 					<local:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=FirstName, ToUpper=True}" />
@@ -180,7 +189,7 @@
 
 
 					<telerikPrimitives:RadBorder Style="{StaticResource ThisHeaderBorder}">
-						<local:LabelEx Style="{StaticResource ThisHeaderLabel}" Text="{converters:T ResourceId=LoginDetails}" />
+						<local:LabelEx Style="{StaticResource ThisHeaderLabel}" Text="{converters:T ResourceId=LoginDetails, ToUpper=True}" />
 					</telerikPrimitives:RadBorder>
 					<local:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=Email, ToUpper=True}" />
 					<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding ConverterParameter=Email, Path=ErrorsGeneral, Source={RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}}, Converter={StaticResource BorderColorConverter}}">
@@ -222,7 +231,8 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				Margin="10,5,10,10"
+				BackgroundColor="{StaticResource GreenBackColor}"
+				Padding="10,5,10,10"
 				IsVisible="{Binding IsNewRow}">
 				<ex:GridEx.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
@@ -241,7 +251,8 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				Margin="5,5,5,15"
+				BackgroundColor="{StaticResource GreenBackColor}"
+				Padding="5,5,5,15"
 				IsVisible="{Binding IsNewRow, Converter={StaticResource InvertedBooleanConverter}}">
 				<ex:GridEx.ColumnDefinitions>
 					<ColumnDefinition Width="*" />

@@ -28,6 +28,7 @@
 			<Color x:Key="HeaderBackgroundColor">#ECF0F5</Color>
 			<Color x:Key="PageBackgroundColor">#F1F2F5</Color>
 			<Color x:Key="GreenTextColor">#64BDAB</Color>
+			<Color x:Key="GreenLightTextColor">#BFE3DC</Color>
 			<Color x:Key="GreenBackColor">#E2EEEC</Color>
 			<Color x:Key="BlueBackColor">#71A5D7</Color>
 			<Color x:Key="YellowPinkColor">#FDC4A6</Color>

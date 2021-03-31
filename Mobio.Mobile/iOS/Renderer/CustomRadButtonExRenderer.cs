@@ -21,7 +21,7 @@ namespace Mobio.Mobile.iOS
             base.OnElementChanged(e);
             if (Control != null)
             {
-                Control.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
+                //Control.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
 				//Control.SetTitleColor(UIColor.Red, UIControlState.Normal);
 
 				Control.TitleLabel.LineBreakMode = UILineBreakMode.WordWrap;

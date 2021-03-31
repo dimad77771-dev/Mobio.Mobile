@@ -1157,6 +1157,7 @@
 						Command="{Binding CommitCommand}">
 						<ex:RadButtonEx.Triggers>
 							<Trigger TargetType="ex:RadButtonEx" Property="IsEnabled" Value="False">
+								<Setter Property="BackgroundColor" Value="{StaticResource GreenLightTextColor}" />
 								<Setter Property="BorderColor" Value="{StaticResource RedErrorBorderColor}" />
 								<Setter Property="BorderWidth" Value="1" />
 							</Trigger>
