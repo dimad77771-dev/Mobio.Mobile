@@ -23,6 +23,21 @@
 		<ResourceDictionary>
 			<viewmodel:UserOrderViewModel_BorderColorConverter x:Key="BorderColorConverter" />
 
+			<Style x:Key="ThisTestRelatedLabelStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="TextColor" Value="{StaticResource BlackLightTextColor}" />
+			</Style>
+
+			<Style x:Key="ThisTestRelatedEnterStyle" TargetType="{x:Type ex:LabelEx}">
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+				<Setter Property="FontAttributes" Value="Bold" />
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="TextColor" Value="{StaticResource BlackTextColor}" />
+			</Style>
+
+
 			<Style x:Key="ThisLabelStyle" TargetType="{x:Type ex:LabelEx}">
 				<Setter Property="Margin" Value="2,0,2,5" />
 				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
@@ -70,8 +85,8 @@
 
 			<Style x:Key="ThisButtonStyle" TargetType="ex:RadButtonEx">
 				<Setter Property="Margin" Value="8,25,8,5" />
-				<Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
-				<Setter Property="FontSize" Value="18" />
+				<Setter Property="FontFamily" Value="{StaticResource SegoeUIBlack}" />
+				<Setter Property="FontSize" Value="16" />
 				<Setter Property="BackgroundColor" Value="{StaticResource GreenTextColor}" />
 				<Setter Property="TextColor" Value="{StaticResource WhiteTextColor}" />
 				<Setter Property="BorderRadius" Value="22" />
@@ -99,8 +114,9 @@
 			</Style>
 
 			<Style x:Key="IAuthorizeCheckBox" TargetType="ex:RadCheckBoxEx">
-				<Setter Property="Margin" Value="0,0,0,0" />
+				<Setter Property="Margin" Value="5,5,5,5" />
 				<Setter Property="VerticalOptions" Value="Center" />
+				<Setter Property="CheckedColor" Value="{StaticResource GreenTextColor}" />
 			</Style>
 
 			<Style
@@ -116,7 +132,7 @@
 				TargetType="ex:LabelEx"
 				BasedOn="{StaticResource MainCellLabelStyle}">
 				<Setter Property="Text" Value="Yes" />
-				<Setter Property="TextColor" Value="Green" />
+				<Setter Property="TextColor" Value="{StaticResource GreenTextColor}" />
 				<Setter Property="FontSize" Value="12" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
 			</Style>
@@ -125,7 +141,7 @@
 				TargetType="ex:LabelEx"
 				BasedOn="{StaticResource MainCellLabelStyle}">
 				<Setter Property="Text" Value="No" />
-				<Setter Property="TextColor" Value="Red" />
+				<Setter Property="TextColor" Value="{StaticResource RedLightColor}" />
 				<Setter Property="FontSize" Value="12" />
 				<Setter Property="VerticalTextAlignment" Value="Center" />
 			</Style>
@@ -143,18 +159,19 @@
 			<Style x:Key="YesCheckBox" TargetType="ex:RadCheckBoxEx">
 				<Setter Property="Margin" Value="5,5,0,5" />
 				<Setter Property="VerticalOptions" Value="Center" />
-				<Setter Property="CheckedColor" Value="Green" />
+				<Setter Property="CheckedColor" Value="{StaticResource GreenTextColor}" />
 			</Style>
 			<Style x:Key="NoCheckBox" TargetType="ex:RadCheckBoxEx">
-				<Setter Property="Margin" Value="0,5,0,5" />
+				<Setter Property="Margin" Value="5,5,0,5" />
 				<Setter Property="VerticalOptions" Value="Center" />
-				<Setter Property="CheckedColor" Value="Red" />
+				<Setter Property="CheckedColor" Value="{StaticResource RedLightColor}" />
 			</Style>
 
 			<Style x:Key="QuestionnaireBorder" TargetType="ex:RadBorderEx">
 				<Setter Property="Margin" Value="0" />
 				<Setter Property="BorderColor" Value="#C6C6C6" />
 				<Setter Property="CornerRadius" Value="3" />
+				<Setter Property="BorderThickness" Value="0" />
 			</Style>
 
 			<ControlTemplate x:Key="PatientHeaderControlTemplate">
@@ -197,6 +214,8 @@
 			</Style>
 
 
+
+
 		</ResourceDictionary>
 	</local:ContentPageEx.Resources>
 
@@ -209,9 +228,8 @@
 
 			<views:NavigationBarView Grid.Row="0" />
 
-			<ex:GridEx Grid.Row="1" Padding="5">
+			<ex:GridEx Grid.Row="1" Padding="10">
 				<ex:GridEx.RowDefinitions>
-					<RowDefinition Height="100" />
 					<RowDefinition Height="*" />
 					<RowDefinition Height="Auto" />
 				</ex:GridEx.RowDefinitions>
@@ -222,6 +240,17 @@
 					Grid.Row="0"
 					ItemsSource="{Binding PatientOrderItems}"
 					SelectionMode="None">
+					<ex:RadListViewEx.LayoutDefinition>
+						<telerikListView:ListViewLinearLayout VerticalItemSpacing="20">
+							<!--<telerikListView:ListViewLinearLayout.ItemLength>
+								<OnPlatform
+									x:TypeArguments="x:Double"
+									iOS="400"
+									Android="400" />
+							</telerikListView:ListViewLinearLayout.ItemLength>-->
+						</telerikListView:ListViewLinearLayout>
+					</ex:RadListViewEx.LayoutDefinition>
+
 					<!--<ex:RadListViewEx.LayoutDefinition>
 						<telerikListView:ListViewGridLayout
 							SpanCount="2"
@@ -243,37 +272,61 @@
 								<telerikListView:ListViewTemplateCell.View>
 									<ex:GridEx>
 										<ex:GridEx.ColumnDefinitions>
-											<ColumnDefinition Width="100" />
+											<ColumnDefinition Width="60" />
 											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="100" />
+											<ColumnDefinition Width="80" />
 										</ex:GridEx.ColumnDefinitions>
 										<ex:GridEx.RowDefinitions>
 											<RowDefinition Height="Auto" />
 											<RowDefinition Height="Auto" />
 										</ex:GridEx.RowDefinitions>
 
-										<ex:LabelEx
+										<svg:SvgCachedImage
 											Grid.Column="0"
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Source="Patient.svg"
+											HorizontalOptions="Center"
+											VerticalOptions="Center"
+											WidthRequest="48"
+											HeightRequest="48" />
+
+										<ex:LabelEx
+											Grid.Column="1"
 											Grid.Row="0"
 											FontFamily="{StaticResource SegoeUI}"
 											FontSize="18"
 											Text="{Binding Patient.FullPatientName}"
 											TextColor="{Binding Patient.TextColor}"
 											HorizontalTextAlignment="Start"
-											VerticalTextAlignment="Center"
+											VerticalTextAlignment="Center" />
+										<!--
 											ef:SizeToFit.On="true"
-											ef:SizeToFit.CanExpand="False" />
+											ef:SizeToFit.CanExpand="False"
+										-->
 										<ex:LabelEx
-											Grid.Column="0"
-											Grid.Row="0"
+											Grid.Column="1"
+											Grid.Row="1"
 											FontFamily="{StaticResource SegoeUI}"
 											FontSize="12"
-											Text="{Binding Patient.FullPatientName}"
+											Text="{Binding InstitutionName}"
+											TextColor="{Binding Patient.TextColor}"
+											HorizontalTextAlignment="Start"
+											VerticalTextAlignment="Center" />
+
+										<ex:LabelEx
+											Grid.Column="2"
+											Grid.Row="0"
+											Grid.RowSpan="2"
+											Margin="3,0,0,0"
+											FontFamily="{StaticResource SegoeUI}"
+											FontSize="12"
+											FontAttributes="Bold"
+											Text="{Binding Patient.BirthDate, StringFormat='{0:MM/dd/yyyy}'}"
 											TextColor="{Binding Patient.TextColor}"
 											HorizontalTextAlignment="Start"
 											VerticalTextAlignment="Center"
-											ef:SizeToFit.On="true"
-											ef:SizeToFit.CanExpand="False" />
+											VerticalOptions="Center" />
 
 										<!--<telerikPrimitives:RadBorder
 											Margin="2"
@@ -306,7 +359,7 @@
 
 				<ex:GridEx
 					x:Name="PatientDetails"
-					Grid.Row="1"
+					Grid.Row="0"
 					IsVisible="{Binding IsShowFromMode}">
 					<ex:RadAccordionEx
 						Margin="3"
@@ -326,7 +379,11 @@
 								<ex:ScrollViewEx>
 									<ex:StackLayoutEx Padding="5">
 
-										<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=InstututionName, ToUpper=True}" />
+										<ex:LabelEx
+											Style="{StaticResource ThisLabelStyle}"
+											Text="{converters:T ResourceId=InstututionName,
+											                    ToUpper=True}"
+											Margin="2,10,2,5" />
 										<telerikPrimitives:RadBorder
 											BackgroundColor="{StaticResource GreenBackColor}"
 											Style="{StaticResource ThisEntryBorderStyle}"
@@ -408,7 +465,7 @@
 										<ex:GridEx
 											Grid.Row="1"
 											Margin="0"
-											RowSpacing="3"
+											RowSpacing="14"
 											ColumnSpacing="20">
 											<ex:GridEx.ColumnDefinitions>
 												<ColumnDefinition Width="Auto" />
@@ -701,7 +758,7 @@
 											Style="{StaticResource ErrorLabelStyle}"
 											Text="{converters:T ResourceId='(!)FillAllLabConsent'}" />
 
-										<local:StackLayoutEx Grid.Row="1">
+										<local:StackLayoutEx Grid.Row="1" Padding="10">
 											<local:LabelEx Style="{StaticResource H4}" Text="{converters:T ResourceId=Covid19TestingPcrTestOr}" />
 											<local:LabelEx Style="{StaticResource Main}" Text="{converters:T ResourceId=Covid19IsAnInfectiousIllness}" />
 
@@ -721,7 +778,7 @@
 											<ex:GridEx
 												Margin="10,5,2,5"
 												ColumnSpacing="10"
-												RowSpacing="5">
+												RowSpacing="10">
 												<ex:GridEx.ColumnDefinitions>
 													<ColumnDefinition Width="Auto" />
 													<ColumnDefinition Width="*" />
@@ -845,7 +902,7 @@
 									<ex:RadCalendarEx
 										Grid.Row="1"
 										IsVisible="{Binding IsShowCalendar}"
-										HeightRequest="200"
+										HeightRequest="300"
 										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
 										<ex:RadCalendarEx.Behaviors>
 											<behaviors:RadCalendarOperationBehavior Manager="{Binding CalendarManager, Mode=TwoWay}" />
@@ -921,52 +978,34 @@
 								</telerikPrimitives:AccordionItemHeader>
 							</ex:AccordionItemEx.Header>
 							<ex:AccordionItemEx.Content>
-								<ex:ScrollViewEx Padding="5">
+								<ex:ScrollViewEx Padding="10">
 									<local:StackLayoutEx>
 
-										<local:LabelEx
-											HorizontalTextAlignment="Start"
-											Style="{StaticResource MainCellLabelStyle}"
-											Text="{converters:T ResourceId=TestKitNumber}" />
+										<local:LabelEx Style="{StaticResource ThisTestRelatedLabelStyle}" Text="{converters:T ResourceId=TestKitNumber}" />
 										<telerikPrimitives:RadBorder
-											Margin="2,2,2,5"
-											HeightRequest="{StaticResource HHH}"
+											Margin="2,2,2,10"
 											BorderColor="#CCC"
+											BorderThickness="0"
 											CornerRadius="3">
-											<ex:RadEntryEx
-												Text="{Binding TestKitId}"
-												BorderStyle="{StaticResource EntryBorderStyle}"
-												IsEnabled="False" />
+											<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding TestKitId}" />
 										</telerikPrimitives:RadBorder>
 
-										<local:LabelEx
-											HorizontalTextAlignment="Start"
-											Style="{StaticResource MainCellLabelStyle}"
-											Text="{converters:T ResourceId=TestKitType}" />
+										<local:LabelEx Style="{StaticResource ThisTestRelatedLabelStyle}" Text="{converters:T ResourceId=TestKitType}" />
 										<telerikPrimitives:RadBorder
-											Margin="2,2,2,5"
-											HeightRequest="{StaticResource HHH}"
+											Margin="2,2,2,10"
 											BorderColor="#CCC"
+											BorderThickness="0"
 											CornerRadius="3">
-											<ex:RadEntryEx
-												Text="{Binding TestKitType}"
-												BorderStyle="{StaticResource EntryBorderStyle}"
-												IsEnabled="False" />
+											<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding TestKitType}" />
 										</telerikPrimitives:RadBorder>
 
-										<local:LabelEx
-											HorizontalTextAlignment="Start"
-											Style="{StaticResource MainCellLabelStyle}"
-											Text="{converters:T ResourceId=Date}" />
+										<local:LabelEx Style="{StaticResource ThisTestRelatedLabelStyle}" Text="{converters:T ResourceId=Date}" />
 										<telerikPrimitives:RadBorder
-											Margin="2,2,2,5"
-											HeightRequest="{StaticResource HHH}"
+											Margin="2,2,2,10"
 											BorderColor="#CCC"
+											BorderThickness="0"
 											CornerRadius="3">
-											<ex:RadEntryEx
-												Text="{Binding TestKitUsedDate, StringFormat='{0:MM/dd/yyyy}'}"
-												BorderStyle="{StaticResource EntryBorderStyle}"
-												IsEnabled="False" />
+											<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding TestKitUsedDate, StringFormat='{0:MM/dd/yyyy}'}" />
 										</telerikPrimitives:RadBorder>
 
 
@@ -1030,7 +1069,7 @@
 												Grid.Row="0"
 												Grid.Column="0"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=PreliminaryPositive}" />
 											<ex:RadCheckBoxEx
 												Grid.Row="1"
@@ -1043,21 +1082,18 @@
 											<local:LabelEx
 												Grid.Row="0"
 												Grid.Column="1"
-												Margin="2,2,0,0"
+												Margin="0,2,0,0"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Result}" />
 											<telerikPrimitives:RadBorder
 												Grid.Row="1"
 												Grid.Column="1"
 												Margin="2,2,5,5"
-												HeightRequest="{StaticResource HHH}"
 												BorderColor="#CCC"
+												BorderThickness="0"
 												CornerRadius="3">
-												<ex:RadEntryEx
-													Text="{Binding Result1Value}"
-													BorderStyle="{StaticResource EntryBorderStyle}"
-													IsEnabled="False" />
+												<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding Result1Value}" />
 											</telerikPrimitives:RadBorder>
 
 
@@ -1065,12 +1101,12 @@
 												Grid.Row="2"
 												Grid.Column="0"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Negative}" />
 											<ex:RadCheckBoxEx
 												Grid.Row="3"
 												Grid.Column="0"
-												Margin="2,2,0,0"
+												Margin="2,2,5,5"
 												Style="{StaticResource IAuthorizeCheckBox}"
 												VerticalOptions="Start"
 												IsEnabled="False"
@@ -1080,19 +1116,16 @@
 												Grid.Row="2"
 												Grid.Column="1"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Result}" />
 											<telerikPrimitives:RadBorder
 												Grid.Row="3"
 												Grid.Column="1"
 												Margin="2,2,5,5"
-												HeightRequest="{StaticResource HHH}"
 												BorderColor="#CCC"
+												BorderThickness="0"
 												CornerRadius="3">
-												<ex:RadEntryEx
-													Text="{Binding Result2Value}"
-													BorderStyle="{StaticResource EntryBorderStyle}"
-													IsEnabled="False" />
+												<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding Result2Value}" />
 											</telerikPrimitives:RadBorder>
 
 
@@ -1100,7 +1133,7 @@
 												Grid.Row="4"
 												Grid.Column="0"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Invalid}" />
 											<ex:RadCheckBoxEx
 												Grid.Row="5"
@@ -1115,7 +1148,7 @@
 												Grid.Row="4"
 												Grid.Column="1"
 												HorizontalTextAlignment="Start"
-												Style="{StaticResource MainCellLabelStyle}"
+												Style="{StaticResource ThisTestRelatedLabelStyle}"
 												Text="{converters:T ResourceId=Result}" />
 											<telerikPrimitives:RadBorder
 												Grid.Row="5"
@@ -1123,22 +1156,17 @@
 												Margin="2,2,5,5"
 												HeightRequest="{StaticResource HHH}"
 												BorderColor="#CCC"
+												BorderThickness="0"
 												CornerRadius="3">
-												<ex:RadEntryEx
-													Text="{Binding Result3Value}"
-													BorderStyle="{StaticResource EntryBorderStyle}"
-													IsEnabled="False" />
+												<local:LabelEx Style="{StaticResource ThisTestRelatedEnterStyle}" Text="{Binding Result3Value}" />
 											</telerikPrimitives:RadBorder>
 
 
 										</ex:GridEx>
 
-										<local:LabelEx
-											HorizontalTextAlignment="Start"
-											Style="{StaticResource MainCellLabelStyle}"
-											Text="{converters:T ResourceId=ResultInterpretation}" />
+										<local:LabelEx Style="{StaticResource ThisTestRelatedLabelStyle}" Text="{converters:T ResourceId=ResultInterpretation}" />
 										<telerikPrimitives:RadBorder
-											Margin="2,2,5,5"
+											Margin="0,2,5,5"
 											Padding="5,2"
 											BorderColor="#CCC"
 											CornerRadius="3">
@@ -1156,7 +1184,7 @@
 				</ex:GridEx>
 
 				<ex:GridEx
-					Grid.Row="2"
+					Grid.Row="1"
 					IsVisible="{Binding IsShowListMode}"
 					Margin="5">
 					<ex:GridEx.ColumnDefinitions>
@@ -1166,15 +1194,15 @@
 					<ex:RadButtonEx
 						Grid.Column="0"
 						Text="{converters:T ResourceId=AddPatient,
-						                    ToUpper=False}"
+						                    ToUpper=True}"
 						Style="{StaticResource ThisButtonStyle}"
 						HeightRequest="{StaticResource HHH2}"
-						BackgroundColor="{StaticResource BlueBackColor}"
+						BackgroundColor="{StaticResource GreenTextColor}"
 						Command="{Binding PatientAddCommand}" />
 				</ex:GridEx>
 
 				<ex:GridEx
-					Grid.Row="2"
+					Grid.Row="1"
 					IsVisible="{Binding IsShowFromMode}"
 					Margin="5">
 					<ex:GridEx.ColumnDefinitions>
@@ -1185,16 +1213,16 @@
 					<ex:RadButtonEx
 						Grid.Column="0"
 						Text="{converters:T ResourceId=Delete,
-						                    ToUpper=False}"
+						                    ToUpper=true}"
 						Style="{StaticResource ThisButtonStyle}"
 						HeightRequest="{StaticResource HHH2}"
-						BackgroundColor="{StaticResource PurpleColor}"
+						BackgroundColor="{StaticResource RedLightColor}"
 						Command="{Binding PatientDeleteCommand}" />
 
 					<ex:RadButtonEx
 						Grid.Column="1"
 						Text="{converters:T ResourceId=Submit,
-						                    ToUpper=False}"
+						                    ToUpper=true}"
 						Style="{StaticResource ThisButtonStyle}"
 						HeightRequest="{StaticResource HHH2}"
 						Command="{Binding CommitCommand}">

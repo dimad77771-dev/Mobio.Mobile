@@ -38,7 +38,7 @@ namespace OneBuilder.Mobile
 			//var pg = new Views.ButtonPage(); await NavFunc.Push(pg); return;
 			//var vmodel = new ChangePasswordViewModel(); await NavFunc.NavigateToAsync(vmodel); return;
 			//if (U.IsDebug) UserOptions.Reset();
-			var vmodel = new UserOrderViewModel{OrderRowId = new Guid("b1cbeb1c-a2a8-4bb4-9d32-177d91bf73ec")}; await NavFunc.NavigateToAsync(vmodel); return;
+			//var vmodel = new UserOrderViewModel{OrderRowId = new Guid("b1cbeb1c-a2a8-4bb4-9d32-177d91bf73ec")}; await NavFunc.NavigateToAsync(vmodel); return;
 
 
 			if (UserOptions.GetUserProfileRowId() == default(Guid))

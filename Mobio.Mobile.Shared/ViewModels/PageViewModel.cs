@@ -12,7 +12,7 @@ namespace OneBuilder.Mobile.ViewModels
 	public abstract class PageViewModel : ViewModelBase
 	{
 		public string HeaderTitle { get; set; }
-		public bool IsBackVisible { get; set; } = true;
+		public virtual bool IsBackVisible { get; set; } = true;
 		public bool IsInfoAvailable { get; set; } = false;
 		public Page Page { get; set; }
 

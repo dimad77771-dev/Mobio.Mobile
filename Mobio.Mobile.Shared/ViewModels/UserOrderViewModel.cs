@@ -23,6 +23,7 @@ namespace OneBuilder.Mobile.ViewModels
 	{
 		public Guid OrderRowId { get; set; }
 		public Order Order { get; set; }
+		public override bool IsBackVisible => IsShowFromMode || U.IsBackVisible;
 
 		public State[] DdlStates { get; set; }
 		public String[] DdlGenders { get; set; } = new[] { "Male", "Female", "Other" };
@@ -72,7 +73,6 @@ namespace OneBuilder.Mobile.ViewModels
 			}
 
 			HeaderTitle = Globalization.T("(!)OrderDetails");
-			IsBackVisible = U.IsBackVisible;
 			AllPatientTabs.ForEach(q => PatientHeaderModels.Add(q, new PatientHeaderModel()));
 
 			
@@ -90,7 +90,7 @@ namespace OneBuilder.Mobile.ViewModels
 				if (!await LoadData()) return;
 
 				CalendarManager.Control.SelectionChanged += (s, e) => CalcCurrentScheduleItemSlots();
-				SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
+				//SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
 				CalcAll();
 			});
 		}
@@ -153,7 +153,13 @@ namespace OneBuilder.Mobile.ViewModels
 		void PatientItemTap(ItemTapCommandContext context)
 		{
 			var item = (PatientOrderItem)context.Item;
+			OpenPatientOrderItem(item);
+		}
+
+		void OpenPatientOrderItem(PatientOrderItem item)
+		{
 			SetSelectedPatientOrderItem(item);
+			IsShowListMode = false;
 		}
 
 		void ScheduleItemSlotTap(ItemTapCommandContext context)
@@ -179,6 +185,7 @@ namespace OneBuilder.Mobile.ViewModels
 		{
 			items.ForEach(q =>
 			{
+				q.ParentModel = this;
 				q.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, e.PropertyName);
 				q.Patient.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, "Patient." + e.PropertyName);
 				q.LabConsent.PropertyChanged += (s, e) => OnPatientOrderItemChanged(q, "LabConsent." + e.PropertyName);
@@ -238,8 +245,13 @@ namespace OneBuilder.Mobile.ViewModels
 				var selected = (poitem == SelectedPatientOrderItem);
 				var patient = poitem.Patient;
 				var haserror = poitem.IsHasError;
-				patient.BackgroundColor = selected ? U.GetAppColor("BlueBackColor") : U.GetAppColor("GreenBackColor");
-				patient.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
+
+				//patient.BackgroundColor = selected ? U.GetAppColor("BlueBackColor") : U.GetAppColor("GreenBackColor");
+				//patient.TextColor = selected ? U.GetAppColor("WhiteTextColor") : U.GetAppColor("BlackLightTextColor");
+				//patient.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
+
+				patient.BackgroundColor = Color.Transparent;
+				patient.TextColor = selected ? U.GetAppColor("BlackLightTextColor") : U.GetAppColor("BlackLightTextColor");
 				patient.BorderColor = haserror ? U.GetAppColor("RedErrorBorderColor") : Color.Transparent;
 			}
 		}
@@ -418,6 +430,9 @@ namespace OneBuilder.Mobile.ViewModels
 				await Task.Delay(200);
 				await Task.Yield();
 				SelectedPatientOrderItemScrollToRow = patientOrderItem;
+				await Task.Delay(200);
+				await Task.Yield();
+				OpenPatientOrderItem(patientOrderItem);
 			});
 		}
 
@@ -434,20 +449,34 @@ namespace OneBuilder.Mobile.ViewModels
 			CalcAll();
 		}
 
+		void ReturnToListMode()
+		{
+			IsShowListMode = true;
+		}
+
 		public override async Task<bool> BeforePageClose()
 		{
 			if (!IsBackVisible) return false;
 
-			var patientOrderItemsJson = JsonConvert.SerializeObject(PatientOrderItems);
-			if (patientOrderItemsJson != PatientOrderItemsJson0)
+			if (IsShowListMode)
 			{
-				if (!await UIFunc.ConfirmAsync(U.CloseWithoutSaving))
-				{
-					return false;
-				}
+				return true;
 			}
+			else
+			{
+				var patientOrderItemsJson = JsonConvert.SerializeObject(PatientOrderItems);
+				if (patientOrderItemsJson != PatientOrderItemsJson0)
+				{
+					if (!await UIFunc.ConfirmAsync(U.CloseWithoutSaving))
+					{
+						return false;
+					}
+				}
 
-			return true;
+
+				ReturnToListMode();
+				return false;
+			}
 		}
 
 		public async Task Cancel()

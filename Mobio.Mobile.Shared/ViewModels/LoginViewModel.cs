@@ -69,8 +69,8 @@ namespace OneBuilder.Mobile.ViewModels
 			};
 			if (U.IsDebug)
 			{
-				Model.email = "test1@gmail.com"; Model.password = "123456";
-				//Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
+				//Model.email = "test1@gmail.com"; Model.password = "123456";
+				Model.email = "george_001@gmail.com"; Model.password = "$Uper.User10";
 			}
 
 			SetupModel(Model);

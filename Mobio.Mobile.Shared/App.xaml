@@ -37,7 +37,9 @@
 			<Color x:Key="BlackTextColor">#0B2246</Color>
 			<Color x:Key="WhiteTextColor">#FFFFFF</Color>
 			<Color x:Key="BlackLightTextColor">#707070</Color>
+			<Color x:Key="RedLightColor">#BA6464</Color>
 			<Color x:Key="RedErrorBorderColor">#A94442</Color>
+			
 			
 			
 
@@ -335,14 +337,14 @@
 			</Style>
 
 			<Style x:Key="H5" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="12" />
+				<Setter Property="FontSize" Value="13" />
 				<Setter Property="FontAttributes" Value="Bold" />
 				<Setter Property="TextColor" Value="#222222" />
 				<Setter Property="HorizontalTextAlignment" Value="Start" />
 			</Style>
 
 			<Style x:Key="Main" TargetType="ex:LabelEx">
-				<Setter Property="FontSize" Value="10" />
+				<Setter Property="FontSize" Value="12" />
 				<Setter Property="TextColor" Value="#666666" />
 				<Setter Property="HorizontalTextAlignment" Value="Start" />
 			</Style>

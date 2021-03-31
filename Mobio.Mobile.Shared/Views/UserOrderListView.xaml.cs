@@ -16,6 +16,9 @@ namespace OneBuilder.Mobile.Views
 		public UserOrderListView()
 		{
 			InitializeComponent();
+
+			//Telerik.XamarinForms.DataControls.ListView.ListViewGridLayout
+			//Telerik.XamarinForms.DataControls.ListView.ListViewLinearLayout
 		}
 	}
 }

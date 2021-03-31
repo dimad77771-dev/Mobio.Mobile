@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--Generator: Xara Designer (www.xara.com), SVG filter version: 6.3.0.4-->
+<svg stroke-width="0.501" stroke-linejoin="bevel" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" overflow="visible" width="225pt" height="225pt" viewBox="0 0 225 225">
+ <defs>
+	</defs>
+ <g id="Document" fill="none" stroke="black" font-family="Times New Roman" font-size="16" transform="scale(1 -1)">
+  <g id="Spread" transform="translate(0 -225)">
+   <g id="Layer 1">
+    <path d="M 199.528,0 L 25.471,0 C 11.412,0 0,11.412 0,25.471 L 0,199.528 C 0,213.587 11.412,224.999 25.471,224.999 L 199.528,224.999 C 213.587,224.999 224.999,213.587 224.999,199.528 L 224.999,25.471 C 224.999,11.412 213.587,0 199.528,0 Z" fill="#dce8e6" stroke="none" stroke-width="4.245" fill-rule="evenodd" stroke-linejoin="miter" marker-start="none" marker-end="none" stroke-miterlimit="79.8403193612775"/>
+    <g id="Group" fill-rule="evenodd" stroke-linejoin="miter" stroke="none" stroke-width="9.503" stroke-miterlimit="79.8403193612775">
+     <path d="M 78.061,107.691 C 50.641,95.336 30.756,69.678 27.281,38.319 C 27.281,27.866 35.197,19.313 45.693,19.313 L 178.733,19.313 C 189.232,19.313 197.15,27.866 197.15,38.319 C 193.672,69.678 173.782,95.336 146.366,107.691 C 140.2,95.336 127.256,85.833 112.213,85.833 C 97.169,85.833 84.224,95.336 78.061,107.691 Z" fill="#2c3e50" marker-start="none" marker-end="none"/>
+     <path d="M 159.727,161.857 C 159.727,135.616 138.456,114.341 112.213,114.341 C 85.972,114.341 64.699,135.616 64.699,161.857 C 64.699,188.099 85.972,209.372 112.213,209.372 C 138.456,209.372 159.727,188.099 159.727,161.856 Z" fill="#34495e" marker-start="none" marker-end="none"/>
+     <path d="M 112.213,123.844 C 100.077,123.844 88.511,121.287 78.061,116.719 C 50.641,104.725 30.756,78.734 27.281,47.822 C 27.281,37.322 35.197,28.818 45.693,28.818 L 178.733,28.818 C 189.232,28.818 197.15,37.322 197.15,47.822 C 193.672,78.734 173.782,104.725 146.366,116.719 C 135.913,121.287 124.348,123.844 112.213,123.844 Z" fill="#34495e" marker-start="none" marker-end="none"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>
