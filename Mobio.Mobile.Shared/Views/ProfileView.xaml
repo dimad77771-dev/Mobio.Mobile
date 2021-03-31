@@ -231,7 +231,7 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				BackgroundColor="{StaticResource GreenBackColor}"
+				BackgroundColor="{StaticResource GreenButtonBackColor}"
 				Padding="10,5,10,10"
 				IsVisible="{Binding IsNewRow}">
 				<ex:GridEx.ColumnDefinitions>
@@ -251,7 +251,7 @@
 
 			<ex:GridEx
 				Grid.Row="3"
-				BackgroundColor="{StaticResource GreenBackColor}"
+				BackgroundColor="{StaticResource GreenButtonBackColor}"
 				Padding="5,5,5,15"
 				IsVisible="{Binding IsNewRow, Converter={StaticResource InvertedBooleanConverter}}">
 				<ex:GridEx.ColumnDefinitions>
