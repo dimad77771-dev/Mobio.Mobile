@@ -148,7 +148,7 @@ namespace OneBuilder.Mobile.ViewModels
 				};
 
 				UIFunc.ShowLoading(U.StandartUpdatingText);
-				var result = await WebServiceFunc.SaveOrder(order);
+				var result = await WebServiceFunc.SubmitRegister(order);
 				UIFunc.HideLoading();
 
 				if (!result.Item1)
