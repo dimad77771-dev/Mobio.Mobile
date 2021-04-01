@@ -13,10 +13,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\OrderPatientListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -142,10 +138,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\ValidatorFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TaskFunc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\OrderPatientListViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\OrderPatientListView.xaml.cs">
-      <DependentUpon>OrderPatientListView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\ChangePasswordView.xaml.cs">
       <DependentUpon>ChangePasswordView.xaml</DependentUpon>
     </Compile>

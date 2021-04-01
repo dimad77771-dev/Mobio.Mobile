@@ -381,24 +381,9 @@
 
 										<ex:LabelEx
 											Style="{StaticResource ThisLabelStyle}"
-											Text="{converters:T ResourceId=InstututionName,
+											Text="{converters:T ResourceId=FirstName,
 											                    ToUpper=True}"
 											Margin="2,10,2,5" />
-										<telerikPrimitives:RadBorder
-											BackgroundColor="{StaticResource GreenBackColor}"
-											Style="{StaticResource ThisEntryBorderStyle}"
-											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
-											<ex:RadComboBoxEx
-												Style="{StaticResource ThisComboBoxStyle}"
-												BackgroundColor="{StaticResource GreenBackColor}"
-												ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
-												ValueMember="RowId"
-												DisplayMemberPath="CompanyName"
-												Placeholder="Enter Institution"
-												Value="{Binding InstitutionProfileRowId, Mode=TwoWay}" />
-										</telerikPrimitives:RadBorder>
-
-										<ex:LabelEx Style="{StaticResource ThisLabelStyle}" Text="{converters:T ResourceId=FirstName, ToUpper=True}" />
 										<telerikPrimitives:RadBorder Style="{StaticResource ThisEntryBorderStyle}" BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=FirstName, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
 											<ex:RadEntryEx Text="{Binding Patient.FirstName}" Style="{StaticResource ThisEntryStyle}" />
 										</telerikPrimitives:RadBorder>
@@ -886,6 +871,7 @@
 										<RowDefinition Height="Auto" />
 										<RowDefinition Height="Auto" />
 										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
 									</ex:GridEx.RowDefinitions>
 
 									<ex:LabelEx
@@ -894,13 +880,35 @@
 										Style="{StaticResource ErrorLabelStyle}"
 										Text="{converters:T ResourceId='(!)SelectAppointmentSlot'}" />
 
+									<!--  Padding="{Binding Path=., Converter={StaticResource DebugConverter}}"  -->
+									<ex:StackLayoutEx Grid.Row="1">
+										<ex:LabelEx
+											Style="{StaticResource ThisLabelStyle}"
+											Text="{converters:T ResourceId=InstututionName,
+											                    ToUpper=True}"
+											Margin="2,5,2,5" />
+										<telerikPrimitives:RadBorder
+											BackgroundColor="{StaticResource GreenBackColor}"
+											Style="{StaticResource ThisEntryBorderStyle}"
+											BorderColor="{Binding Path=ErrorsGeneral, ConverterParameter=InstitutionProfileRowId, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}, Converter={StaticResource BorderColorConverter}}">
+											<ex:RadComboBoxEx
+												Style="{StaticResource ThisComboBoxStyle}"
+												BackgroundColor="{StaticResource GreenBackColor}"
+												ItemsSource="{Binding DdlInstitutions, Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
+												ValueMember="RowId"
+												DisplayMemberPath="CompanyName"
+												Placeholder="Enter Institution"
+												Value="{Binding InstitutionProfileRowId, Mode=TwoWay}" />
+										</telerikPrimitives:RadBorder>
+									</ex:StackLayoutEx>
+
 									<ex:LabelEx
-										Grid.Row="1"
+										Grid.Row="2"
 										IsVisible="{Binding IsShowCalendar, Converter={StaticResource InverseBoolConverter}}"
 										Text="{converters:T ResourceId='(!)InstitutionNotYetSelected'}" />
 
 									<ex:RadCalendarEx
-										Grid.Row="1"
+										Grid.Row="2"
 										IsVisible="{Binding IsShowCalendar}"
 										HeightRequest="300"
 										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}">
@@ -911,7 +919,7 @@
 
 									<ex:RadListViewEx
 										x:Name="ScheduleItemSlotList"
-										Grid.Row="2"
+										Grid.Row="3"
 										Margin="0,5,0,0"
 										HeightRequest="200"
 										BindingContext="{Binding Path=., Source={RelativeSource AncestorType={x:Type viewmodel:UserOrderViewModel}}}"
@@ -1168,7 +1176,10 @@
 											BorderColor="#CCC"
 											CornerRadius="3"
 											BorderThickness="0">
-											<ex:LabelEx Text="{Binding _ResultInterpretation}" Style="{StaticResource ThisTestRelatedEnterStyle}" LineBreakMode="WordWrap" />
+											<ex:LabelEx
+												Text="{Binding _ResultInterpretation}"
+												Style="{StaticResource ThisTestRelatedEnterStyle}"
+												LineBreakMode="WordWrap" />
 										</telerikPrimitives:RadBorder>
 
 

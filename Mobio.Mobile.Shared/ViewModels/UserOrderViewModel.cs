@@ -129,14 +129,16 @@ namespace OneBuilder.Mobile.ViewModels
 				await UIFunc.AlertError(U.StandartErrorUpdateText);
 				return false;
 			}
-			for(int i = 0; i < institutionRowIds.Length; i++)
+
+			AllBookingSlots = new Dictionary<Guid, ScheduleItemSlot[]>();
+			for (int i = 0; i < institutionRowIds.Length; i++)
 			{
 				AllBookingSlots.Add(institutionRowIds[i], slotTasks[i].Result);
 			}
 			
 
 			Model = Order.UserProfile;
-			PatientOrderItems = Order.Pois.ToObservableCollection();
+			PatientOrderItems = Order.Pois.OrderBy(q => q.Patient?.FullPatientName).ToObservableCollection();
 			SetupPatientOrderItems(PatientOrderItems);
 
 			PatientOrderItemsJson0 = JsonConvert.SerializeObject(PatientOrderItems);
@@ -178,6 +180,15 @@ namespace OneBuilder.Mobile.ViewModels
 				InitSelectedPatientOrderItemRowId = item?.RowId,
 			}; 
 			await NavFunc.NavigateToAsync(vmodel);
+
+			this.SubscribeOnClosed(vmodel, async () =>
+			{
+				if (vmodel.IsCommit)
+				{
+					if (!await LoadData()) return;
+					CalcAll();
+				}
+			});
 		}
 
 		void ScheduleItemSlotTap(ItemTapCommandContext context)
@@ -216,6 +227,7 @@ namespace OneBuilder.Mobile.ViewModels
 			if (propertyName == nameof(pitem.InstitutionProfileRowId))
 			{
 				CalcAppointment();
+				ValidateAppointment();
 			}
 
 			var fields = new[] { "InstitutionProfileRowId", "Patient.FirstName", "Patient.LastName", "Patient.BirthDate" };
@@ -376,13 +388,23 @@ namespace OneBuilder.Mobile.ViewModels
 			//BusinessCodeFocusTo = true;
 		}
 
-
 		public async Task Commit()
 		{
-			Order.Pois = PatientOrderItems.ToList();
+			await CommitCore(isDelete: false);
+		}
+
+		async Task CommitCore(bool isDelete)
+		{
+			var norder = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(Order));
+			norder.Pois = PatientOrderItems.ToList();
+			if (isDelete)
+			{
+				var deleteOrder = norder.Pois.Single(q => q.RowId == SelectedPatientOrderItem.RowId);
+				norder.Pois.Remove(deleteOrder);
+			}
 
 			UIFunc.ShowLoading(U.StandartUpdatingText);
-			var result = await WebServiceFunc.SaveOrder(Order);
+			var result = await WebServiceFunc.SaveOrder(norder);
 			UIFunc.HideLoading();
 
 			if (!result.Item1)
@@ -393,11 +415,8 @@ namespace OneBuilder.Mobile.ViewModels
 
 			var newOrder = result.Item2;
 
+			IsCommit = true;
 			await NavFunc.Pop(forceClose:true);
-
-			////var homeViewModel = new HomeViewModel();
-			//var homeViewModel = new SerialViewModel();
-			//await NavFunc.NavigateToAsync(homeViewModel);
 		}
 
 		public async Task InitNewPatient()
@@ -445,9 +464,11 @@ namespace OneBuilder.Mobile.ViewModels
 				return;
 			}
 
-			PatientOrderItems.Remove(SelectedPatientOrderItem);
-			SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
-			CalcAll();
+			await CommitCore(isDelete: true);
+
+			//PatientOrderItems.Remove(SelectedPatientOrderItem);
+			//SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();
+			//CalcAll();
 		}
 
 		public override async Task<bool> BeforePageClose()
@@ -493,10 +514,6 @@ namespace OneBuilder.Mobile.ViewModels
 			var errors = new List<string>();
 			if (SelectedPatientOrderItem != null)
 			{
-				if (SelectedPatientOrderItem.InstitutionProfileRowId == null)
-				{
-					errors.Add("InstitutionProfileRowId");
-				}
 				if (IsEmptyFieldValue(SelectedPatientOrderItem.Patient.FirstName))
 				{
 					errors.Add("FirstName");
@@ -556,7 +573,14 @@ namespace OneBuilder.Mobile.ViewModels
 			var valid = true;
 			if (SelectedPatientOrderItem != null)
 			{
-				valid = (GetCurrentScheduleItemSlotRowId() != null && GetCurrentScheduleItemSlotRowId() != default(Guid));
+				if (SelectedPatientOrderItem.InstitutionProfileRowId == null)
+				{
+					valid = false;
+				}
+				else
+				{
+					valid = (GetCurrentScheduleItemSlotRowId() != null && GetCurrentScheduleItemSlotRowId() != default(Guid));
+				}
 			}
 			PatientHeaderModels[Appointment].HasError = !valid;
 			if (totalCalc) ValidateTotalCalc();
