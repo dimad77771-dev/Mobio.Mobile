@@ -110,7 +110,7 @@ namespace OneBuilder.Mobile.ViewModels
 
 		public async Task Commit()
 		{
-			UIFunc.ShowLoading(U.StandartUpdatingText);
+			UIFunc.ShowLoading(U.StandartLoggingText);
 			var result = await WebServiceFunc.SubmitLogin(Model);
 			UIFunc.HideLoading();
 
@@ -127,6 +127,35 @@ namespace OneBuilder.Mobile.ViewModels
 			UserOptions.SetAspxauth(aspxauth);
 
 			await NavFunc.RestartApp();
+		}
+
+		public static async Task<bool> Logging()
+		{
+			var user = UserOptions.GetUser();
+			if (string.IsNullOrEmpty(user))
+			{
+				return false;
+			}
+
+			var model = new LoginModel
+			{
+				email = user,
+				password = UserOptions.GetPassword(),
+			};
+
+			UIFunc.ShowLoading(U.StandartLoggingText);
+			var result = await WebServiceFunc.SubmitLogin(model);
+			UIFunc.HideLoading();
+
+			if (!result.Item1)
+			{
+				return false;
+			}
+
+			var aspxauth = result.Item4;
+			UserOptions.SetAspxauth(aspxauth);
+
+			return true;
 		}
 
 		public async Task Register()

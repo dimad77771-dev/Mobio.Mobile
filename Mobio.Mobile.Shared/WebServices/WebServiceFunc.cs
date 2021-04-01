@@ -37,69 +37,14 @@ namespace OneBuilder.WebServices
 			return result;
 		}
 
-		async public static Task<LoginReturn> Login(string businessCode, string userName, string password)
+		async public static Task<Order> GetOrder(Guid id)
 		{
 			var cookies = new CookieContainer();
 			var handler = new HttpClientHandler();
 			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
 
 			var httpClient = new HttpClient(handler);
-			var url = WebService.WEBBASEADR + @"/login";
-			var keys = new[]
-			{
-				KeyValuePair.Create<string, string>("BusinessCode", businessCode),
-				KeyValuePair.Create<string, string>("UserName", userName),
-				KeyValuePair.Create<string, string>("Password", password),
-				KeyValuePair.Create<string, string>("RememberMe", "true"),
-			};
-			var content = new FormUrlEncodedContent(keys);
-
-
-			HttpResponseMessage response = null;
-			try
-			{
-				var result = httpClient.PostAsync(url, content);
-				response = await result;
-			}
-			catch (Exception ex)
-			{
-				var error = ex.ToString();
-				return null;
-			}
-
-			if (response.IsSuccessStatusCode)
-			{
-				var responseCookies = cookies.GetCookies(new Uri(WebService.WEBBASEADR)).Cast<Cookie>();
-				var cookie = responseCookies.SingleOrDefault(q => q.Name == ".ASPXAUTH");
-				if (cookie == null)
-				{
-					return new LoginReturn { IsSuccess = false, ErrorText = ".ASPXAUTH not found" };
-				}
-				else
-				{
-					return new LoginReturn { IsSuccess = true, ASPXAUTH = cookie.Value };
-				}
-			}
-			else
-			{
-				var error = await response.Content.ReadAsStringAsync();
-				if (String.IsNullOrEmpty(error))
-				{
-					error = "Internal error";
-				}
-				return new LoginReturn { IsSuccess = false, ErrorText = error };
-			}
-		}
-		public class LoginReturn
-		{
-			public bool IsSuccess { get; set; }
-			public string ASPXAUTH { get; set; }
-			public string ErrorText { get; set; }
-		}
-
-		async public static Task<Order> GetOrder(Guid id)
-		{
-			var httpClient = new HttpClient();
 			var url = WebService.WEBBASEADR + @"/account/getorder?id=" + id;
 
 			HttpResponseMessage response = null;
@@ -137,7 +82,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<UserProfile> GetProfile(Guid id)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/getprofile?id=" + id;
 
 			HttpResponseMessage response = null;
@@ -175,7 +125,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<Order[]> GetUserOrders(Guid id)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/getUserOrders?id=" + id;
 
 			HttpResponseMessage response = null;
@@ -213,7 +168,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<ScheduleItemSlot[]> GetBookingSlots(Guid id)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/utils/getBookingSlots?id=" + id;
 
 			HttpResponseMessage response = null;
@@ -251,7 +211,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<UserProfile[]> GetInstitutionsForSchedule()
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/utils/getInstitutionsForSchedule";
 
 			HttpResponseMessage response = null;
@@ -290,7 +255,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<State[]> GetStates(int countryId)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/utils/getstates?countryId=" + countryId;
 
 			HttpResponseMessage response = null;
@@ -328,7 +298,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<(bool,string,Order)> SaveOrder(Order order)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/saveOrder";
 			var json = JsonConvert.SerializeObject(order);
 			var content = new StringContent(json);
@@ -376,7 +351,12 @@ namespace OneBuilder.WebServices
 
 		async public static Task<Guid> CreateOrUpdateProfile(UserProfile model)
 		{
-			var httpClient = new HttpClient();
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/createorupdateprofile";
 			var json = JsonConvert.SerializeObject(model);
 			var content = new StringContent(json);
@@ -487,7 +467,7 @@ namespace OneBuilder.WebServices
 			var cookies = new CookieContainer();
 			var handler = new HttpClientHandler();
 			handler.CookieContainer = cookies;
-			cookies.Add(new Uri(WebService.WEBBASEADR), new Cookie(ASPNET_APPLICATIONCOOKIE, UserOptions.GetAspxauth()));
+			SetupAspxauth(cookies);
 
 			var httpClient = new HttpClient(handler);
 			var url = WebService.WEBBASEADR + @"/account/updatePassword";
@@ -531,6 +511,11 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		static void SetupAspxauth(CookieContainer cookies)
+		{
+			cookies.Add(new Uri(WebService.WEBBASEADR), new Cookie(ASPNET_APPLICATIONCOOKIE, UserOptions.GetAspxauth()));
+		}
+
 		public class PostRetrunInfo
 		{
 			public string Status { get; set; }
@@ -567,11 +552,6 @@ namespace OneBuilder.WebServices
 		public static DeserializeObjectFromWebServerReturn<T> DeserializeObjectFromWebServer<T>(string arg)
 		{
 			var jobject = JObject.Parse(arg);
-			//var success = jobject["Success"];
-			//if (success.ToString().ToUpper() != "TRUE")
-			//{
-			//	return default(T);
-			//}
 			var data = jobject["Data"];
 			var jdata = data as JToken;
 			if (jdata == null)
@@ -605,7 +585,6 @@ namespace OneBuilder.WebServices
 			public bool IsError { get; set; }
 		}
 	}
-
 
 	public class GetCheckApkReturn
 	{

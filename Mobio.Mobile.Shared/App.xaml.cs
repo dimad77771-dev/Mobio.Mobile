@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace OneBuilder.Mobile
@@ -35,22 +35,27 @@ namespace OneBuilder.Mobile
 
 		static public async void InitializeRootPage(bool animated)
 		{
-			var vmodel = new UserOrderViewModel { OrderRowId = new Guid("b1cbeb1c-a2a8-4bb4-9d32-177d91bf73ec") }; await NavFunc.NavigateToAsync(vmodel); return;
+			//var vmodel = new UserOrderViewModel { OrderRowId = new Guid("b1cbeb1c-a2a8-4bb4-9d32-177d91bf73ec") }; await NavFunc.NavigateToAsync(vmodel); return;
 			//if (U.IsDebug) UserOptions.Reset();
 			//var vmodel = new ChangePasswordViewModel(); await NavFunc.NavigateToAsync(vmodel); return;
 			//var vmodel = new OrderPatientListViewModel { OrderRowId = new Guid("b1cbeb1c-a2a8-4bb4-9d32-177d91bf73ec") }; await NavFunc.NavigateToAsync(vmodel); return;
 
+			U.RequestMainThread(async () =>
+			{
+				await Task.Yield();
+				//await Task.Delay(2000);
 
-			if (UserOptions.GetUserProfileRowId() == default(Guid))
-			{
-				var viewModel = new LoginViewModel();
-				await NavFunc.NavigateToAsync(viewModel);
-			}
-			else
-			{
-				var viewModel = new UserOrderListViewModel();
-				await NavFunc.NavigateToAsync(viewModel);
-			}
+				if (await LoginViewModel.Logging())
+				{
+					var viewModel = new UserOrderListViewModel();
+					await NavFunc.NavigateToAsync(viewModel);
+				}
+				else
+				{
+					var viewModel = new LoginViewModel();
+					await NavFunc.NavigateToAsync(viewModel);
+				}
+			});
 		}
 
 		void StylesCustom()

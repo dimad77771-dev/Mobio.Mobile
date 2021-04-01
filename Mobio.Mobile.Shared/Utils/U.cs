@@ -140,6 +140,7 @@ namespace OneBuilder.Mobile
 		public static String StandartErrorUpdateText => Globalization.T("(!)Error during update. Try later");
 		public static String StandartErrorRetrieveText => Globalization.T("(!)Error during retrieve data. Try later");
 		public static String StandartUpdatingText => Globalization.T("(!)Submitting...");
+		public static String StandartLoggingText => Globalization.T("(!)Logging...");
 		public static String StandartLoadingText => Globalization.T("(!)Loading...");
 		public static String InternalError => Globalization.T("(!)Internal Error. Try later");
 		public static String CloseWithoutSaving => Globalization.T("(!)CloseWithoutSaving");
