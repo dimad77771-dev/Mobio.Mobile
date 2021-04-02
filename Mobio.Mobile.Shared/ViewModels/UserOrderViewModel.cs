@@ -388,20 +388,11 @@ namespace OneBuilder.Mobile.ViewModels
 			//BusinessCodeFocusTo = true;
 		}
 
-		public async Task Commit()
-		{
-			await CommitCore(isDelete: false);
-		}
 
-		async Task CommitCore(bool isDelete)
+		public async Task Commit()
 		{
 			var norder = JsonConvert.DeserializeObject<Order>(JsonConvert.SerializeObject(Order));
 			norder.Pois = PatientOrderItems.ToList();
-			if (isDelete)
-			{
-				var deleteOrder = norder.Pois.Single(q => q.RowId == SelectedPatientOrderItem.RowId);
-				norder.Pois.Remove(deleteOrder);
-			}
 
 			UIFunc.ShowLoading(U.StandartUpdatingText);
 			var result = await WebServiceFunc.SaveOrder(norder);
@@ -418,6 +409,23 @@ namespace OneBuilder.Mobile.ViewModels
 			IsCommit = true;
 			await NavFunc.Pop(forceClose:true);
 		}
+
+		async Task Delete()
+		{
+			UIFunc.ShowLoading(U.StandartUpdatingText);
+			var result = await WebServiceFunc.RemovePatientOrderItem(SelectedPatientOrderItem);
+			UIFunc.HideLoading();
+
+			if (!result.Item1)
+			{
+				await UIFunc.AlertError(U.StandartErrorUpdateText);
+				return;
+			}
+
+			IsCommit = true;
+			await NavFunc.Pop(forceClose: true);
+		}
+
 
 		public async Task InitNewPatient()
 		{
@@ -464,7 +472,7 @@ namespace OneBuilder.Mobile.ViewModels
 				return;
 			}
 
-			await CommitCore(isDelete: true);
+			await Delete();
 
 			//PatientOrderItems.Remove(SelectedPatientOrderItem);
 			//SelectedPatientOrderItem = PatientOrderItems.FirstOrDefault();

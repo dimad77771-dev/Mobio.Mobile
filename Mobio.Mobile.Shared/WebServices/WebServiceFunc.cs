@@ -402,6 +402,59 @@ namespace OneBuilder.WebServices
 			}
 		}
 
+		async public static Task<(bool, string, Order)> RemovePatientOrderItem(PatientOrderItem patientOrderItem)
+		{
+			var cookies = new CookieContainer();
+			var handler = new HttpClientHandler();
+			handler.CookieContainer = cookies;
+			SetupAspxauth(cookies);
+
+			var httpClient = new HttpClient(handler);
+			var url = WebService.WEBBASEADR + @"/account/RemovePatientOrderItem";
+			var json = JsonConvert.SerializeObject(patientOrderItem);
+			var content = new StringContent(json);
+			content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+			HttpResponseMessage response = null;
+			try
+			{
+				var result = httpClient.PostAsync(url, content);
+				response = await result;
+			}
+			catch (Exception ex)
+			{
+				var error = ex.ToString();
+				return (false, "", null);
+			}
+
+			if (response.IsSuccessStatusCode)
+			{
+				var rjson = await response.Content.ReadAsStringAsync();
+				var rinfo = JsonConvert.DeserializeObject<PostRetrunInfo>(rjson);
+				if (rinfo.Status == "Ok")
+				{
+					//var jobject = JObject.Parse(rjson);
+					//var ojson = jobject["Data"].ToString();
+					//var order2 = JsonConvert.DeserializeObject<Order>(ojson);
+
+					return (true, "", null);
+				}
+				else
+				{
+					return (false, rinfo.Error, null);
+				}
+			}
+			else
+			{
+				var error = await response.Content.ReadAsStringAsync();
+				if (String.IsNullOrEmpty(error))
+				{
+					error = "Internal error";
+				}
+				return (false, "", null);
+			}
+		}
+
 		async public static Task<Guid> CreateOrUpdateProfile(UserProfile model)
 		{
 			var cookies = new CookieContainer();
